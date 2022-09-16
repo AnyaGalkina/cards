@@ -1,14 +1,14 @@
 import React from "react";
 import {Navigate,Route, Routes} from "react-router-dom";
-import Profile from "../../../n2-features/f2-profile/Profile";
-import Login from "../../../n2-features/f1-auth/a1-login/Login";
-import Registration from "../../../n2-features/f1-auth/a2-register/Registration";
-import Test from "../../../n2-features/f0-test/Test";
-import SetPassword from "../../../n2-features/f1-auth/a4-set-password/SetPassword";
-import PasswordRecovery from "../../../n2-features/f1-auth/a3-password-recovary/PasswordRecovery";
-import PageNotFound from "./404/PageNotFound";
-import Header from "../header/Header";
-import {ROUTES} from "../header/nav/Nav";
+import Profile from "../profile/profile-page/Profile";
+import Login from "../auth/sign-in/Login";
+import Registration from "../auth/sign-up/Registration";
+import Test from "../../common/components/test/Test";
+import SetPassword from "../auth/new-password/SetPassword";
+import PasswordRecovery from "../auth/forgot-password/PasswordRecovery";
+import PageNotFound from "../../common/components/404/PageNotFound";
+import Header from "../../common/components/header/Header";
+import {ROUTES} from "../../common/components/header/nav/Nav";
 
 
 const Main = () => {

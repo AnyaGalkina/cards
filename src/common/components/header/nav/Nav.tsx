@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "../../common/Navlink/Navlink";
+import Link from "../../navlink/Navlink";
 import styles from "./Nav.module.css";
 
 export enum ROUTES {

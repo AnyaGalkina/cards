@@ -1,11 +1,13 @@
 import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
-import {profileReducer} from "./profile-reducer";
-import {authReducer} from "./auth-reducer";
+import {profileReducer} from "../features/profile/profile-page/profile-reducer";
+import {authReducer} from "../features/auth/auth-reducer";
 import thunk from "redux-thunk";
+import {appReducer} from "./app-reducer";
 
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    app:  appReducer,
     profile: profileReducer
 })
 

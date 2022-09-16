@@ -1,17 +1,17 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent} from 'react';
-import styles from "./SuperInput.module.css";
+import styles from "./Input.module.css";
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 
-type SuperInputTextPropsType = DefaultInputPropsType & {
+type InputTextPropsType = DefaultInputPropsType & {
     onChangeText?: (value: string) => void
     onEnter?: () => void
     error?: string
     spanClassName?: string
 }
 
-const SuperInputText: React.FC<SuperInputTextPropsType> = (
+const InputText: React.FC<InputTextPropsType> = (
     {
         type, // достаём и игнорируем чтоб нельзя было задать другой тип инпута
         onChange, onChangeText,
@@ -37,7 +37,7 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
     }
 
     const finalSpanClassName = `${styles.error} ${spanClassName ? spanClassName : ''}`;
-    const finalInputClassName = error ? `${styles.errorInput} ${className}` : `${styles.superInput} ${className}`;
+    const finalInputClassName = error ? `${styles.errorInput} ${className}` : `${styles.input} ${className}`;
 
     return (
         <>
@@ -54,4 +54,4 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
     )
 }
 
-export default SuperInputText
+export default InputText;

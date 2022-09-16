@@ -3,11 +3,11 @@ import React, {ButtonHTMLAttributes, DetailedHTMLProps} from "react"
 
 type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
-type SuperButtonPropsType = DefaultButtonPropsType & {
+type ButtonPropsType = DefaultButtonPropsType & {
     red?: boolean
 }
 
-const SuperButton: React.FC<SuperButtonPropsType> = (
+const Button: React.FC<ButtonPropsType> = (
     {
         red, className,
         ...restProps// все остальные пропсы попадут в объект restProps, там же будет children
@@ -22,4 +22,4 @@ const SuperButton: React.FC<SuperButtonPropsType> = (
     )
 }
 
-export default SuperButton
+export default Button
