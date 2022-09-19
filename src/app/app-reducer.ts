@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {loginAPI} from "../features/auth/sign-in/login-api";
-import {setIsLoggedInAC} from "../features/auth/sign-in/login-reducer";
+import {LoginActionTypes, setIsLoggedInAC} from "../features/auth/sign-in/login-reducer";
 
 const initialState: InitialStateType = {
     status: 'idle',
@@ -32,16 +32,20 @@ export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
 export type SetAppIsInitializedActionType = ReturnType<typeof setAppIsInitializedAC>
 
-type ActionsType =
+export type ActionsType =
     | SetAppErrorActionType
     | SetAppStatusActionType
     | SetAppIsInitializedActionType
+    | LoginActionTypes
 
 
 // Action creators
 export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
 export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)
-export const setAppIsInitializedAC = (isInitialized: boolean) => ({type: 'APP/SET-IS-INITIALIZED', isInitialized} as const)
+export const setAppIsInitializedAC = (isInitialized: boolean) => ({
+    type: 'APP/SET-IS-INITIALIZED',
+    isInitialized
+} as const)
 
 // Thunk
 export const initializeAppTC = () => (dispatch: Dispatch) => {
