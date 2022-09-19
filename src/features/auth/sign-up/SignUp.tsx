@@ -8,8 +8,15 @@ import FormControl from "@mui/material/FormControl/FormControl";
 import Navlink from "../../../common/components/navlink/Navlink";
 import {validator} from "../../../common/utils/validator";
 import s from "./SignUp.module.css";
+import {useDispatch, useSelector} from "react-redux";
+import {signUpTC} from "./sign-up-reducer";
+import {Navigate} from "react-router-dom";
+import {AppRootState} from "../../../app/store";
+
 
 const SignUp = () => {
+    const dispatch = useDispatch();
+    const isSignedUp = useSelector<AppRootState, boolean>(state => state.signUp.isSignedUp);
 
     const formik = useFormik({
         initialValues: {
@@ -20,10 +27,17 @@ const SignUp = () => {
         validate: validator,
         onSubmit: values => {
             //При успешной регистрации// - редирект на логин
+            //@ts-ignore
+            dispatch(signUpTC({email: values.email, password: values.password}));
             console.log(values)
             formik.resetForm();
         }
     });
+
+    if (isSignedUp) {
+        console.log(isSignedUp, " isSignedUp")
+        return <Navigate to={ROUTES.LOGIN}/>
+    }
 
     return (
         <div>
