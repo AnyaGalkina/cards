@@ -3,12 +3,14 @@ import {profileReducer} from "../features/profile/profile-page/profile-reducer";
 import {authReducer} from "../features/auth/auth-reducer";
 import thunk from "redux-thunk";
 import {appReducer} from "./app-reducer";
+import {loginReducer} from "../features/auth/sign-in/login-reducer";
 
 
 const rootReducer = combineReducers({
     auth: authReducer,
     app:  appReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    login: loginReducer
 })
 
 export type AppRootState = ReturnType<typeof rootReducer>;
