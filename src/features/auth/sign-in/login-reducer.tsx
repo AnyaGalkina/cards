@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {loginAPI, LoginRequestType} from "./login-api";
-import {setAppStatusAC} from "../../../app/app-reducer";
+import {ActionsType, setAppStatusAC, SetAppStatusActionType} from "../../../app/app-reducer";
 
 const initialState = {
     isLoggedIn: false
@@ -22,7 +22,7 @@ export const setIsLoggedInAC = (value: boolean) =>
 
 //Thunk
 
-export const loginTC = (data: LoginRequestType) => (dispatch: Dispatch) => {
+export const loginTC = (data: LoginRequestType) => (dispatch: Dispatch<LoginActionTypes>) => {
     dispatch(setAppStatusAC('loading'))
     loginAPI.login(data)
         .then(res => {
@@ -31,10 +31,11 @@ export const loginTC = (data: LoginRequestType) => (dispatch: Dispatch) => {
             }
         )
         .catch(err => alert(err))
-}
+};
 
 //Types
 type LoginStateType = typeof initialState;
-type LoginActionTypes = ReturnType<typeof setIsLoggedInAC>
+export type LoginActionTypes = ReturnType<typeof setIsLoggedInAC> | SetAppStatusActionType
+
 
 
