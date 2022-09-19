@@ -9,16 +9,20 @@ export const instance = axios.create({
 export const authAPI = {
     signUp( payload: {email: string, password: string}) {
         return instance.post("/auth/register", payload);
+    },
+    updateUser(data: UpdateUserType) {
+        return instance.put<UpdateUserType, ResUpdateUserType>('auth/me', data)
+    },
+    logout(){
+        return instance.delete<ResLogoutType>('auth/me')
     }
 }
-
 
 type ErrorPostResType =  {
     error: string;
     email?: string;
     in: string;
 }
-
 
 type AddedUserType = {
     _id: string;
@@ -37,3 +41,19 @@ export type RegisterResType = {
 	addedUser: AddedUserType;
     error?: string;
 }
+
+export type UpdateUserType = {
+    name: string,
+    avatar: string
+}
+
+export type ResUpdateUserType = {
+    updatedUser: UpdateUserType
+    error?: string
+}
+
+type ResLogoutType = {
+    info: string;
+    error: string;
+}
+
