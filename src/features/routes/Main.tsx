@@ -9,12 +9,20 @@ import PageNotFound from "../../common/components/404/PageNotFound";
 import Header from "../../common/components/header/Header";
 import {ROUTES} from "../../common/components/header/nav/Nav";
 import SignUp from "../auth/sign-up/SignUp";
+import {useSelector} from "react-redux";
+import {RequestStatusType} from "../../app/app-reducer";
+import {AppRootState} from "../../app/store";
+import {LinearProgress} from "@mui/material";
+
 
 
 const Main = () => {
+    const appStatus = useSelector<AppRootState, RequestStatusType>(state => state.app.status);
+
     return (
         <div>
             <Header />
+            {appStatus === "loading" && <LinearProgress/>}
             <Routes>
                 <Route path={ROUTES.PROFILE}  element={<Profile />}/>
                 <Route path={ROUTES.LOGIN}  element={<Login />}/>

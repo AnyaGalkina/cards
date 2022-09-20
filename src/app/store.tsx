@@ -11,7 +11,7 @@ import {configureStore} from "@reduxjs/toolkit";
 const rootReducer = combineReducers({
     auth: authReducer,
     app:  appReducer,
-    login: loginReducer
+    login: loginReducer,
     profile: profileReducer,
     signUp: signUpReducer,
 })
