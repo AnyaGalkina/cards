@@ -1,7 +1,7 @@
 type ValuesType = {
     email?: string,
     password?: string;
-    rememberMe?: string;
+    rememberMe?: boolean;
     confirmPassword?: string;
 }
 

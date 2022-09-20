@@ -18,7 +18,6 @@ import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHe
 const SignUp = () => {
     const dispatch = useAppDispatch();
     const isSignedUp = useSelector<AppRootState, boolean>(state => state.signUp.isSignedUp);
-    const appError = useSelector<AppRootState, string | null>(state => state.app.error);
 
     const formik = useFormik({
         initialValues: {
@@ -73,8 +72,6 @@ const SignUp = () => {
                     </FormGroup>
                 </FormControl>
             </form>
-
-            <div className={s.error}>{appError}</div>
 
             <RedirectHelper description={"Already have an account"}
                             path={ROUTES.LOGIN}

@@ -5,7 +5,7 @@ import {appReducer} from "./app-reducer";
 import {loginReducer} from "../features/auth/sign-in/login-reducer";
 import thunk from "redux-thunk";
 import {signUpReducer} from "../features/auth/sign-up/sign-up-reducer";
-import {configureStore} from "@reduxjs/toolkit";
+import {recoveryPasswordReducer} from "../features/auth/forgot-password/recovery-password-reducer";
 
 
 const rootReducer = combineReducers({
@@ -14,6 +14,7 @@ const rootReducer = combineReducers({
     login: loginReducer,
     profile: profileReducer,
     signUp: signUpReducer,
+    recoveryPassword: recoveryPasswordReducer,
 })
 
 export type AppRootState = ReturnType<typeof rootReducer>;
