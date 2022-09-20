@@ -13,6 +13,7 @@ import {useSelector} from "react-redux";
 import {RequestStatusType} from "../../app/app-reducer";
 import {AppRootState} from "../../app/store";
 import {LinearProgress} from "@mui/material";
+import CheckEmail from "../auth/check-email/CheckEmail";
 
 
 
@@ -30,6 +31,7 @@ const Main = () => {
                 <Route path={ROUTES.TEST}  element={<Test />}/>
                 <Route path={ROUTES.PASSWORD_RECOVERY}  element={<PasswordRecovery />}/>
                 <Route path={ROUTES.SET_PASSWORD}  element={<SetPassword />}/>
+                <Route path={ROUTES.CHECK_EMAIL}  element={<CheckEmail />}/>
                 <Route path={ROUTES.PAGE_NOT_FOUND}  element={<PageNotFound />}/>
                 <Route path={"/*"}  element={<Navigate to={ROUTES.PAGE_NOT_FOUND}/>}/>
             </Routes>
