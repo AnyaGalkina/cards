@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {loginAPI, LoginRequestType} from "./login-api";
-import {ActionsType, setAppStatusAC, SetAppStatusActionType} from "../../../app/app-reducer";
+import {setAppStatusAC, SetAppStatusActionType} from "../../../app/app-reducer";
+import {handleServerNetworkError} from "../../../common/utils/error";
 
 const initialState = {
     isLoggedIn: false
@@ -26,11 +27,13 @@ export const loginTC = (data: LoginRequestType) => (dispatch: Dispatch<LoginActi
     dispatch(setAppStatusAC('loading'))
     loginAPI.login(data)
         .then(res => {
+                console.log(res)
                 dispatch(setAppStatusAC('succeeded'));
                 dispatch(setIsLoggedInAC(true))
             }
         )
-        .catch(err => alert(err))
+        .catch(err => handleServerNetworkError(err, dispatch)
+        )
 };
 
 //Types

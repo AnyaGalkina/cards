@@ -17,12 +17,12 @@ export const loginAPI = {
 }
 
 //Types
-
 export type LoginRequestType = {
-    email: string
-    password: string
-    rememberMe: boolean
+    email?: string | undefined
+    password?: string | undefined
+    rememberMe?: boolean
 }
+
 type LoginResponseType = {
     _id: string
     email: string
@@ -38,9 +38,9 @@ type LoginResponseType = {
     tokenDeathTime: number
     avatar?: string
 }
-type LoginErrorResponseType = {
+export type LoginErrorResponseType = {
     email: string
     error: string
-    in: "logIn"
+    in?: "logIn"
 }
 
