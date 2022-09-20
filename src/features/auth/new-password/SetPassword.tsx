@@ -7,7 +7,7 @@ import {validator} from "../../../common/utils/validator";
 import {Navigate, useParams} from "react-router-dom";
 import {ROUTES} from "../../../common/components/header/nav/Nav";
 import s from "../sign-up/SignUp.module.css";
-import Button from "../../../common/components/button/Button";
+import {Button} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import FormControl from "@mui/material/FormControl/FormControl";
@@ -17,12 +17,12 @@ import {setNewPasswordTC} from "../forgot-password/recovery-password-reducer";
 const SetPassword = () => {
     const dispatch = useAppDispatch();
     const isSignedUp = useSelector<AppRootState, boolean>(state => state.signUp.isSignedUp);
-    // const appError = useSelector<AppRootState, string | null>(state => state.app.error);
     const {token}= useParams();
 
     const formik = useFormik({
         initialValues: {
             password: "",
+            confirmPassword: ""
         },
         validate: validator,
         onSubmit: values => {
@@ -41,7 +41,7 @@ const SetPassword = () => {
 
     return (
         <div>
-            <h3>Forgot your password?</h3>
+            <h3>Create new password</h3>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
                     <FormGroup>
@@ -52,8 +52,17 @@ const SetPassword = () => {
                                    {...formik.getFieldProps("password")}/>
                         {formik.touched.password && formik.errors.password &&
                             <div className={s.error}>{formik.errors.password}</div>}
+
+                        <TextField type="password"
+                                   label={"Confirm password"}
+                                   margin="normal"
+                                   variant="standard"
+                                   {...formik.getFieldProps("confirmPassword")}/>
+                        {formik.touched.confirmPassword && formik.errors.confirmPassword &&
+                            <div className={s.error}>{formik.errors.confirmPassword}</div>}
+
                         <p>Create new password and we will send you further instructions to email</p>
-                        <Button type={"submit"}>Create new password</Button>
+                        <Button type={"submit"}  variant={'contained'} color={'primary'}>Create new password</Button>
                     </FormGroup>
                 </FormControl>
             </form>

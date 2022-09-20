@@ -1,6 +1,6 @@
 import React from "react";
 import {useFormik} from "formik";
-import Button from "../../../common/components/button/Button";
+import {Button} from "@mui/material";
 import {ROUTES} from "../../../common/components/header/nav/Nav";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
@@ -68,7 +68,7 @@ const SignUp = () => {
                         {formik.touched.confirmPassword && formik.errors.confirmPassword &&
                             <div className={s.error}>{formik.errors.confirmPassword}</div>}
 
-                        <Button type={"submit"}>Sign Up</Button>
+                        <Button type={"submit"} variant={'contained'} color={'primary'}>Sign Up</Button>
                     </FormGroup>
                 </FormControl>
             </form>

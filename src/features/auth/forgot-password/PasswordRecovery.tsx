@@ -4,15 +4,15 @@ import {validator} from "../../../common/utils/validator";
 import {Navigate} from "react-router-dom";
 import {ROUTES} from "../../../common/components/header/nav/Nav";
 import s from "../sign-up/SignUp.module.css";
-import Button from "../../../common/components/button/Button";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
+import {Button} from "@mui/material";
 import FormControl from "@mui/material/FormControl/FormControl";
-import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHelper";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {forgotPasswordTC} from "./recovery-password-reducer";
 import {useSelector} from "react-redux";
 import {AppRootState} from "../../../app/store";
+import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHelper";
 
 
 const PasswordRecovery = () => {
@@ -25,9 +25,9 @@ const PasswordRecovery = () => {
         },
         validate: validator,
         onSubmit: values => {
-            dispatch(forgotPasswordTC({email: values.email!}));
-            console.log(values);
-            formik.resetForm();
+                dispatch(forgotPasswordTC({email: values.email!}));
+                console.log(values);
+                formik.resetForm();
         }
     });
 
@@ -48,7 +48,7 @@ const PasswordRecovery = () => {
                         {formik.touched.email && formik.errors.email &&
                             <div className={s.error}>{formik.errors.email}</div>}
                         <p>Enter your email address and we will send you further instructions</p>
-                        <Button type={"submit"}>Send instructions</Button>
+                        <Button type={"submit"}  variant={'contained'} color={'primary'}>Send instructions</Button>
                     </FormGroup>
                 </FormControl>
             </form>
