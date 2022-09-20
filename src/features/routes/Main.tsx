@@ -13,6 +13,7 @@ import {useSelector} from "react-redux";
 import {RequestStatusType} from "../../app/app-reducer";
 import {AppRootState} from "../../app/store";
 import {LinearProgress} from "@mui/material";
+import {ErrorSnackbar} from "../../common/components/error/ErrorSnackbar";
 import CheckEmail from "../auth/check-email/CheckEmail";
 
 
@@ -23,6 +24,7 @@ const Main = () => {
     return (
         <div>
             <Header />
+            <ErrorSnackbar/>
             {appStatus === "loading" && <LinearProgress/>}
             <Routes>
                 <Route path={ROUTES.PROFILE}  element={<Profile />}/>
