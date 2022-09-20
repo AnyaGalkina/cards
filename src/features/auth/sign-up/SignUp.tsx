@@ -5,7 +5,6 @@ import {ROUTES} from "../../../common/components/header/nav/Nav";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import FormControl from "@mui/material/FormControl/FormControl";
-import Navlink from "../../../common/components/navlink/Navlink";
 import {validator} from "../../../common/utils/validator";
 import s from "./SignUp.module.css";
 import {useSelector} from "react-redux";
@@ -13,6 +12,7 @@ import {signUpTC} from "./sign-up-reducer";
 import {Navigate} from "react-router-dom";
 import {AppRootState} from "../../../app/store";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
+import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHelper";
 
 
 const SignUp = () => {
@@ -28,10 +28,11 @@ const SignUp = () => {
         },
         validate: validator,
         onSubmit: values => {
-            //@ts-ignore
-            dispatch(signUpTC({email: values.email, password: values.password}));
-            console.log(values)
-            formik.resetForm();
+            if (values.email && values.password) {
+                dispatch(signUpTC({email: values.email, password: values.password}));
+                console.log(values)
+                formik.resetForm();
+            }
         }
     });
 
@@ -72,11 +73,13 @@ const SignUp = () => {
                     </FormGroup>
                 </FormControl>
             </form>
+
             <div className={s.error}>{appError}</div>
-            <div>
-                <p>Already have an account</p>
-                <Navlink path={ROUTES.LOGIN} title={"Sign in"}/>
-            </div>
+
+            <RedirectHelper description={"Already have an account"}
+                            path={ROUTES.LOGIN}
+                            linkTitle={"Sign in"}
+            />
         </div>
     );
 };
