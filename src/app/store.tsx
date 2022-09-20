@@ -5,8 +5,6 @@ import {appReducer} from "./app-reducer";
 import {loginReducer} from "../features/auth/sign-in/login-reducer";
 import thunk from "redux-thunk";
 import {signUpReducer} from "../features/auth/sign-up/sign-up-reducer";
-import {configureStore} from "@reduxjs/toolkit";
-
 
 const rootReducer = combineReducers({
     auth: authReducer,
