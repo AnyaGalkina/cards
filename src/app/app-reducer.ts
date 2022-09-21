@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {loginAPI} from "../features/auth/sign-in/login-api";
 import {setIsLoggedInAC} from "../features/auth/sign-in/login-reducer";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {setRecoveryPassword} from "../features/auth/forgot-password/recovery-password-reducer";
 
 const initialState: initialStateType = {
     status: 'idle',
@@ -54,4 +55,5 @@ export type ActionsType =
     | ReturnType<typeof setAppStatusAC>
     | ReturnType<typeof setAppIsInitializedAC>
     | ReturnType<typeof setIsLoggedInAC>
+    | ReturnType<typeof setRecoveryPassword>
 

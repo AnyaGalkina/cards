@@ -14,6 +14,7 @@ import {LoginRequestType} from "./login-api";
 import {Navigate} from "react-router-dom";
 import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHelper";
 import s from "./formContainer.module.css"
+import {setRecoveryPassword} from "../forgot-password/recovery-password-reducer";
 
 const Login = () => {
 
@@ -67,7 +68,7 @@ const Login = () => {
 
                         <RedirectHelper path={ROUTES.PASSWORD_RECOVERY}
                                         linkTitle={"Forgot Password?"}
-                                        onClickHandler={() => {}}
+                                        onClickHandler={() => dispatch(setRecoveryPassword({isRecoveryPasswordAsked: false}))}
                         />
                         <Button type={'submit'} variant={'contained'} color={'primary'}>
                             Sing In
