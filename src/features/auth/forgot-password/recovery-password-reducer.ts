@@ -1,7 +1,8 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {setAppErrorAC, setAppStatusAC} from "../../../app/app-reducer";
+import {setAppStatusAC} from "../../../app/app-reducer";
 import {authAPI} from "../authAPI";
 import {setIsSignedUp} from "../sign-up/sign-up-reducer";
+import {errorUtils} from "../../../utils/errorUtils";
 
 const initialState = {
     isRecoveryPasswordAsked: false
@@ -29,27 +30,18 @@ export const forgotPasswordTC = (payload: { email: string }) => async (dispatch:
         const response = await authAPI.forgotPassword(payload);
         dispatch(setRecoveryPassword({isRecoveryPasswordAsked: true}));
         dispatch(setAppStatusAC({status: "succeeded"}));
-        // dispatch(setAppErrorAC(null));
-    } catch (e: any) {
-        const error = e.response
-            ? e.response.data.error
-            : (e.message + ", more details in the console");
-        dispatch(setAppErrorAC(error));
-        dispatch(setAppStatusAC({status: "failed"}));
+    } catch (err: any) {
+        errorUtils(err, dispatch);
     }
 }
 
-export const setNewPasswordTC = (payload: {password: string, resetPasswordToken: string}) => async (dispatch: any) => {
+export const setNewPasswordTC = (payload: { password: string, resetPasswordToken: string }) => async (dispatch: any) => {
     dispatch(setAppStatusAC({status: "loading"}));
     try {
         const response = await authAPI.setNewPassword(payload);
         dispatch(setIsSignedUp({isSignedUp: true}));
         dispatch(setAppStatusAC({status: "succeeded"}));
-    } catch (e: any) {
-        const error = e.response
-            ? e.response.data.error
-            : (e.message + ", more details in the console");
-        dispatch(setAppErrorAC(error));
-        dispatch(setAppStatusAC({status: "failed"}));
+    } catch (err: any) {
+        errorUtils(err, dispatch);
     }
 }

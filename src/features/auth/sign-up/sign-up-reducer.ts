@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {authAPI} from "../authAPI";
-import {setAppErrorAC, setAppStatusAC} from "../../../app/app-reducer";
+import {setAppStatusAC} from "../../../app/app-reducer";
+import {errorUtils} from "../../../utils/errorUtils";
 
 const initialState = {
     isSignedUp: false
@@ -33,13 +34,8 @@ export const signUpTC = (payload: SignUpPayloadType) => async (dispatch: any) =>
         console.log(response.data);
         dispatch(setIsSignedUp({isSignedUp: true}));
         dispatch(setAppStatusAC({status: "succeeded"}));
-        // dispatch(setAppErrorAC(null));
-    } catch (e: any) {
-        const error = e.response
-            ? e.response.data.error
-            : (e.message + ", more details in the console");
-        dispatch(setAppErrorAC(error));
-        dispatch(setAppStatusAC({status: "failed"}));
+    } catch(err:any) {
+        errorUtils(err, dispatch);
     }
 }
 
