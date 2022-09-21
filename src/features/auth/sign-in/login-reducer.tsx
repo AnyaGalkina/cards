@@ -1,8 +1,8 @@
 import {Dispatch} from "redux";
 import {loginAPI, LoginRequestType} from "./login-api";
 import {setAppStatusAC} from "../../../app/app-reducer";
-import {handleServerNetworkError} from "../../../common/utils/error";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {errorUtils} from "../../../utils/errorUtils";
 
 const initialState = {
     isLoggedIn: false
@@ -32,7 +32,7 @@ export const loginTC = (data: LoginRequestType) => (dispatch: Dispatch) => {
                 dispatch(setIsLoggedInAC({value: true}))
             }
         )
-        .catch(err => handleServerNetworkError(err, dispatch)
+        .catch(err => errorUtils(err, dispatch)
         )
 };
 

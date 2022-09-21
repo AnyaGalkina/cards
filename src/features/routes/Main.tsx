@@ -1,5 +1,5 @@
-import React from "react";
-import {Navigate,Route, Routes} from "react-router-dom";
+import React, {useEffect} from "react";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Profile from "../profile/profile-page/Profile";
 import Login from "../auth/sign-in/Login";
 import Test from "../../common/components/test/Test";
@@ -10,32 +10,44 @@ import Header from "../../common/components/header/Header";
 import {ROUTES} from "../../common/components/header/nav/Nav";
 import SignUp from "../auth/sign-up/SignUp";
 import {useSelector} from "react-redux";
-import {RequestStatusType} from "../../app/app-reducer";
+import {initializeAppTC, RequestStatusType} from "../../app/app-reducer";
 import {AppRootState} from "../../app/store";
-import {LinearProgress} from "@mui/material";
+import {CircularProgress, LinearProgress} from "@mui/material";
 import {ErrorSnackbar} from "../../common/components/error/ErrorSnackbar";
 import CheckEmail from "../auth/check-email/CheckEmail";
-
+import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 
 
 const Main = () => {
+    const dispatch = useAppDispatch();
     const appStatus = useSelector<AppRootState, RequestStatusType>(state => state.app.status);
+
+    useEffect(() => {
+        dispatch(initializeAppTC())
+    }, []);
+
+    if (!appStatus) {
+        return <div
+            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+            <CircularProgress/>
+        </div>
+    }
 
     return (
         <div>
-            <Header />
+            <Header/>
             <ErrorSnackbar/>
             {appStatus === "loading" && <LinearProgress/>}
             <Routes>
-                <Route path={ROUTES.PROFILE}  element={<Profile />}/>
-                <Route path={ROUTES.LOGIN}  element={<Login />}/>
-                <Route path={ROUTES.REGISTRATION}  element={<SignUp />}/>
-                <Route path={ROUTES.TEST}  element={<Test />}/>
-                <Route path={ROUTES.PASSWORD_RECOVERY}  element={<PasswordRecovery />}/>
-                <Route path={ROUTES.SET_PASSWORD}  element={<SetPassword />}/>
-                <Route path={ROUTES.CHECK_EMAIL}  element={<CheckEmail />}/>
-                <Route path={ROUTES.PAGE_NOT_FOUND}  element={<PageNotFound />}/>
-                <Route path={"/*"}  element={<Navigate to={ROUTES.PAGE_NOT_FOUND}/>}/>
+                <Route path={ROUTES.PROFILE} element={<Profile/>}/>
+                <Route path={ROUTES.LOGIN} element={<Login/>}/>
+                <Route path={ROUTES.REGISTRATION} element={<SignUp/>}/>
+                <Route path={ROUTES.TEST} element={<Test/>}/>
+                <Route path={ROUTES.PASSWORD_RECOVERY} element={<PasswordRecovery/>}/>
+                <Route path={ROUTES.SET_PASSWORD} element={<SetPassword/>}/>
+                <Route path={ROUTES.CHECK_EMAIL} element={<CheckEmail/>}/>
+                <Route path={ROUTES.PAGE_NOT_FOUND} element={<PageNotFound/>}/>
+                <Route path={"/*"} element={<Navigate to={ROUTES.PAGE_NOT_FOUND}/>}/>
             </Routes>
         </div>
     );

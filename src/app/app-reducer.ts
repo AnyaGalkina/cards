@@ -3,6 +3,7 @@ import {loginAPI} from "../features/auth/sign-in/login-api";
 import {setIsLoggedInAC} from "../features/auth/sign-in/login-reducer";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {setRecoveryPassword} from "../features/auth/forgot-password/recovery-password-reducer";
+import {errorUtils} from "../utils/errorUtils";
 
 const initialState: initialStateType = {
     status: 'idle',
@@ -41,6 +42,7 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
         } else {
         }
     })
+        .catch(err => errorUtils(err, dispatch))
 };
 
 //Types
