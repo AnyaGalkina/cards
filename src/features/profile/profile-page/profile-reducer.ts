@@ -11,7 +11,7 @@ const initialState: UserType = {
     _id: '',
     email: '',
     name: '',
-    avatar: null,
+    avatar: '',
     publicCardPacksCount: 0,
     created: '',
     updated: '',
@@ -29,6 +29,9 @@ const slice = createSlice({
     reducers: {
         updateUserAC(state, action: PayloadAction<UpdateUserType>) {
             state = {...state, ...action.payload}
+        },
+        setUserAC(state, action: PayloadAction<UserType>) {
+            state = action.payload
         }
     }
 })
