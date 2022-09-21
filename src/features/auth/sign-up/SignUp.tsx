@@ -13,7 +13,7 @@ import {AppRootState} from "../../../app/store";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHelper";
 import s from "../sign-in/formContainer.module.css";
-import PasswordVisability from "../../../common/components/PasswordVisibility/PasswordVisibility";
+import PasswordVisibility from "../../../common/components/PasswordVisibility/PasswordVisibility";
 
 
 const SignUp = () => {
@@ -36,14 +36,12 @@ const SignUp = () => {
         onSubmit: values => {
             if (values.email && values.password) {
                 dispatch(signUpTC({email: values.email, password: values.password}));
-                console.log(values)
                 formik.resetForm();
             }
         }
     });
 
     if (isSignedUp) {
-        console.log(isSignedUp, " isSignedUp")
         return <Navigate to={ROUTES.LOGIN}/>
     }
 
@@ -63,21 +61,21 @@ const SignUp = () => {
                                 <div className={"error"}>{formik.errors.email}</div>}
 
                             <TextField
-                                type="password"
+                                type={passwordType}
                                 label="Password"
                                 margin="normal"
                                 variant="standard"
                                 {...formik.getFieldProps("password")}
                                 InputProps={{
                                     endAdornment: <InputAdornment position="end">
-                                        <PasswordVisability  passwordType={passwordType}  toggleShowPassword={toggleShowPassword}/>
+                                        <PasswordVisibility  passwordType={passwordType}  toggleShowPassword={toggleShowPassword}/>
                                     </InputAdornment>}}
                             />
                             {formik.touched.password && formik.errors.password &&
                                 <div className={"error"}>{formik.errors.password}</div>}
 
                             <TextField
-                                type="password"
+                                type={passwordType}
                                 label={"Confirm password"}
                                 margin="normal"
                                 variant="standard"

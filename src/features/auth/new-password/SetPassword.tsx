@@ -12,7 +12,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControl from "@mui/material/FormControl/FormControl";
 import {setNewPasswordTC} from "../forgot-password/recovery-password-reducer";
 import s from "../sign-in/formContainer.module.css";
-import PasswordVisability from "../../../common/components/PasswordVisibility/PasswordVisibility";
+import PasswordVisibility from "../../../common/components/PasswordVisibility/PasswordVisibility";
 
 
 const SetPassword = () => {
@@ -34,8 +34,6 @@ const SetPassword = () => {
         onSubmit: values => {
             if (values.password && token) {
                 dispatch(setNewPasswordTC({password: values.password, resetPasswordToken: token}));
-                console.log(values)
-                console.log(token)
                 formik.resetForm();
             }
         }
@@ -60,7 +58,7 @@ const SetPassword = () => {
                                        {...formik.getFieldProps("password")}
                                        InputProps={{
                                            endAdornment: <InputAdornment position="end">
-                                               <PasswordVisability  passwordType={passwordType}  toggleShowPassword={toggleShowPassword}/>
+                                               <PasswordVisibility  passwordType={passwordType}  toggleShowPassword={toggleShowPassword}/>
                                            </InputAdornment>}}
                             />
 

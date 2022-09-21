@@ -26,7 +26,6 @@ const PasswordRecovery = () => {
         validate: validator,
         onSubmit: values => {
             dispatch(forgotPasswordTC({email: values.email!}));
-            console.log(values);
             formik.resetForm();
         }
     });
