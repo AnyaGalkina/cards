@@ -9,9 +9,10 @@ import FormControl from "@mui/material/FormControl/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import TextField from "@mui/material/TextField";
 import {validator} from "../../../common/utils/validator";
-import Navlink from "../../../common/components/navlink/Navlink";
 import {ROUTES} from "../../../common/components/header/nav/Nav";
 import {LoginRequestType} from "./login-api";
+import {Navigate} from "react-router-dom";
+import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHelper";
 
 const Login = () => {
 
@@ -30,7 +31,11 @@ const Login = () => {
             dispatch(loginTC(values))
             formik.resetForm();
         }
-    })
+    });
+
+    if (isLoggedIn) {
+        return <Navigate to={ROUTES.PROFILE}/>
+    }
 
     return <Grid container justifyContent={'center'}>
         <Grid item justifyContent={'center'}>
@@ -58,16 +63,19 @@ const Login = () => {
                             control={<Checkbox name={'rememberMe'}
                                                onChange={formik.handleChange}
                                                value={formik.values.rememberMe}/>}/>
+                        <RedirectHelper path={ROUTES.PASSWORD_RECOVERY}
+                                        linkTitle={"Forgot Password?"}
+                        />
                         <Button type={'submit'} variant={'contained'} color={'primary'}>
                             Sing In
                         </Button>
                     </FormGroup>
                 </FormControl>
             </form>
-            <div>
-                <p>Don't have an account?</p>
-                <Navlink path={ROUTES.REGISTRATION} title={"Sign Up"}/>
-            </div>
+            <RedirectHelper description={"Don't have an account?"}
+                            path={ROUTES.REGISTRATION}
+                            linkTitle={"Sign Up"}
+            />
         </Grid>
     </Grid>
 

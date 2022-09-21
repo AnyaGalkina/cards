@@ -3,7 +3,7 @@ import Navlink from "../navlink/Navlink";
 import s from "./RedirectHelper.module.css";
 
 type PropsType = {
-    description: string,
+    description?: string,
     linkTitle: string,
     path: string
 }
