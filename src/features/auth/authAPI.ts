@@ -58,8 +58,8 @@ export type InfoResType = {
     error?: string;
 }
 export type UpdateUserType = {
-    name: string,
-    avatar: string | null
+    name?: string,
+    avatar?: string
 }
 
 export type ResUpdateUserType = {
@@ -86,6 +86,6 @@ export type UserType = {
     __v: number
     token: string
     tokenDeathTime: number
-    avatar: string | null
+    avatar?: string
 }
 
