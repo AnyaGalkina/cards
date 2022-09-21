@@ -1,7 +1,8 @@
 import axios, {AxiosResponse} from "axios";
 
 export const instance = axios.create({
-    baseURL: "https://neko-back.herokuapp.com/2.0" || "http://localhost:7542/2.0/",
+    baseURL:  process.env.REACT_APP_URL || "http://localhost:7542/2.0",
+    withCredentials: true
 });
 
 
@@ -9,7 +10,6 @@ export const authAPI = {
     signUp(payload: { email: string, password: string }) {
         return instance.post<RegisterResType>("/auth/register", payload);
     },
-
     forgotPassword(payload: { email: string }) {
         return instance.post<InfoResType>("/auth/forgot", payload);
     },
@@ -17,10 +17,16 @@ export const authAPI = {
         return instance.post<{ info: string }>("/auth/set-new-password", payload);
     },
     updateUser(data: UpdateUserType) {
-        return instance.put<UpdateUserType, AxiosResponse<ResUpdateUserType>>('auth/me', data)
+        return instance.put<UpdateUserType, AxiosResponse<ResUpdateUserType>>('/auth/me', data)
     },
     logout(){
-        return instance.delete<ResLogoutType>('auth/me')
+        return instance.delete<ResLogoutType>('/auth/me')
+    },
+    login(data: LoginRequestType) {
+        return  instance.post<LoginRequestType, AxiosResponse<UserType>>('/auth/login', data)
+    },
+    me(){
+        return instance.post<UserType>('/auth/me')
     }
 }
 
@@ -30,6 +36,13 @@ type ErrorPostResType = {
     email?: string;
     in: string;
 }
+
+export type LoginRequestType = {
+    email?: string | undefined
+    password?: string | undefined
+    rememberMe?: boolean
+}
+
 
 
 type AddedUserType = {

@@ -20,13 +20,14 @@ import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 
 const Main = () => {
     const dispatch = useAppDispatch();
+    const isInitialized = useSelector<AppRootState, boolean>(state => state.app.isInitialized);
     const appStatus = useSelector<AppRootState, RequestStatusType>(state => state.app.status);
 
     useEffect(() => {
         dispatch(initializeAppTC())
     }, []);
 
-    if (!appStatus) {
+    if (!isInitialized) {
         return <div
             style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
             <CircularProgress/>

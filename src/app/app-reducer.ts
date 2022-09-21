@@ -1,9 +1,10 @@
 import {Dispatch} from "redux";
-import {loginAPI} from "../features/auth/sign-in/login-api";
 import {setIsLoggedInAC} from "../features/auth/sign-in/login-reducer";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {setRecoveryPassword} from "../features/auth/forgot-password/recovery-password-reducer";
 import {errorUtils} from "../utils/errorUtils";
+import {setUserAC} from "../features/profile/profile-page/profile-reducer";
+import {authAPI} from "../features/auth/authAPI";
 
 const initialState: initialStateType = {
     status: 'idle',
@@ -35,14 +36,15 @@ export const {setAppErrorAC, setAppStatusAC, setAppIsInitializedAC} = slice.acti
 
 // Thunk creators
 export const initializeAppTC = () => (dispatch: Dispatch) => {
-    loginAPI.me().then(res => {
-        if (res.status === 200) {
-            dispatch(setIsLoggedInAC({value: true}));
-            dispatch(setAppIsInitializedAC({isInitialized: true}));
-        } else {
-        }
+    authAPI.me().then(res => {
+        console.log(res.data)
+        dispatch(setIsLoggedInAC({value: true}));
+        dispatch(setUserAC(res.data))
     })
         .catch(err => errorUtils(err, dispatch))
+        .finally(() => {
+            dispatch(setAppIsInitializedAC({isInitialized: true}));
+        })
 };
 
 //Types
