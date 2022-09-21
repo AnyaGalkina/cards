@@ -6,12 +6,13 @@ import {NavLink} from "react-router-dom";
 
 type PropsType = {
     title: string,
-    path: string
+    path: string,
+    onClickHandler?: () => void
 }
 
-const Link: React.FC<PropsType> = ({title, path }) => {
+const Link: React.FC<PropsType> = ({title, path, onClickHandler }) => {
     return (
-        <NavLink className={styles.link} to={path}>{title}</NavLink>
+        <NavLink onClick={onClickHandler} className={styles.link} to={path}>{title}</NavLink>
     );
 };
 

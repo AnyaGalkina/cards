@@ -27,19 +27,19 @@ export type SignUpPayloadType = {
 }
 
 export const signUpTC = (payload: SignUpPayloadType) => async (dispatch: any) => {
-    dispatch(setAppStatusAC("loading"));
+    dispatch(setAppStatusAC({status: "loading"}));
     try {
         const response = await authAPI.signUp(payload);
         console.log(response.data);
         dispatch(setIsSignedUp({isSignedUp: true}));
-        dispatch(setAppStatusAC("succeeded"));
+        dispatch(setAppStatusAC({status: "succeeded"}));
         // dispatch(setAppErrorAC(null));
     } catch (e: any) {
         const error = e.response
             ? e.response.data.error
             : (e.message + ", more details in the console");
         dispatch(setAppErrorAC(error));
-        dispatch(setAppStatusAC("failed"));
+        dispatch(setAppStatusAC({status: "failed"}));
     }
 }
 

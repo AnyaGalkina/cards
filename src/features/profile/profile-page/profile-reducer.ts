@@ -38,31 +38,31 @@ export const {updateUserAC} = slice.actions
 
 export const updateUserTC = (userData: UpdateUserType) => async (dispatch: Dispatch, getState: () => AppRootState) => {
     try {
-        dispatch(setAppStatusAC('loading'))
+        dispatch(setAppStatusAC({status: 'loading'}))
 
         const name = getState().profile.name
         const avatar = getState().profile.avatar
 
         let res = await authAPI.updateUser({...userData, name, avatar})
         updateUserAC(res.data.updatedUser)
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e) {
         errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
-        dispatch(setAppStatusAC('failed'))
+        dispatch(setAppStatusAC({status: 'failed'}))
     }
 }
 
 export const logoutTC = () => (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+    dispatch(setAppStatusAC({status: 'loading'}))
     authAPI.logout()
         .then((res) => {
            // if (res.data.info)
-            dispatch(setIsLoggedInAC(false))
-            dispatch(setAppStatusAC('succeeded'))
+            dispatch(setIsLoggedInAC({value: false}))
+            dispatch(setAppStatusAC({status: 'succeeded'}))
         })
         .catch((error) => {
             dispatch(setAppErrorAC(error))
-            dispatch(setAppStatusAC('failed'))
+            dispatch(setAppStatusAC({status: 'failed'}))
         })
 }
 

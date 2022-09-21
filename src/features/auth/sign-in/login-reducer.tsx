@@ -1,44 +1,40 @@
 import {Dispatch} from "redux";
 import {loginAPI, LoginRequestType} from "./login-api";
-import {setAppStatusAC, SetAppStatusActionType} from "../../../app/app-reducer";
+import {setAppStatusAC} from "../../../app/app-reducer";
 import {handleServerNetworkError} from "../../../common/utils/error";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState = {
     isLoggedIn: false
 };
 
-
-export const loginReducer = (state: LoginStateType = initialState, action: LoginActionTypes): LoginStateType => {
-    switch (action.type) {
-        case 'login/SET-IS-LOGGED-IN':
-            return {...state, isLoggedIn: action.value}
-        default:
-            return state
+const slice = createSlice({
+    name: 'login',
+    initialState: initialState,
+    reducers: {
+        setIsLoggedInAC(state, action: PayloadAction<{value: boolean}>) {
+            state.isLoggedIn = action.payload.value
+        }
     }
-}
+});
 
-// Actions
-export const setIsLoggedInAC = (value: boolean) =>
-    ({type: 'login/SET-IS-LOGGED-IN', value} as const)
+export const loginReducer = slice.reducer;
+export const {setIsLoggedInAC} = slice.actions;
 
 //Thunk
 
-export const loginTC = (data: LoginRequestType) => (dispatch: Dispatch<LoginActionTypes>) => {
-    dispatch(setAppStatusAC('loading'))
+export const loginTC = (data: LoginRequestType) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC({status: 'loading'}))
     loginAPI.login(data)
         .then(res => {
                 console.log(res)
-                dispatch(setAppStatusAC('succeeded'));
-                dispatch(setIsLoggedInAC(true))
+                dispatch(setAppStatusAC({status: 'succeeded'}));
+                dispatch(setIsLoggedInAC({value: true}))
             }
         )
         .catch(err => handleServerNetworkError(err, dispatch)
         )
 };
-
-//Types
-type LoginStateType = typeof initialState;
-export type LoginActionTypes = ReturnType<typeof setIsLoggedInAC> | SetAppStatusActionType
 
 
 

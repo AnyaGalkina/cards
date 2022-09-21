@@ -5,14 +5,15 @@ import s from "./RedirectHelper.module.css";
 type PropsType = {
     description?: string,
     linkTitle: string,
-    path: string
+    path: string,
+    onClickHandler?: () => void
 }
 
-const RedirectHelper = ({path, description, linkTitle}: PropsType) => {
+const RedirectHelper = ({path, description, linkTitle, onClickHandler}: PropsType) => {
     return (
         <div>
             <p className={s.text}>{description}</p>
-            <Navlink path={path} title={linkTitle}/>
+            <Navlink onClickHandler={onClickHandler} path={path} title={linkTitle}/>
         </div>
     );
 };

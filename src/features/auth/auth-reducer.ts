@@ -1,8 +1,6 @@
 const initialState = {};
 
 
-
-
 //TYPES
 export type InitialStateType = typeof initialState;
 

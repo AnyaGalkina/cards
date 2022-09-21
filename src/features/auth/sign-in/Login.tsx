@@ -13,6 +13,7 @@ import {ROUTES} from "../../../common/components/header/nav/Nav";
 import {LoginRequestType} from "./login-api";
 import {Navigate} from "react-router-dom";
 import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHelper";
+import s from "./formContainer.module.css"
 
 const Login = () => {
 
@@ -28,7 +29,7 @@ const Login = () => {
 
         validate: validator,
         onSubmit: values => {
-            dispatch(loginTC(values))
+            dispatch(loginTC(values));
             formik.resetForm();
         }
     });
@@ -38,7 +39,7 @@ const Login = () => {
     }
 
     return <Grid container justifyContent={'center'}>
-        <Grid item justifyContent={'center'}>
+        <Grid item justifyContent={'center'} className={s.formContainer}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
                     <FormLabel>
@@ -63,8 +64,10 @@ const Login = () => {
                             control={<Checkbox name={'rememberMe'}
                                                onChange={formik.handleChange}
                                                value={formik.values.rememberMe}/>}/>
+
                         <RedirectHelper path={ROUTES.PASSWORD_RECOVERY}
                                         linkTitle={"Forgot Password?"}
+                                        onClickHandler={() => {}}
                         />
                         <Button type={'submit'} variant={'contained'} color={'primary'}>
                             Sing In
