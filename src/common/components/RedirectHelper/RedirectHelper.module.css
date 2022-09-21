@@ -1,3 +1,7 @@
 .text{
     color: grey
 }
+
+.linkContainer{
+    margin: 30px 0;
+}
