@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {setAppStatusAC} from "../../../app/app-reducer";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {errorUtils} from "../../../utils/errorUtils";
+import {errorUtils} from "../../../common/utils/errorUtils";
 import {setUserAC} from "../../profile/profile-page/profile-reducer";
 import {authAPI, LoginRequestType} from "../authAPI";
 

@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Profile from "../profile/profile-page/Profile";
 import Login from "../auth/sign-in/Login";
-import Test from "../../common/components/test/Test";
 import SetPassword from "../auth/new-password/SetPassword";
 import PasswordRecovery from "../auth/forgot-password/PasswordRecovery";
 import PageNotFound from "../../common/components/404/PageNotFound";
@@ -43,7 +42,6 @@ const Main = () => {
                 <Route path={ROUTES.PROFILE} element={<Profile/>}/>
                 <Route path={ROUTES.LOGIN} element={<Login/>}/>
                 <Route path={ROUTES.REGISTRATION} element={<SignUp/>}/>
-                <Route path={ROUTES.TEST} element={<Test/>}/>
                 <Route path={ROUTES.PASSWORD_RECOVERY} element={<PasswordRecovery/>}/>
                 <Route path={ROUTES.SET_PASSWORD} element={<SetPassword/>}/>
                 <Route path={ROUTES.CHECK_EMAIL} element={<CheckEmail/>}/>

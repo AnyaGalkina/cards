@@ -1,6 +1,5 @@
 import {combineReducers} from "redux";
 import {profileReducer} from "../features/profile/profile-page/profile-reducer";
-import {authReducer} from "../features/auth/auth-reducer";
 import {appReducer} from "./app-reducer";
 import {loginReducer} from "../features/auth/sign-in/login-reducer";
 import thunk from "redux-thunk";
@@ -10,7 +9,6 @@ import {configureStore} from "@reduxjs/toolkit";
 
 
 const rootReducer = combineReducers({
-    auth: authReducer,
     app:  appReducer,
     login: loginReducer,
     profile: profileReducer,

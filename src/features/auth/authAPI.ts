@@ -7,11 +7,11 @@ export const instance = axios.create({
 
 
 export const authAPI = {
-    signUp(payload: { email: string, password: string }) {
-        return instance.post<RegisterResType>("/auth/register", payload);
+    signUp(payload: SignUpType) {
+        return instance.post<SignUpType, AxiosResponse<RegisterResType>>("/auth/register", payload);
     },
-    forgotPassword(payload: { email: string }) {
-        return instance.post<InfoResType>("/auth/forgot", payload);
+    forgotPassword(payload: ForgotPasswordType) {
+        return instance.post<ForgotPasswordType, AxiosResponse<InfoResType>>("/auth/forgot", payload);
     },
     setNewPassword(payload: { password: string, resetPasswordToken: string }) {
         return instance.post<{ info: string }>("/auth/set-new-password", payload);
@@ -102,3 +102,9 @@ export type UserType = {
     avatar?: string
 }
 
+export type SignUpType = {
+    email: string
+    password: string
+}
+
+export type ForgotPasswordType = { email: string }
