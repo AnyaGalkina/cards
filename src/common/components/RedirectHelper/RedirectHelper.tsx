@@ -11,7 +11,7 @@ type PropsType = {
 
 const RedirectHelper = ({path, description, linkTitle, onClickHandler}: PropsType) => {
     return (
-        <div>
+        <div className={s.linkContainer}>
             <p className={s.text}>{description}</p>
             <Navlink onClickHandler={onClickHandler} path={path} title={linkTitle}/>
         </div>
