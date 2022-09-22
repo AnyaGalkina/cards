@@ -2,9 +2,8 @@
     width: 96px;
     height: 96px;
     border-radius: 50%;
-    background-color: #1976d2;
-    position: relative;
     margin: 10px auto;
+    object-fit: cover;
 }
 
 
