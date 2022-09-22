@@ -2,7 +2,6 @@ import React, {ChangeEvent, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import s from './EditableSpan.module.css'
 import {Box} from "@mui/material";
-import {Create} from "@mui/icons-material";
 
 type EditableSpanPropsType = {
     value: string
@@ -32,12 +31,8 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
         {editMode
             ? <TextField id="standard-basic" label={props.label} variant="standard" value={title} onChange={changeTitle}
                          autoFocus onBlur={activateViewMode} disabled={props.disabled} className={s.text}/>
-            : <div className={s.span}>
-                <span onDoubleClick={activateEditMode} >{props.value}</span>
-                <Create sx={{ color: 'action.active', ml: 1, my: -1 }} onDoubleClick={activateEditMode}/>
-            </div>
+            : <span onDoubleClick={activateEditMode} className={s.span}>{props.value}</span>
         }
-
     </Box>
 
 });
