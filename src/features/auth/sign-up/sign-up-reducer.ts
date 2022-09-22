@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {authAPI} from "../authAPI";
+import {authAPI, SignUpType} from "../authAPI";
 import {setAppStatusAC} from "../../../app/app-reducer";
-import {errorUtils} from "../../../utils/errorUtils";
+import {errorUtils} from "../../../common/utils/errorUtils";
 import {Dispatch} from "redux";
 
 const initialState = {
@@ -23,12 +23,8 @@ const slice = createSlice({
 export const signUpReducer = slice.reducer;
 export const {setIsSignedUp} = slice.actions;
 
-export type SignUpPayloadType = {
-    email: string;
-    password: string;
-}
 
-export const signUpTC = (payload: SignUpPayloadType) => async (dispatch: Dispatch) => {
+export const signUpTC = (payload: SignUpType) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: "loading"}));
     try {
         const response = await authAPI.signUp(payload);
@@ -39,6 +35,3 @@ export const signUpTC = (payload: SignUpPayloadType) => async (dispatch: Dispatc
         errorUtils(err, dispatch);
     }
 }
-
-
-

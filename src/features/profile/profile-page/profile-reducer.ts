@@ -5,7 +5,7 @@ import {Dispatch} from "redux";
 import {setIsLoggedInAC} from "../../auth/sign-in/login-reducer";
 import {AppRootState} from "../../../app/store";
 import {AxiosError} from "axios";
-import {errorUtils} from "../../../utils/errorUtils";
+import {errorUtils} from "../../../common/utils/errorUtils";
 
 const initialState = {
     user: {

@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {setAppStatusAC} from "../../../app/app-reducer";
 import {authAPI} from "../authAPI";
 import {setIsSignedUp} from "../sign-up/sign-up-reducer";
-import {errorUtils} from "../../../utils/errorUtils";
+import {errorUtils} from "../../../common/utils/errorUtils";
 import {Dispatch} from "redux";
 
 const initialState = {
