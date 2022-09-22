@@ -27,11 +27,12 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
         setTitle(e.currentTarget.value)
     }
 
-    return <Box  sx={{display: 'flex', alignItems: 'flex-end'}} >
-        { editMode
+    return <Box sx={{display: 'flex', alignItems: 'flex-end', justifyContent: 'center', padding: '3'}}>
+        {editMode
             ? <TextField id="standard-basic" label={props.label} variant="standard" value={title} onChange={changeTitle}
                          autoFocus onBlur={activateViewMode} disabled={props.disabled} className={s.text}/>
             : <span onDoubleClick={activateEditMode} className={s.span}>{props.value}</span>
         }
-   </Box>
+    </Box>
+
 });

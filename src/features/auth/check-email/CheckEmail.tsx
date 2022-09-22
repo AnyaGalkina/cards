@@ -4,10 +4,13 @@ import {ROUTES} from "../../../common/components/header/nav/Nav";
 import {useNavigate} from "react-router-dom";
 import checkEmail from '../../../assets/images/svg/checkEmail.svg'
 import s from './CheckEmail.module.css'
+import {useSelector} from "react-redux";
+import {AppRootState} from "../../../app/store";
 
 const CheckEmail = () => {
 
     const navigate = useNavigate()
+    const email = useSelector<AppRootState, string>(state => state.recoveryPassword.email);
 
     const checkEmailHandler = () => {
         navigate(ROUTES.LOGIN)
@@ -22,7 +25,9 @@ const CheckEmail = () => {
                             Check Email
                         </h3>
                         <img src={checkEmail} alt={'checkEmail'}/>
-                        <div className={s.info}>We've sent an Email with instruction to EMAIL</div>
+                        <div className={s.info}>We've sent an Email with instruction to
+                            <div>{email}</div>
+                        </div>
                         <Button variant={'contained'} color={'primary'} onClick={checkEmailHandler}>
                             Back to login
                           </Button>

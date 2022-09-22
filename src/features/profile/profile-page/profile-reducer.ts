@@ -8,24 +8,24 @@ import {AxiosError} from "axios";
 import {errorUtils} from "../../../utils/errorUtils";
 
 const initialState = {
-    _id: '',
-    email: '',
-    name: '',
-    avatar: ''
-} as UserType
+    user: {
+        _id: '',
+        email: '',
+        name: '',
+        avatar: ''
+    } as UserType
+}
+
 
 const slice = createSlice({
     name: 'profile',
     initialState: initialState,
     reducers: {
         setUserAC(state, action: PayloadAction<UserType>) {
-            state.name = action.payload.name
-            state.avatar = action.payload.avatar
-            state._id = action.payload._id
-            state.email = action.payload.email
+            state.user = action.payload
         },
         updateUserAC(state, action: PayloadAction<UpdateUserType>) {
-            state = {...state, ...action.payload}
+            state.user = {...state.user, ...action.payload}
         }
     }
 })
@@ -37,11 +37,13 @@ export const updateUserTC = (userData: UpdateUserType) => async (dispatch: Dispa
     try {
         dispatch(setAppStatusAC({status: 'loading'}))
 
-        const name = getState().profile.name
-        const avatar = getState().profile.avatar
+        const name = getState().profile.user.name
+        const avatar = getState().profile.user.avatar
 
-        let res = await authAPI.updateUser({...userData, name, avatar})
-        updateUserAC(res.data.updatedUser)
+
+        let res = await authAPI.updateUser({name, avatar, ...userData})
+
+        dispatch(updateUserAC(res.data.updatedUser))
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e) {
         errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
@@ -49,20 +51,18 @@ export const updateUserTC = (userData: UpdateUserType) => async (dispatch: Dispa
     }
 }
 
-export const logoutTC = () => (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC({status: 'loading'}))
-    authAPI.logout()
-        .then((res) => {
-            // if (res.data.info)
-            console.log(res)
-            dispatch(setIsLoggedInAC({value: false}))
-            dispatch(setAppStatusAC({status: 'succeeded'}))
-        })
-        .catch((error) => {
-            errorUtils(error, dispatch)
-            dispatch(setAppStatusAC({status: 'failed'}))
-        })
+export const logoutTC = () => async (dispatch: Dispatch) => {
+    try {
+        dispatch(setAppStatusAC({status: 'loading'}))
+        await authAPI.logout()
+        dispatch(setIsLoggedInAC({value: false}))
+        dispatch(setAppStatusAC({status: 'succeeded'}))
+    } catch (e) {
+        errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
+        dispatch(setAppStatusAC({status: 'failed'}))
+    }
 }
+
 
 
 

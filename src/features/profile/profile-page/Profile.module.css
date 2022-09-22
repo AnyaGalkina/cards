@@ -1,9 +1,10 @@
 .avatar {
-    width: 50px;
-    height: 50px;
+    width: 96px;
+    height: 96px;
     border-radius: 50%;
-    background-color: blue;
-    align-self: center;
+    background-color: #1976d2;
+    position: relative;
+    margin: 10px auto;
 }
 
 
@@ -18,10 +19,7 @@
 }
 
 .email {
-    width: 328px;
-    height: 48px;
-    left: 476px;
-    top: 355px;
+    padding-bottom: 10px;
 
     font-family: 'Montserrat', sans-serif;
     font-style: normal;
