@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useCallback, useState} from "react";
 import {useSelector} from "react-redux";
 import {AppRootState} from "../../../app/store";
 import {useFormik} from "formik";
 import {loginTC} from "./login-reducer";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
-import {Button, Checkbox, FormControlLabel, FormLabel, Grid} from "@mui/material";
+import {Button, Checkbox, FormControlLabel,Grid, InputAdornment} from "@mui/material";
 import FormControl from "@mui/material/FormControl/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import TextField from "@mui/material/TextField";
@@ -15,11 +15,17 @@ import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHe
 import s from "./formContainer.module.css"
 import {setRecoveryPassword} from "../forgot-password/recovery-password-reducer";
 import {LoginRequestType} from "../authAPI";
+import PasswordVisibility from "../../../common/components/PasswordVisibility/PasswordVisibility";
 
 const Login = () => {
 
     const dispatch = useAppDispatch();
     const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn);
+    const [passwordType, setPasswordType] = useState("password");
+
+    const toggleShowPassword = useCallback(() => {
+        passwordType === "password" ? setPasswordType("text") : setPasswordType("password")
+    }, [passwordType]);
 
     const formik = useFormik({
         initialValues: {
@@ -43,9 +49,7 @@ const Login = () => {
         <Grid item justifyContent={'center'} className={s.formContainer}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
-                    <FormLabel>
-                        Sing in
-                    </FormLabel>
+                    <h3>Sing In</h3>
                     <FormGroup>
                         <TextField
                             label={"Email"}
@@ -54,12 +58,20 @@ const Login = () => {
                             {...formik.getFieldProps('email')}/>
                         {formik.touched.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
                         <TextField
-                            type="password"
+                            type={passwordType}
                             label={"Password"}
                             margin={'normal'}
                             variant={'standard'}
-                            {...formik.getFieldProps('password')}/>
-                        {formik.touched.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                            {...formik.getFieldProps('password')}
+                            InputProps={{
+                                endAdornment: <InputAdornment position="end">
+                                    <PasswordVisibility passwordType={passwordType}
+                                                        toggleShowPassword={toggleShowPassword}/>
+                                </InputAdornment>
+                            }}
+                        />
+                        {formik.touched.password ?
+                            <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
                         <FormControlLabel
                             label={'Remember me'}
                             control={<Checkbox name={'rememberMe'}
