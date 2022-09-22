@@ -7,9 +7,10 @@ import {useSelector} from "react-redux";
 import {AppRootState} from "../../../app/store";
 import {logoutTC, updateUserTC} from "./profile-reducer";
 import {ROUTES} from "../../../common/components/header/nav/Nav";
-import {Navigate, useNavigate} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {UserType} from "../../auth/authAPI";
+import avatar from  "../../../assets/images/user.png"
 
 const Profile = () => {
     const dispatch = useAppDispatch();
@@ -34,7 +35,7 @@ const Profile = () => {
         <Box sx={{ display: 'flex'}}>
                 <Paper style={{padding: '20px'}} >
                     <h3 className={s.title}>Personal Information</h3>
-                    <div className={s.avatar}><img src={user.avatar ? user.avatar : ''} alt={'avatar'}/></div>
+                    <img className={s.avatar} src={user.avatar ? user.avatar : avatar} alt={'avatar'}/>
                     <EditableSpan onChange={onChangeName} value={user.name} label={'Your Name'}/>
                     <div className={s.email}>{user.email}</div>
                     <Button variant={'contained'} color={'primary'} onClick={logoutHandler} endIcon={<Logout/>}>
