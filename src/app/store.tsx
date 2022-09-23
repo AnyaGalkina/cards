@@ -18,7 +18,8 @@ const rootReducer = combineReducers({
     recoveryPassword: recoveryPasswordReducer,
 })
 
-export type AppRootState = ReturnType<typeof rootReducer>;
+//export type AppRootState = ReturnType<typeof rootReducer>;
+export type AppRootState = ReturnType<typeof store.getState>
 
 // export const store = createStore(rootReducer, applyMiddleware(thunk));
 export const store = configureStore({
@@ -26,3 +27,5 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk),
     devTools: true
 })
+
+

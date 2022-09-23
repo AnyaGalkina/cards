@@ -1,7 +1,5 @@
 import React, {useCallback, useState} from "react";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
-import {useSelector} from "react-redux";
-import {AppRootState} from "../../../app/store";
 import {useFormik} from "formik";
 import {validator} from "../../../common/utils/validator";
 import {Navigate, useParams} from "react-router-dom";
@@ -13,11 +11,12 @@ import FormControl from "@mui/material/FormControl/FormControl";
 import {setNewPasswordTC} from "../forgot-password/recovery-password-reducer";
 import s from "../sign-in/formContainer.module.css";
 import PasswordVisibility from "../../../common/components/PasswordVisibility/PasswordVisibility";
+import {useAppSelector} from "../../../common/hooks/useAppSelector";
 
 
 const SetPassword = () => {
     const dispatch = useAppDispatch();
-    const isSignedUp = useSelector<AppRootState, boolean>(state => state.signUp.isSignedUp);
+    const isSignedUp = useAppSelector(state => state.signUp.isSignedUp);
     const {token} = useParams();
     const [passwordType, setPasswordType] = useState("password");
 

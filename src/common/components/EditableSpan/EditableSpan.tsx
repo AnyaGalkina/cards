@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import s from './EditableSpan.module.css'
 import {Box} from "@mui/material";
@@ -28,10 +28,16 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
         setTitle(e.currentTarget.value)
     }
 
+    const onKeyPressChangeTitle = (event: KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === 'Enter') {
+            activateViewMode()
+        }
+    }
+
     return <Box sx={{display: 'flex', alignItems: 'flex-end', justifyContent: 'center', padding: '3'}}>
         {editMode
             ? <TextField id="standard-basic" label={props.label} variant="standard" value={title} onChange={changeTitle}
-                         autoFocus onBlur={activateViewMode} disabled={props.disabled} className={s.text}/>
+                         autoFocus onBlur={activateViewMode} disabled={props.disabled} className={s.text} onKeyPress={onKeyPressChangeTitle}/>
             : <div className={s.span}>
                 <span onDoubleClick={activateEditMode} >{props.value}</span>
                 <Create sx={{ color: 'action.active', ml: 1, my: -1 }} onDoubleClick={activateEditMode}/>
