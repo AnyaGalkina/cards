@@ -12,7 +12,7 @@ import {Navigate} from "react-router-dom";
 import {AppRootState} from "../../../app/store";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHelper";
-import s from "../sign-in/formContainer.module.css";
+import s from "../../../assets/style/formContainer.module.css";
 import PasswordVisibility from "../../../common/components/PasswordVisibility/PasswordVisibility";
 
 

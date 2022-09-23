@@ -11,7 +11,7 @@ import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {forgotPasswordTC} from "./recovery-password-reducer";
 import {useSelector} from "react-redux";
 import {AppRootState} from "../../../app/store";
-import s from "../sign-in/formContainer.module.css";
+import s from "../../../assets/style/formContainer.module.css";
 import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHelper";
 
 

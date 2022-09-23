@@ -39,6 +39,7 @@ const Main = () => {
             <ErrorSnackbar/>
             {appStatus === "loading" && <LinearProgress/>}
             <Routes>
+                <Route path={'/'} element={<Login/>}/>
                 <Route path={ROUTES.PROFILE} element={<Profile/>}/>
                 <Route path={ROUTES.LOGIN} element={<Login/>}/>
                 <Route path={ROUTES.REGISTRATION} element={<SignUp/>}/>

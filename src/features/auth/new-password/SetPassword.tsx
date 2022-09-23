@@ -11,7 +11,7 @@ import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import FormControl from "@mui/material/FormControl/FormControl";
 import {setNewPasswordTC} from "../forgot-password/recovery-password-reducer";
-import s from "../sign-in/formContainer.module.css";
+import s from "../../../assets/style/formContainer.module.css";
 import PasswordVisibility from "../../../common/components/PasswordVisibility/PasswordVisibility";
 
 

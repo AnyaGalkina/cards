@@ -12,7 +12,7 @@ import {validator} from "../../../common/utils/validator";
 import {ROUTES} from "../../../common/components/header/nav/Nav";
 import {Navigate} from "react-router-dom";
 import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHelper";
-import s from "./formContainer.module.css"
+import s from "../../../assets/style/formContainer.module.css"
 import {setRecoveryPassword} from "../forgot-password/recovery-password-reducer";
 import {LoginRequestType} from "../authAPI";
 import PasswordVisibility from "../../../common/components/PasswordVisibility/PasswordVisibility";
