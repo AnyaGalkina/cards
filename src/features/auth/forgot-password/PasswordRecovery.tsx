@@ -15,7 +15,7 @@ import RedirectHelper from "../../../common/components/redirectHelper/RedirectHe
 import {forgotPasswordTC} from "../auth-reducer";
 
 
-const PasswordRecovery = () => {
+export const PasswordRecovery = () => {
     const dispatch = useAppDispatch();
     const isRecoveryPasswordAsked = useSelector<AppRootState, boolean>(state => state.auth.isRecoveryPasswordAsked);
 
@@ -60,6 +60,3 @@ const PasswordRecovery = () => {
         </Grid>
     );
 };
-
-
-export default PasswordRecovery;

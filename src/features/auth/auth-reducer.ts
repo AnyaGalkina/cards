@@ -4,6 +4,7 @@ import {SignUpType} from "./authAPI";
 import {Dispatch} from "redux";
 import {setAppStatusAC} from "../../app/app-reducer";
 import {errorUtils} from "../../common/utils/errorUtils";
+import {setUserAC} from "../profile/profile-page/profile-reducer";
 
 const initialState = {
     isLoggedIn: false,
@@ -11,8 +12,6 @@ const initialState = {
     isRecoveryPasswordAsked: false,
     email: "",
 };
-
-// export type InitialStateType = typeof initialState;
 
 const slice = createSlice({
     name: "auth",
@@ -45,7 +44,6 @@ export const loginTC = (data: LoginRequestType) => (dispatch: Dispatch<any>) => 
                 console.log(res.data)
                 dispatch(setAppStatusAC({status: "succeeded"}));
                 dispatch(setIsLoggedInAC({value: true}));
-                //@ts-ignore
                 dispatch(setUserAC(res.data))
             }
         )

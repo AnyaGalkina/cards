@@ -15,7 +15,7 @@ import PasswordVisibility from "../../../common/components/passwordVisibility/Pa
 import {setNewPasswordTC} from "../auth-reducer";
 
 
-const SetPassword = () => {
+export const SetPassword = () => {
     const dispatch = useAppDispatch();
     const isSignedUp = useSelector<AppRootState, boolean>(state => state.auth.isSignedUp);
     const {token} = useParams();
@@ -23,7 +23,7 @@ const SetPassword = () => {
 
     const toggleShowPassword = useCallback(() => {
         passwordType === "password" ? setPasswordType("text") : setPasswordType("password")
-    },[passwordType]);
+    }, [passwordType]);
 
     const formik = useFormik({
         initialValues: {
@@ -58,8 +58,10 @@ const SetPassword = () => {
                                        {...formik.getFieldProps("password")}
                                        InputProps={{
                                            endAdornment: <InputAdornment position="end">
-                                               <PasswordVisibility  passwordType={passwordType}  toggleShowPassword={toggleShowPassword}/>
-                                           </InputAdornment>}}
+                                               <PasswordVisibility passwordType={passwordType}
+                                                                   toggleShowPassword={toggleShowPassword}/>
+                                           </InputAdornment>
+                                       }}
                             />
 
                             {formik.touched.password && formik.errors.password &&
@@ -84,5 +86,3 @@ const SetPassword = () => {
 
     );
 };
-
-export default SetPassword;

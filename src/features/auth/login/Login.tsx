@@ -47,7 +47,7 @@ const Login = () => {
     return <Grid container justifyContent={"center"}>
         <Grid item justifyContent={"center"} className={s.formContainer}>
             <form onSubmit={formik.handleSubmit}>
-                <FormControl>
+                <FormControl className={s.formControl}>
                     <h3>Sing In</h3>
                     <FormGroup>
                         <TextField

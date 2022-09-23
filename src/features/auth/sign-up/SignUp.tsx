@@ -16,7 +16,7 @@ import PasswordVisibility from "../../../common/components/passwordVisibility/Pa
 import {signUpTC} from "../auth-reducer";
 
 
-const SignUp = () => {
+export const SignUp = () => {
     const dispatch = useAppDispatch();
     const isSignedUp = useSelector<AppRootState, boolean>(state => state.auth.isSignedUp);
     const [passwordType, setPasswordType] = useState("password");
@@ -96,5 +96,3 @@ const SignUp = () => {
         </Grid>
     );
 };
-
-export default SignUp;
