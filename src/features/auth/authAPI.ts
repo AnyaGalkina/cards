@@ -14,7 +14,7 @@ export const authAPI = {
         return instance.post<ForgotPasswordType, AxiosResponse<InfoResType>>("/auth/forgot", payload);
     },
     setNewPassword(payload: { password: string, resetPasswordToken: string }) {
-        return instance.post<{ info: string }>("/auth/set-new-password", payload);
+        return instance.post<AxiosResponse<SetNewPasswordType>>("/auth/set-new-password", payload);
     },
     updateUser(data: UpdateUserType) {
         return instance.put<UpdateUserType, AxiosResponse<ResUpdateUserType>>('/auth/me', data)
@@ -108,3 +108,5 @@ export type SignUpType = {
 }
 
 export type ForgotPasswordType = { email: string }
+
+export type SetNewPasswordType = { info: string }

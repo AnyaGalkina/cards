@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 type PropsType = {
@@ -6,13 +6,13 @@ type PropsType = {
     passwordType: string;
 }
 
-const PasswordVisibility = ({passwordType, toggleShowPassword}: PropsType) => {
+const PasswordVisibility = memo(({passwordType, toggleShowPassword}: PropsType) => {
 
     return (
         <span onClick={toggleShowPassword}>
              {passwordType === "password" ? <Visibility/> : <VisibilityOff/>}
         </span>
     )
-};
+});
 
 export default PasswordVisibility;

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Profile from "../profile/profile-page/Profile";
-import Login from "../auth/sign-in/Login";
+import Login from "../auth/login/Login";
 import SetPassword from "../auth/new-password/SetPassword";
 import PasswordRecovery from "../auth/forgot-password/PasswordRecovery";
 import PageNotFound from "../../common/components/404/PageNotFound";
