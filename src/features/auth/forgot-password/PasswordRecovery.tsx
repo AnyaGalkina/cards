@@ -9,15 +9,14 @@ import {Button, Grid} from "@mui/material";
 import FormControl from "@mui/material/FormControl/FormControl";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {forgotPasswordTC} from "./recovery-password-reducer";
-import {useSelector} from "react-redux";
-import {AppRootState} from "../../../app/store";
 import s from "../../../assets/style/formContainer.module.css";
 import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHelper";
+import {useAppSelector} from "../../../common/hooks/useAppSelector";
 
 
 const PasswordRecovery = () => {
     const dispatch = useAppDispatch();
-    const isRecoveryPasswordAsked = useSelector<AppRootState, boolean>(state => state.recoveryPassword.isRecoveryPasswordAsked);
+    const isRecoveryPasswordAsked = useAppSelector(state => state.recoveryPassword.isRecoveryPasswordAsked);
 
     const formik = useFormik({
         initialValues: {

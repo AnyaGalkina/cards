@@ -4,13 +4,12 @@ import {ROUTES} from "../../../common/components/header/nav/Nav";
 import {useNavigate} from "react-router-dom";
 import checkEmail from '../../../assets/images/svg/checkEmail.svg'
 import s from './CheckEmail.module.css'
-import {useSelector} from "react-redux";
-import {AppRootState} from "../../../app/store";
+import {useAppSelector} from "../../../common/hooks/useAppSelector";
 
 const CheckEmail = () => {
 
     const navigate = useNavigate()
-    const email = useSelector<AppRootState, string>(state => state.recoveryPassword.email);
+    const email = useAppSelector(state => state.recoveryPassword.email);
 
     const checkEmailHandler = () => {
         navigate(ROUTES.LOGIN)

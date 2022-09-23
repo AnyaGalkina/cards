@@ -3,19 +3,17 @@ import React from "react";
 import {EditableSpan} from "../../../common/components/EditableSpan/EditableSpan";
 import {Logout} from "@mui/icons-material";
 import s from './Profile.module.css'
-import {useSelector} from "react-redux";
-import {AppRootState} from "../../../app/store";
 import {logoutTC, updateUserTC} from "./profile-reducer";
 import {ROUTES} from "../../../common/components/header/nav/Nav";
 import {Navigate} from "react-router-dom";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
-import {UserType} from "../../auth/authAPI";
 import avatar from  "../../../assets/images/user.png"
+import {useAppSelector} from "../../../common/hooks/useAppSelector";
 
 const Profile = () => {
     const dispatch = useAppDispatch();
-    const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn);
-    const user = useSelector<AppRootState, UserType>(state => state.profile.user);
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
+    const user = useAppSelector(state => state.profile.user);
 
     const onChangeName = (name: string) => {
         dispatch(updateUserTC({name}))

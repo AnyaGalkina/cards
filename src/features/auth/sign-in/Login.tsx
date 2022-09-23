@@ -1,6 +1,4 @@
 import React, {useCallback, useState} from "react";
-import {useSelector} from "react-redux";
-import {AppRootState} from "../../../app/store";
 import {useFormik} from "formik";
 import {loginTC} from "./login-reducer";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
@@ -15,12 +13,13 @@ import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHe
 import s from "../../../assets/style/formContainer.module.css"
 import {setRecoveryPassword} from "../forgot-password/recovery-password-reducer";
 import {LoginRequestType} from "../authAPI";
+import {useAppSelector} from "../../../common/hooks/useAppSelector";
 import PasswordVisibility from "../../../common/components/PasswordVisibility/PasswordVisibility";
 
 const Login = () => {
 
     const dispatch = useAppDispatch();
-    const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn);
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
     const [passwordType, setPasswordType] = useState("password");
 
     const toggleShowPassword = useCallback(() => {

@@ -6,19 +6,18 @@ import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import FormControl from "@mui/material/FormControl/FormControl";
 import {validator} from "../../../common/utils/validator";
-import {useSelector} from "react-redux";
 import {signUpTC} from "./sign-up-reducer";
 import {Navigate} from "react-router-dom";
-import {AppRootState} from "../../../app/store";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHelper";
 import s from "../../../assets/style/formContainer.module.css";
 import PasswordVisibility from "../../../common/components/PasswordVisibility/PasswordVisibility";
+import {useAppSelector} from "../../../common/hooks/useAppSelector";
 
 
 const SignUp = () => {
     const dispatch = useAppDispatch();
-    const isSignedUp = useSelector<AppRootState, boolean>(state => state.signUp.isSignedUp);
+    const isSignedUp = useAppSelector(state => state.signUp.isSignedUp);
     const [passwordType, setPasswordType] = useState("password");
 
     const toggleShowPassword = useCallback(() => {
