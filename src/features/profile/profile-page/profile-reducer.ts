@@ -2,10 +2,10 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {authAPI, UpdateUserType, UserType} from "../../auth/authAPI";
 import {setAppStatusAC} from "../../../app/app-reducer";
 import {Dispatch} from "redux";
-import {setIsLoggedInAC} from "../../auth/sign-in/login-reducer";
 import {AppRootState} from "../../../app/store";
 import {AxiosError} from "axios";
 import {errorUtils} from "../../../common/utils/errorUtils";
+import {setIsLoggedInAC} from "../../auth/auth-reducer";
 
 
 const initialState = {

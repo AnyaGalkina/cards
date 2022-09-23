@@ -1,6 +1,6 @@
 import {Box, Button, Grid, Paper} from "@mui/material";
 import React from "react";
-import {EditableSpan} from "../../../common/components/EditableSpan/EditableSpan";
+import {EditableSpan} from "../../../common/components/editableSpan/EditableSpan";
 import {Logout} from "@mui/icons-material";
 import s from './Profile.module.css'
 import {logoutTC, updateUserTC} from "./profile-reducer";
@@ -12,7 +12,7 @@ import {useAppSelector} from "../../../common/hooks/useAppSelector";
 
 const Profile = () => {
     const dispatch = useAppDispatch();
-    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
     const user = useAppSelector(state => state.profile.user);
 
     const onChangeName = (name: string) => {

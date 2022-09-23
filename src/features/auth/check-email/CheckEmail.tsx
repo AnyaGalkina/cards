@@ -9,7 +9,7 @@ import {useAppSelector} from "../../../common/hooks/useAppSelector";
 const CheckEmail = () => {
 
     const navigate = useNavigate()
-    const email = useAppSelector(state => state.recoveryPassword.email);
+    const email = useAppSelector(state => state.auth.email);
 
     const checkEmailHandler = () => {
         navigate(ROUTES.LOGIN)

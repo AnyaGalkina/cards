@@ -8,15 +8,17 @@ import FormGroup from "@mui/material/FormGroup";
 import {Button, Grid} from "@mui/material";
 import FormControl from "@mui/material/FormControl/FormControl";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
-import {forgotPasswordTC} from "./recovery-password-reducer";
-import s from "../../../assets/style/formContainer.module.css";
-import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHelper";
+import {useSelector} from "react-redux";
+import {AppRootState} from "../../../app/store";
+import s from "../../../assets/styles/formContainer.module.css";
+import RedirectHelper from "../../../common/components/redirectHelper/RedirectHelper";
+import {forgotPasswordTC} from "../auth-reducer";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
 
 
-const PasswordRecovery = () => {
+export const PasswordRecovery = () => {
     const dispatch = useAppDispatch();
-    const isRecoveryPasswordAsked = useAppSelector(state => state.recoveryPassword.isRecoveryPasswordAsked);
+    const isRecoveryPasswordAsked = useAppSelector(state => state.auth.isRecoveryPasswordAsked);
 
     const formik = useFormik({
         initialValues: {
@@ -59,6 +61,3 @@ const PasswordRecovery = () => {
         </Grid>
     );
 };
-
-
-export default PasswordRecovery;

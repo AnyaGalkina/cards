@@ -1,25 +1,25 @@
 import React, {useCallback, useState} from "react";
 import {useFormik} from "formik";
-import {loginTC} from "./login-reducer";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
-import {Button, Checkbox, FormControlLabel,Grid, InputAdornment} from "@mui/material";
+import {Button, Checkbox, FormControlLabel, Grid, InputAdornment} from "@mui/material";
 import FormControl from "@mui/material/FormControl/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import TextField from "@mui/material/TextField";
 import {validator} from "../../../common/utils/validator";
 import {ROUTES} from "../../../common/components/header/nav/Nav";
 import {Navigate} from "react-router-dom";
-import RedirectHelper from "../../../common/components/RedirectHelper/RedirectHelper";
-import s from "../../../assets/style/formContainer.module.css"
-import {setRecoveryPassword} from "../forgot-password/recovery-password-reducer";
+import RedirectHelper from "../../../common/components/redirectHelper/RedirectHelper";
+import s from "../../../assets/styles/formContainer.module.css"
 import {LoginRequestType} from "../authAPI";
+import PasswordVisibility from "../../../common/components/passwordVisibility/PasswordVisibility";
+import {loginTC, setRecoveryPassword} from "../auth-reducer";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
-import PasswordVisibility from "../../../common/components/PasswordVisibility/PasswordVisibility";
+
 
 const Login = () => {
 
     const dispatch = useAppDispatch();
-    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
     const [passwordType, setPasswordType] = useState("password");
 
     const toggleShowPassword = useCallback(() => {
@@ -47,7 +47,7 @@ const Login = () => {
     return <Grid container justifyContent={'center'}>
         <Grid item justifyContent={'center'} className={s.formContainer}>
             <form onSubmit={formik.handleSubmit}>
-                <FormControl>
+                <FormControl className={s.formControl}>
                     <h3>Sing In</h3>
                     <FormGroup>
                         <TextField

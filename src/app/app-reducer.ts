@@ -1,10 +1,9 @@
 import {Dispatch} from "redux";
-import {setIsLoggedInAC} from "../features/auth/sign-in/login-reducer";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {setRecoveryPassword} from "../features/auth/forgot-password/recovery-password-reducer";
 import {errorUtils} from "../common/utils/errorUtils";
 import {setUserAC} from "../features/profile/profile-page/profile-reducer";
 import {authAPI} from "../features/auth/authAPI";
+import {setIsLoggedInAC, setRecoveryPassword} from "../features/auth/auth-reducer";
 
 const initialState: initialStateType = {
     status: 'idle',
