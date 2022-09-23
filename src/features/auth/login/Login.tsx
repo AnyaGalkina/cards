@@ -9,7 +9,7 @@ import {validator} from "../../../common/utils/validator";
 import {ROUTES} from "../../../common/components/header/nav/Nav";
 import {Navigate} from "react-router-dom";
 import RedirectHelper from "../../../common/components/redirectHelper/RedirectHelper";
-import s from "../../../assets/styles/formContainer.module.css"
+import s from "../../../assets/style/formContainer.module.css"
 import {LoginRequestType} from "../authAPI";
 import PasswordVisibility from "../../../common/components/passwordVisibility/PasswordVisibility";
 import {loginTC, setRecoveryPassword} from "../auth-reducer";
