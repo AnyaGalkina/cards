@@ -10,14 +10,14 @@ import {Button, Grid, InputAdornment} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import FormControl from "@mui/material/FormControl/FormControl";
-import {setNewPasswordTC} from "../forgot-password/recovery-password-reducer";
-import s from "../sign-in/formContainer.module.css";
-import PasswordVisibility from "../../../common/components/PasswordVisibility/PasswordVisibility";
+import s from "../../../assets/styles/formContainer.module.css";
+import PasswordVisibility from "../../../common/components/passwordVisibility/PasswordVisibility";
+import {setNewPasswordTC} from "../auth-reducer";
 
 
 const SetPassword = () => {
     const dispatch = useAppDispatch();
-    const isSignedUp = useSelector<AppRootState, boolean>(state => state.signUp.isSignedUp);
+    const isSignedUp = useSelector<AppRootState, boolean>(state => state.auth.isSignedUp);
     const {token} = useParams();
     const [passwordType, setPasswordType] = useState("password");
 

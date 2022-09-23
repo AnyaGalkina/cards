@@ -10,7 +10,7 @@ import {AppRootState} from "../../../app/store";
 const CheckEmail = () => {
 
     const navigate = useNavigate()
-    const email = useSelector<AppRootState, string>(state => state.recoveryPassword.email);
+    const email = useSelector<AppRootState, string>(state => state.auth.email);
 
     const checkEmailHandler = () => {
         navigate(ROUTES.LOGIN)

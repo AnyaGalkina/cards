@@ -1,6 +1,6 @@
 import {Box, Button, Grid, Paper} from "@mui/material";
 import React from "react";
-import {EditableSpan} from "../../../common/components/EditableSpan/EditableSpan";
+import {EditableSpan} from "../../../common/components/editableSpan/EditableSpan";
 import {Logout} from "@mui/icons-material";
 import s from './Profile.module.css'
 import {useSelector} from "react-redux";
@@ -14,7 +14,7 @@ import avatar from  "../../../assets/images/user.png"
 
 const Profile = () => {
     const dispatch = useAppDispatch();
-    const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn);
+    const isLoggedIn = useSelector<AppRootState, boolean>(state => state.auth.isLoggedIn);
     const user = useSelector<AppRootState, UserType>(state => state.profile.user);
 
     const onChangeName = (name: string) => {
