@@ -41,7 +41,6 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
         dispatch(setIsLoggedInAC({value: true}));
         dispatch(setUserAC(res.data))
     })
-        .catch(err => errorUtils(err, dispatch))
         .finally(() => {
             dispatch(setAppIsInitializedAC({isInitialized: true}));
         })
