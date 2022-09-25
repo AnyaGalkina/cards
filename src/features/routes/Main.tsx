@@ -15,6 +15,7 @@ import {CircularProgress, LinearProgress} from "@mui/material";
 import {ErrorSnackbar} from "../../common/components/error/ErrorSnackbar";
 import CheckEmail from "../auth/check-email/CheckEmail";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
+import Cards from "../cards/Cards";
 
 
 const Main = () => {
@@ -48,6 +49,7 @@ const Main = () => {
                 <Route path={ROUTES.CHECK_EMAIL} element={<CheckEmail/>}/>
                 <Route path={ROUTES.PAGE_NOT_FOUND} element={<PageNotFound/>}/>
                 <Route path={"/*"} element={<Navigate to={ROUTES.PAGE_NOT_FOUND}/>}/>
+                <Route path={ROUTES.CARDS} element={<Cards/>}/>
             </Routes>
         </div>
     );

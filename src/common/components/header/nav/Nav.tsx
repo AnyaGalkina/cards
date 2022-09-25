@@ -9,13 +9,15 @@ export enum ROUTES {
     PASSWORD_RECOVERY = "/password-recovery",
     SET_PASSWORD = "/set-new-password/:token",
     CHECK_EMAIL= "/check-email",
-    PAGE_NOT_FOUND = "/404"
+    PAGE_NOT_FOUND = "/404",
+    CARDS = '/cards/card'
 }
 
 const Nav = () => {
     return (
         <div className={styles.nav}>
             <Link path={ROUTES.PROFILE} title={"profile"} />
+            <Link path={ROUTES.CARDS} title={"cards"} />
             <Link path={ROUTES.LOGIN} title={"login"} />
             <Link path={ROUTES.REGISTRATION} title={"registration"} />
             <Link path={ROUTES.PASSWORD_RECOVERY} title={"forgotPassword"} />

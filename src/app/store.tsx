@@ -4,12 +4,14 @@ import {appReducer} from "./app-reducer";
 import thunk from "redux-thunk";
 import {configureStore} from "@reduxjs/toolkit";
 import {authReducer} from "../features/auth/auth-reducer";
+import {cardsReducer} from "../features/cards/cards-reducer";
 
 
 const rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer,
     profile: profileReducer,
+    cards: cardsReducer,
 })
 
 //export type AppRootState = ReturnType<typeof rootReducer>;
