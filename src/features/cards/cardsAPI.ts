@@ -30,7 +30,7 @@ export type CardQueryParamsType = {
     pageCount?: number;
 };
 
-type ResGetCardsType = {
+export type ResGetCardsType = {
     cards: ResCardType[]
     cardsTotalCount: number
     maxGrade: number
@@ -40,7 +40,7 @@ type ResGetCardsType = {
     packUserId: string
 }
 
-type CardType = {
+export type CardType = {
     cardsPack_id: string
     question: string
     answer: string
@@ -52,7 +52,7 @@ type CardType = {
     answerVideo?: string
 }
 
-type ResCardType = CardType &
+export type ResCardType = CardType &
     {
         _id: string;
         user_id: string;
@@ -65,11 +65,11 @@ type ResCardType = CardType &
         __v: number;
     }
 
-type NewCardType = {
+export type NewCardType = {
     card: CardType
 }
 
-type UpdatedCardType = {
+export type UpdatedCardType = {
     card: CardType & { _id: string, comments?: string }
 }
 
