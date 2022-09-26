@@ -16,6 +16,7 @@ import {ErrorSnackbar} from "../../common/components/error/ErrorSnackbar";
 import CheckEmail from "../auth/check-email/CheckEmail";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import Cards from "../cards/Cards";
+import {Packs} from "../packs/Packs";
 
 
 const Main = () => {
@@ -50,6 +51,7 @@ const Main = () => {
                 <Route path={ROUTES.PAGE_NOT_FOUND} element={<PageNotFound/>}/>
                 <Route path={"/*"} element={<Navigate to={ROUTES.PAGE_NOT_FOUND}/>}/>
                 <Route path={ROUTES.CARDS} element={<Cards/>}/>
+                <Route path={ROUTES.PACKS} element={<Packs/>}/>
             </Routes>
         </div>
     );

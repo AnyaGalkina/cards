@@ -1,6 +1,5 @@
 import {Dispatch} from "redux";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {errorUtils} from "../common/utils/errorUtils";
 import {setUserAC} from "../features/profile/profile-page/profile-reducer";
 import {authAPI} from "../features/auth/authAPI";
 import {setIsLoggedInAC, setRecoveryPassword} from "../features/auth/auth-reducer";
@@ -36,7 +35,6 @@ export const {setAppErrorAC, setAppStatusAC, setAppIsInitializedAC} = slice.acti
 // Thunk creators
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     authAPI.me().then(res => {
-        console.log(res.data)
         dispatch(setIsLoggedInAC({value: true}));
         dispatch(setUserAC(res.data))
     })

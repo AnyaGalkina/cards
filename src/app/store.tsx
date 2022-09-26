@@ -5,6 +5,7 @@ import thunk from "redux-thunk";
 import {configureStore} from "@reduxjs/toolkit";
 import {authReducer} from "../features/auth/auth-reducer";
 import {cardsReducer} from "../features/cards/cards-reducer";
+import {packsReducer} from "../features/packs/packs-reducer";
 
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     auth: authReducer,
     profile: profileReducer,
     cards: cardsReducer,
+    packs: packsReducer
 })
 
 //export type AppRootState = ReturnType<typeof rootReducer>;

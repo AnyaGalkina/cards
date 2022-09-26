@@ -5,6 +5,7 @@ import {Dispatch} from "redux";
 import {setAppStatusAC} from "../../app/app-reducer";
 import {errorUtils} from "../../common/utils/errorUtils";
 import {setUserAC} from "../profile/profile-page/profile-reducer";
+import {getUserId} from "../packs/packs-reducer";
 
 const initialState = {
     isLoggedIn: false,
@@ -41,10 +42,10 @@ export const loginTC = (data: LoginRequestType) => (dispatch: Dispatch<any>) => 
     dispatch(setAppStatusAC({status: "loading"}))
     authAPI.login(data)
         .then(res => {
-                console.log(res.data)
                 dispatch(setAppStatusAC({status: "succeeded"}));
                 dispatch(setIsLoggedInAC({value: true}));
                 dispatch(setUserAC(res.data))
+                dispatch(getUserId({userId: res.data._id}))
             }
         )
         .catch(err => errorUtils(err, dispatch)
@@ -55,7 +56,6 @@ export const signUpTC = (payload: SignUpType) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: "loading"}));
     try {
         const response = await authAPI.signUp(payload);
-        console.log(response.data);
         dispatch(setIsSignedUp({isSignedUp: true}));
         dispatch(setAppStatusAC({status: "succeeded"}));
     } catch (err: any) {

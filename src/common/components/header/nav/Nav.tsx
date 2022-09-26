@@ -10,7 +10,8 @@ export enum ROUTES {
     SET_PASSWORD = "/set-new-password/:token",
     CHECK_EMAIL= "/check-email",
     PAGE_NOT_FOUND = "/404",
-    CARDS = '/cards/card'
+    CARDS = '/cards/card',
+    PACKS = '/cards/pack'
 }
 
 const Nav = () => {
@@ -18,6 +19,7 @@ const Nav = () => {
         <div className={styles.nav}>
             <Link path={ROUTES.PROFILE} title={"profile"} />
             <Link path={ROUTES.CARDS} title={"cards"} />
+            <Link path={ROUTES.PACKS} title={"packs"} />
             <Link path={ROUTES.LOGIN} title={"login"} />
             <Link path={ROUTES.REGISTRATION} title={"registration"} />
             <Link path={ROUTES.PASSWORD_RECOVERY} title={"forgotPassword"} />
