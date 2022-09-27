@@ -5,11 +5,11 @@ import TableCell from "@mui/material/TableCell";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import Box from "@mui/material/Box";
 import {visuallyHidden} from "@mui/utils";
-import {Data, Order} from "../TableComponent";
+import {CardsData, Order} from "./CardsTableComponent";
 
 interface HeadCell {
     disablePadding: boolean;
-    id: keyof Data;
+    id: keyof CardsData;
     label: string;
     numeric: boolean;
 }
@@ -38,7 +38,7 @@ const headCells: readonly HeadCell[] = [
         numeric: true,
         disablePadding: false,
         label: 'Grade',
-    },
+    }
     // {
     //     id: 'actions',
     //     numeric: true,
@@ -48,7 +48,7 @@ const headCells: readonly HeadCell[] = [
 ];
 
 interface TableHeaderProps {
-    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
+    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof CardsData) => void;
     order: Order;
     orderBy: string;
 }
@@ -56,7 +56,7 @@ interface TableHeaderProps {
 export function TableHeader(props: TableHeaderProps) {
     const {order, orderBy, onRequestSort } = props;
     const createSortHandler =
-        (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+        (property: keyof CardsData) => (event: React.MouseEvent<unknown>) => {
             onRequestSort(event, property);
         };
 

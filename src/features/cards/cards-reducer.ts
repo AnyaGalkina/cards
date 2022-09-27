@@ -12,7 +12,7 @@ const initialState = {
         maxGrade: 0,
         minGrade: 0,
         page: 0,
-        pageCount: 0,
+        pageCount: 10,
         packUserId: ''
     } as ResGetCardsType,
     params: {
@@ -20,9 +20,9 @@ const initialState = {
         cardQuestion: '',
         cardAnswer: '',
         sortCards: '',
-        page: 0,
-        pageCount: 0
-    }
+        page: 1,
+        pageCount: 5
+    } as CardQueryParamsType
 }
 
 
