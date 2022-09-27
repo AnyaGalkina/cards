@@ -16,7 +16,8 @@ export interface Data {
     cardsCount: number;
     updated: string;
     createdBy: string;
-    actions: string
+    actions: string;
+    id: string
 }
 
 function createData(
@@ -24,14 +25,16 @@ function createData(
     cardsCount: number,
     updated: string,
     createdBy: string,
-    actions: string
+    actions: string,
+    id: string
 ): Data {
     return {
         name,
         cardsCount,
         updated,
         createdBy,
-        actions
+        actions,
+        id
     };
 }
 
@@ -73,7 +76,7 @@ export default function PacksTableComponent(props: PacksTableComponent) {
     const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
 
     const rows = props.rows.map(row => {
-        return createData(row.name, row.cardsCount, row.updated, row.user_name, '')
+        return createData(row.name, row.cardsCount, row.updated, row.user_name, '', row._id)
     })
 
     const handleRequestSort = (
@@ -103,7 +106,7 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                                 rows.map((row) => {
                                     return (
                                         <TableRow
-                                            key={row.name}
+                                            key={row.id}
                                         >
                                             <TableCell
                                                 component="th"

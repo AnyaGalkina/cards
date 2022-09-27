@@ -1,11 +1,11 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {useAppSelector} from "../../common/hooks/useAppSelector";
-import {PacksTableComponent}from "./PacksTableComponent";
-import {getPacksTC, searchByPackName} from "./packs-reducer";
+import {getPacksTC, searchByPackName, setPage, setPageCount} from "./packs-reducer";
 import {PacksFilters} from "../filters/PacksFilters";
 import {SearchBar} from "../../common/components/search/Search";
 import s from "./Packs.module.css";
+import PacksTableComponent from "./PacksTableComponent";
 
 export const Packs = () => {
     const dispatch = useAppDispatch();
@@ -14,23 +14,25 @@ export const Packs = () => {
     const isMyPack = useAppSelector(state => state.packs.params.isMyPack);
     const min = useAppSelector(state => state.packs.params.min);
     const max = useAppSelector(state => state.packs.params.max);
+    const pageCount = useAppSelector(state => state.packs.params.pageCount);
     const search = useAppSelector(state => state.packs.params.search);
 
-    const [page, setPage] = useState(0);
-    const [pageCount, setPageCount] = useState(10);
+    //need this useState because Pagination starts with 0
+    const [page, setPageS] = useState(0);
 
     const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage)
+        setPageS(newPage);
+        dispatch(setPage({page: newPage+1}))
     };
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPageCount(parseInt(event.target.value, 10));
-        setPage(0)
+        setPageS(0)
+        dispatch(setPage({page: 1}))
+        dispatch(setPageCount({pageCount: parseInt(event.target.value, 10)}))
     };
 
     useEffect(() => {
-        // dispatch(getPacksTC(page + 1, pageCount, params.userId))
-        dispatch(getPacksTC());
+        dispatch(getPacksTC())
     }, [pageCount, page, search, min, max, isMyPack]);
 
 

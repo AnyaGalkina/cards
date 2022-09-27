@@ -132,6 +132,7 @@ export const getPacksTC = () => async (dispatch: Dispatch, getState: () => AppRo
         // const res = await packsAPI.getPacks({pageCount, page, userId, min, max, search});
         dispatch(setPacks(res.data.cardPacks))
         dispatch(setAppStatusAC({status: "succeeded"}));
+        dispatch(setTotalCount({totalCount: res.data.cardPacksTotalCount}))
     } catch (err: any) {
         errorUtils(err, dispatch);
     }
