@@ -1,15 +1,13 @@
 import * as React from "react";
 import {ChangeEvent, useEffect, useState} from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import {searchByPackName} from "./filters-reducer";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
 import {useDebounce} from "../../hooks/useDebounce";
 import {SearchIconWrapper, Search, StyledInputBase} from "./SearchStyle";
-import s from "../../../features/filters/num-of-cards-filter/NumOfCardsFilter.module.css";
+import s from "../../../features/filters/PacksFilters.module.css";
 
 type PropsType = {
-    //@ts-ignore
-    setSearchParam: ({search: string}) => void;
+    setSearchParam: (payload: {search: string}) => void;
 }
 
 export const SearchBar = ({setSearchParam}: PropsType) => {
@@ -23,7 +21,6 @@ export const SearchBar = ({setSearchParam}: PropsType) => {
     }
 
     useEffect(() => {
-        // dispatch(searchByPackName({search: debouncedValue}));
         //@ts-ignore
         dispatch(setSearchParam({search: debouncedValue}));
     }, [debouncedValue])

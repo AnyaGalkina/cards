@@ -1,16 +1,7 @@
-.filterContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: start;
-    width: 260px;
-}
-
 .sliderContainer {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
-    /*width: 280px;*/
     align-items: center;
 }
 

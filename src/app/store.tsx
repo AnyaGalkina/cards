@@ -6,7 +6,6 @@ import {configureStore} from "@reduxjs/toolkit";
 import {authReducer} from "../features/auth/auth-reducer";
 import {cardsReducer} from "../features/cards/cards-reducer";
 import {packsReducer} from "../features/packs/packs-reducer";
-import {filtersReducer} from "../common/components/search/filters-reducer";
 
 
 const rootReducer = combineReducers({
@@ -15,7 +14,6 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     cards: cardsReducer,
     packs: packsReducer,
-    filters: filtersReducer,
 })
 
 //export type AppRootState = ReturnType<typeof rootReducer>;

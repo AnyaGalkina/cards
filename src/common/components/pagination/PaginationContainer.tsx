@@ -4,11 +4,10 @@ import {InputLabel, MenuItem, Select, SelectChangeEvent, TablePagination} from "
 import FormControl from "@mui/material/FormControl/FormControl";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
 import {Pagination} from "./pagination/Pagination";
-import {setPageCount} from "../search/filters-reducer";
+import {setPageCount} from "../../../features/packs/packs-reducer";
 
 export const PaginationContainer = () => {
-    // const pageCount = useAppSelector(state => state.packs.params.pageCount);
-    const pageCount = useAppSelector(state => state.filters.pageCount);
+    const pageCount = useAppSelector(state => state.packs.params.pageCount);
     const dispatch = useAppDispatch();
 
     const handlePageCountChange = (event: SelectChangeEvent) => {

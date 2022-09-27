@@ -1,20 +1,20 @@
 import {Button, ButtonGroup} from "@mui/material";
 import * as React from "react";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
-import {setOwner} from "../../../common/components/search/filters-reducer";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
-import s from "./PacksOwnerFilter.module.css";
+import s from "../PacksFilters.module.css";
+import {setOwner} from "../../packs/packs-reducer";
 
 export const PacksOwnerFilter = () => {
-    const owner = useAppSelector(state => state.filters.owner);
+    const isMyPack = useAppSelector(state => state.packs.params.isMyPack);
     const dispatch = useAppDispatch();
 
     const handleOnMeClick = () => {
-        dispatch(setOwner({owner: "me"}));
+        dispatch(setOwner({isMyPack: true}));
     }
 
     const handleOnAllClick = () => {
-        dispatch(setOwner({owner: "all"}));
+        dispatch(setOwner({isMyPack: false}));
     }
 
     return (
@@ -22,12 +22,12 @@ export const PacksOwnerFilter = () => {
             <span>Show Packs Cards</span>
             <ButtonGroup>
                 <Button
-                    variant={`${owner === "me" ? "contained" : "text"}`}
+                    variant={`${isMyPack ? "contained" : "text"}`}
                     onClick={handleOnMeClick}
                 >Me
                 </Button>
                 <Button
-                    variant={`${owner === "all" ?  "contained" : "text"}`}
+                    variant={`${!isMyPack ?  "contained" : "text"}`}
                     onClick={handleOnAllClick}
                 >All
                 </Button>

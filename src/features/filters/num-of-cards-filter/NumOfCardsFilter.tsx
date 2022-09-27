@@ -1,27 +1,37 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useMemo, useState} from "react";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
-import {setMaxValue, setMinValue} from "../../../common/components/search/filters-reducer";
 import {Slider} from "@mui/material";
 import s from "./NumOfCardsFilter.module.css";
+import {setMaxValue, setMinValue} from "../../packs/packs-reducer";
+import sContainer from "../PacksFilters.module.css";
+import {useDebounce} from "../../../common/hooks/useDebounce";
 
 export const NumOfCardsFilter = () => {
-    const min = useAppSelector(state => state.filters.min);
-    const max = useAppSelector(state => state.filters.max);
+    const min = useAppSelector(state => state.packs.params.min);
+    const max = useAppSelector(state => state.packs.params.max);
     const dispatch = useAppDispatch();
-    const [value1, setValue1] = useState(0)
-    const [value2, setValue2] = useState(10)
-    let value = [value1, value2];
+    const [value1, setValue1] = useState(min)
+    const [value2, setValue2] = useState(max)
+    let value = useMemo(() => {return [value1, value2]}, [value1, value2])
+
+    const debouncedValue = useDebounce<number[]>(value, 1000);
+
+    useEffect(() => {
+        dispatch(setMinValue({min: value1}));
+        dispatch(setMaxValue({max: value2}));
+    }, [debouncedValue])
+
+    useEffect(() => {
+        setValue1(min)
+        setValue2(max)
+    }, [min, max])
 
     const onDoubleChangeHandler = (newValue: [number, number]) => {
         setValue1(newValue[0]);
         setValue2(newValue[1]);
     }
 
-    const onChangeCommittedHandler = () => {
-        dispatch(setMinValue({min: value1}));
-        dispatch(setMaxValue({max: value2}));
-    }
 
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>, newValue: number | number[]) => {
         onDoubleChangeHandler && onDoubleChangeHandler(newValue as [number, number]);
@@ -29,17 +39,17 @@ export const NumOfCardsFilter = () => {
 
 
     return (
-        <div className={s.filterContainer}>
+        <div className={sContainer.filterContainer}>
             <span>Number of cards</span>
             <div className={s.sliderContainer}>
                 <span className={s.value}>{min}</span>
                 <Slider
-                    onChangeCommitted={onChangeCommittedHandler}
                     sx={{width: 155}}
                     value={value}
                     step={1}
-                    min={min}
-                    max={max}
+                    min={0}
+                    //max from server???
+                    max={10}
                     //@ts-ignore
                     onChange={onChangeCallback}
                     valueLabelDisplay="auto"

@@ -2,6 +2,7 @@ import {styled} from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 
 export const Search = styled("div")(({theme}) => ({
+    position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: "#FFFFFF",
     color: "#D9D9D9",
@@ -14,19 +15,23 @@ export const Search = styled("div")(({theme}) => ({
     textAlign: "left",
     [theme.breakpoints.up("sm")]: {
         marginLeft: theme.spacing(3),
-        width: "413px",
+        width: "300px",
     },
+    display:"flex",
+    flexDirection: "row"
 }));
 
 export const SearchIconWrapper = styled("div")(({theme}) => ({
     padding: theme.spacing(0, 2),
     height: "100%",
-    position: "absolute",
+    // position:"inline-block",
+    // position: "absolute",
     pointerEvents: "none",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "#D9D9D9",
+    width: "30px",
+    // color: "#D9D9D9",
 }));
 
 export const StyledInputBase = styled(InputBase)(({theme}) => ({

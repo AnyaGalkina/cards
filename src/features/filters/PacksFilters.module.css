@@ -1,5 +1,8 @@
-.mainFilterContainer {
+.filterContainer {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    flex-wrap: wrap;
+    align-content: start;
+    text-align: start;
+    width: 300px;
 }

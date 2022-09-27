@@ -3,9 +3,9 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {useAppDispatch} from "../../../hooks/useAppDispatch";
 import {useAppSelector} from "../../../hooks/useAppSelector";
-import {setPage} from "../../search/filters-reducer";
 import {IconButton, PaginationItem, Stack} from "@mui/material";
 import s from "./Pagination.module.css";
+import {setPage} from "../../../../features/packs/packs-reducer";
 
 type PropsType = {
     pageCount: number
@@ -14,8 +14,7 @@ type PropsType = {
 
 export const Pagination = ({pageCount}: PropsType) => {
 
-    // const page = useAppSelector(state => state.packs.params.page);
-    const page = useAppSelector(state => state.filters.page);
+    const page = useAppSelector(state => state.packs.params.page);
     const dispatch = useAppDispatch();
 
     const pages: number[] = [];
