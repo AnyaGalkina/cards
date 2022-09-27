@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Dispatch} from "redux";
 import {setAppStatusAC} from "../../app/app-reducer";
-import {packsAPI, RequestPacksType} from "./packsAPI";
+import {packsAPI, PacksType} from "./packsAPI";
 import {errorUtils} from "../../common/utils/errorUtils";
 
 export const defaultFilterValues = {
@@ -22,15 +22,17 @@ const initialState = {
         isMyPack: defaultFilterValues.isMyPack,
         min: defaultFilterValues.min,
         max: defaultFilterValues.max,
-        search: defaultFilterValues.search
+        search: defaultFilterValues.search,
+        totalCount: 10
     },
     packs: [
         {
             name: '',
             cardsCount: 0,
+            user_name: '',
             private: false,
             created: ''
-        } as RequestPacksType
+        } as PacksType
     ]
 }
 
@@ -41,7 +43,7 @@ const slice = createSlice({
         getUserId(state, action: PayloadAction<{ userId: string }>) {
             state.params.userId = action.payload.userId
         },
-        getPacks(state, action: PayloadAction<Array<RequestPacksType>>) {
+        setPacks(state, action: PayloadAction<Array<PacksType>>) {
             state.packs = action.payload
         },
         removeAllFilters: (state, action: PayloadAction<DefaultFilterValues>) => {
@@ -68,20 +70,23 @@ const slice = createSlice({
         searchByPackName: (state, action: PayloadAction<{ search: string }>) => {
             state.params.search = action.payload.search
         },
-
+        setTotalCount(state, action: PayloadAction<{totalCount: number }>) {
+            state.params.totalCount = action.payload.totalCount
+        }
     }
 });
 
 export const packsReducer = slice.reducer;
-export const {getUserId, getPacks, removeAllFilters, setPageCount, searchByPackName, setOwner,  setMaxValue, setMinValue, setPage} = slice.actions;
+export const {getUserId, setPacks, removeAllFilters, setPageCount, searchByPackName, setOwner,  setMaxValue, setMinValue, setPage, setTotalCount} = slice.actions;
 
 //Thunk
-export const getPacksTC = (page: number, countPage: number, userId: string) => (dispatch: Dispatch) => {
+export const getPacksTC = (page: number, pageCount: number, userId: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: "loading"}))
-    packsAPI.getPacks(page, countPage, userId)
+    packsAPI.getPacks(page, pageCount, userId)
         .then(res => {
                 dispatch(setAppStatusAC({status: "succeeded"}));
-                dispatch(getPacks(res.data.cardPacks))
+                dispatch(setPacks(res.data.cardPacks))
+                dispatch(setTotalCount({totalCount: res.data.cardPacksTotalCount}))
             }
         )
         .catch(err => errorUtils(err, dispatch))
