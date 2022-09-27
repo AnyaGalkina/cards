@@ -39,19 +39,22 @@ const headCells: readonly HeadCell[] = [
         disablePadding: false,
         label: 'Grade',
     },
-
+    {
+        id: 'actions',
+        numeric: true,
+        disablePadding: false,
+        label: '',
+    },
 ];
 
-interface EnhancedTableProps {
+interface TableHeaderProps {
     onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
     order: Order;
     orderBy: string;
-    rowCount: number;
 }
 
-export function TableHeader(props: EnhancedTableProps) {
-    const {order, orderBy, rowCount, onRequestSort } =
-        props;
+export function TableHeader(props: TableHeaderProps) {
+    const {order, orderBy, onRequestSort } = props;
     const createSortHandler =
         (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
             onRequestSort(event, property);

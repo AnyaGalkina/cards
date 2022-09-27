@@ -8,33 +8,40 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {TableHeader} from "./TableHeader/TableHeader";
+import {Rating} from "@mui/material";
+import {ResCardType} from "../cardsAPI";
 
 export interface Data {
     question: string;
     answer: string;
     updated: string;
     grade: number;
+    actions: string
 }
 
 function createData(
     question: string,
     answer: string,
     updated: string,
-    grade: number
+    grade: number,
+    actions: string
 ): Data {
     return {
         question,
         answer,
         updated,
-        grade
+        grade,
+        actions
     };
 }
 
 const rows = [
-    createData('Cupcake', 'Cupcake', '22', 5),
-    createData('function', 'function', '22', 5),
-    createData('Cupcake', 'Cupcake', '21', 6),
-    createData('Cupcake', 'Cupcake', '22', 5),
+    createData('question', 'question', '22', 5, 'up/del'),
+    createData('function', 'function', '22', 5,'up/del'),
+    createData('answer', 'answer', '21', 6,'up/del'),
+    createData('grade', 'grade', '22', 5,'up/del'),
+    createData('updated', 'updated', '22', 5,'up/del'),
+    createData('updated', 'updated', '22', 5,'up/del')
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -61,21 +68,11 @@ function getComparator<Key extends keyof any>(
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
-function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
-    const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-    stabilizedThis.sort((a, b) => {
-        const order = comparator(a[0], b[0]);
-        if (order !== 0) {
-            return order;
-        }
-        return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
+type TableComponent = {
+    rows: ResCardType[] // | PacksType
 }
 
-export default function TableComponent() {
+export default function TableComponent(props: TableComponent) {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('question');
     const [page, setPage] = React.useState(0);
@@ -100,24 +97,20 @@ export default function TableComponent() {
     };
 
     return (
-        <Box sx={{ width: '100%' }}>
-            <Paper sx={{ width: '100%', mb: 2 }}>
+        <Box sx={{width: '100%'}}>
+            <Paper sx={{width: '100%', mb: 2}}>
                 <TableContainer>
                     <Table
-                        sx={{ minWidth: 750 }}
+                        sx={{minWidth: 750}}
                         aria-labelledby="tableTitle"
                     >
                         <TableHeader
                             order={order}
                             orderBy={orderBy}
                             onRequestSort={handleRequestSort}
-                            rowCount={rows.length}
                         />
                         <TableBody>
-                            {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-              rows.slice().sort(getComparator(order, orderBy)) */}
-                            {stableSort(rows, getComparator(order, orderBy))
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).sort(getComparator(order, orderBy))
                                 .map((row) => {
                                     return (
                                         <TableRow
@@ -131,7 +124,13 @@ export default function TableComponent() {
                                             </TableCell>
                                             <TableCell align="right">{row.answer}</TableCell>
                                             <TableCell align="right">{row.updated}</TableCell>
-                                            <TableCell align="right">{row.grade}</TableCell>
+                                            <TableCell align="right">
+                                                <Rating value={row.grade}/>
+                                            </TableCell>
+                                            <TableCell>
+                                                {row.actions}
+                                            </TableCell>
+                                            {/*if my pack add actions* edit delete/*/}
                                         </TableRow>
                                     );
                                 })}
