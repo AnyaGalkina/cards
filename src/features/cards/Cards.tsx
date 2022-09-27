@@ -1,7 +1,7 @@
 import React from "react";
 import {useAppSelector} from "../../common/hooks/useAppSelector";
 import {Navigate} from "react-router-dom";
-import {ROUTES} from "../../common/components/header/nav/Nav";
+import {ROUTES} from "../../common/enums/enums";
 import CardsTable from "./CardsTable";
 
 const Cards = () => {
