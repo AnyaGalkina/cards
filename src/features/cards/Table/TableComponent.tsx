@@ -16,7 +16,7 @@ export interface Data {
     answer: string;
     updated: string;
     grade: number;
-    actions: string
+    // actions: string
 }
 
 function createData(
@@ -24,25 +24,18 @@ function createData(
     answer: string,
     updated: string,
     grade: number,
-    actions: string
+    // actions: string
 ): Data {
     return {
         question,
         answer,
         updated,
         grade,
-        actions
+        // actions
     };
 }
 
-const rows = [
-    createData('question', 'question', '22', 5, 'up/del'),
-    createData('function', 'function', '22', 5,'up/del'),
-    createData('answer', 'answer', '21', 6,'up/del'),
-    createData('grade', 'grade', '22', 5,'up/del'),
-    createData('updated', 'updated', '22', 5,'up/del'),
-    createData('updated', 'updated', '22', 5,'up/del')
-];
+
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -78,6 +71,8 @@ export default function TableComponent(props: TableComponent) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+    const rows = props.rows.map(card => createData(card.question, card.answer, card.updated, card.grade))
+
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
         property: keyof Data,
@@ -97,8 +92,8 @@ export default function TableComponent(props: TableComponent) {
     };
 
     return (
-        <Box sx={{width: '100%'}}>
-            <Paper sx={{width: '100%', mb: 2}}>
+        <Box sx={{width: '100%', display:'flex', justifyContent: 'center'}}>
+            <Paper sx={{width: '70%'}}>
                 <TableContainer>
                     <Table
                         sx={{minWidth: 750}}
@@ -110,8 +105,7 @@ export default function TableComponent(props: TableComponent) {
                             onRequestSort={handleRequestSort}
                         />
                         <TableBody>
-                            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).sort(getComparator(order, orderBy))
-                                .map((row) => {
+                            {rows.map((row) => {
                                     return (
                                         <TableRow
                                             key={row.question}
@@ -127,9 +121,9 @@ export default function TableComponent(props: TableComponent) {
                                             <TableCell align="right">
                                                 <Rating value={row.grade}/>
                                             </TableCell>
-                                            <TableCell>
-                                                {row.actions}
-                                            </TableCell>
+                                            {/*<TableCell>*/}
+                                            {/*    {row.actions}*/}
+                                            {/*</TableCell>*/}
                                             {/*if my pack add actions* edit delete/*/}
                                         </TableRow>
                                     );
@@ -140,7 +134,7 @@ export default function TableComponent(props: TableComponent) {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={rows.length}
+                    count={rows.length} //totalCount
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

@@ -43,7 +43,7 @@ export type CardType = {
     cardsPack_id: string
     question: string
     answer: string
-    grade?: number
+    grade: number
     shots?: number
     answerImg?: string
     questionImg?: string

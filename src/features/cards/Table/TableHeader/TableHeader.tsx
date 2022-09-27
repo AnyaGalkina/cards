@@ -39,12 +39,12 @@ const headCells: readonly HeadCell[] = [
         disablePadding: false,
         label: 'Grade',
     },
-    {
-        id: 'actions',
-        numeric: true,
-        disablePadding: false,
-        label: '',
-    },
+    // {
+    //     id: 'actions',
+    //     numeric: true,
+    //     disablePadding: false,
+    //     label: '',
+    // },
 ];
 
 interface TableHeaderProps {

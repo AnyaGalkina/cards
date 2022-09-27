@@ -5,14 +5,24 @@ import {setAppStatusAC} from "../../app/app-reducer";
 import {errorUtils} from "../../common/utils/errorUtils";
 import {AxiosError} from "axios";
 
-const initialState: ResGetCardsType = {
-    cards: [],
-    cardsTotalCount: 0,
-    maxGrade: 0,
-    minGrade: 0,
-    page: 0,
-    pageCount: 0,
-    packUserId: ''
+const initialState = {
+    cardsState:  {
+        cards: [],
+        cardsTotalCount: 0,
+        maxGrade: 0,
+        minGrade: 0,
+        page: 0,
+        pageCount: 0,
+        packUserId: ''
+    } as ResGetCardsType,
+    params: {
+        cardsPack_id: '',
+        cardQuestion: '',
+        cardAnswer: '',
+        sortCards: '',
+        page: 0,
+        pageCount: 0
+    }
 }
 
 
@@ -21,7 +31,7 @@ const slice = createSlice({
     initialState: initialState,
     reducers: {
         setCardsAC(state, action: PayloadAction<ResGetCardsType>) {
-            state.cards = action.payload.cards
+           state.cardsState = action.payload
         }
     }
 })
@@ -29,12 +39,14 @@ const slice = createSlice({
 export const cardsReducer = slice.reducer
 export const {setCardsAC} = slice.actions
 
-export const getCardsTC = (params: CardQueryParamsType ) => async (dispatch: Dispatch) => {
+export const getCardsTC = (params: CardQueryParamsType) => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppStatusAC({status: 'loading'}))
 
         let res = await cardsAPI.getCards(params)
-        dispatch(setCardsAC(res.data.data))
+        console.log(res.data)
+
+        dispatch(setCardsAC(res.data))
 
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e) {
