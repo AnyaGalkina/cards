@@ -3,7 +3,7 @@ import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {useFormik} from "formik";
 import {validator} from "../../../common/utils/validator";
 import {Navigate, useParams} from "react-router-dom";
-import {ROUTES} from "../../../common/components/header/nav/Nav";
+import {ROUTES} from "../../../common/enums/enums";
 import {Button, Grid, InputAdornment} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";

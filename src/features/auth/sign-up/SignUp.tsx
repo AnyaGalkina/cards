@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from "react";
 import {useFormik} from "formik";
 import {Button, Grid, InputAdornment} from "@mui/material";
-import {ROUTES} from "../../../common/components/header/nav/Nav";
+import {ROUTES} from "../../../common/enums/enums";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import FormControl from "@mui/material/FormControl/FormControl";

@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
     auth: authReducer,
     profile: profileReducer,
     cards: cardsReducer,
-    packs: packsReducer
+    packs: packsReducer,
 })
 
 //export type AppRootState = ReturnType<typeof rootReducer>;
@@ -24,5 +24,3 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk),
     devTools: true
 })
-
-

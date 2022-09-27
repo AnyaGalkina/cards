@@ -4,7 +4,7 @@ import {EditableSpan} from "../../../common/components/editableSpan/EditableSpan
 import {Logout} from "@mui/icons-material";
 import s from './Profile.module.css'
 import {logoutTC, updateUserTC} from "./profile-reducer";
-import {ROUTES} from "../../../common/components/header/nav/Nav";
+import {ROUTES} from "../../../common/enums/enums";
 import {Navigate} from "react-router-dom";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import avatar from  "../../../assets/images/user.png"
