@@ -2,7 +2,7 @@ import React from "react";
 import {useFormik} from "formik";
 import {validator} from "../../../common/utils/validator";
 import {Navigate} from "react-router-dom";
-import {ROUTES} from "../../../common/components/header/nav/Nav";
+import {ROUTES} from "../../../common/enums/enums";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import {Button, Grid} from "@mui/material";

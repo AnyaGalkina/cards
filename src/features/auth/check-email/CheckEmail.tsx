@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Grid, Paper} from "@mui/material";
-import {ROUTES} from "../../../common/components/header/nav/Nav";
+import {ROUTES} from "../../../common/enums/enums";
 import {useNavigate} from "react-router-dom";
 import checkEmail from '../../../assets/images/svg/checkEmail.svg'
 import s from './CheckEmail.module.css'

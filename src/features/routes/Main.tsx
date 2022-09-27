@@ -6,7 +6,7 @@ import {SetPassword} from "../auth/new-password/SetPassword";
 import {PasswordRecovery} from "../auth/forgot-password/PasswordRecovery";
 import PageNotFound from "../../common/components/404/PageNotFound";
 import Header from "../../common/components/header/Header";
-import {ROUTES} from "../../common/components/header/nav/Nav";
+import {ROUTES} from "../../common/enums/enums";
 import {SignUp} from "../auth/sign-up/SignUp";
 import {useSelector} from "react-redux";
 import {initializeAppTC, RequestStatusType} from "../../app/app-reducer";
@@ -17,6 +17,7 @@ import CheckEmail from "../auth/check-email/CheckEmail";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import Cards from "../cards/Cards";
 import {Packs} from "../packs/Packs";
+import {Test} from "../../common/components/search/Test";
 
 
 const Main = () => {
@@ -30,7 +31,7 @@ const Main = () => {
 
     if (!isInitialized) {
         return <div
-            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+            style={{position: "fixed", top: "30%", textAlign: "center", width: "100%"}}>
             <CircularProgress/>
         </div>
     }
@@ -41,7 +42,7 @@ const Main = () => {
             <ErrorSnackbar/>
             {appStatus === "loading" && <LinearProgress/>}
             <Routes>
-                <Route path={'/'} element={<Login/>}/>
+                <Route path={"/"} element={<Login/>}/>
                 <Route path={ROUTES.PROFILE} element={<Profile/>}/>
                 <Route path={ROUTES.LOGIN} element={<Login/>}/>
                 <Route path={ROUTES.REGISTRATION} element={<SignUp/>}/>
@@ -52,6 +53,7 @@ const Main = () => {
                 <Route path={"/*"} element={<Navigate to={ROUTES.PAGE_NOT_FOUND}/>}/>
                 <Route path={ROUTES.CARDS} element={<Cards/>}/>
                 <Route path={ROUTES.PACKS} element={<Packs/>}/>
+                <Route path={ROUTES.TEST} element={<Test/>}/>
             </Routes>
         </div>
     );
