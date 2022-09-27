@@ -7,7 +7,7 @@ const instance = axios.create({
 
 export const cardsAPI = {
     getCards(params: CardQueryParamsType) {
-        return instance.get<AxiosResponse<ResGetCardsType>>("/cards/card", {params})
+        return instance.get<ResGetCardsType>("/cards/card", {params})
     },
     createCard(data: NewCardType) {
         return instance.post<NewCardType>("/cards/card", data);
