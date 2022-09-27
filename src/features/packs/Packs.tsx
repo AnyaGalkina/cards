@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {useAppSelector} from "../../common/hooks/useAppSelector";
-import PacksTableComponent from "./PacksTableComponent";
+import {PacksTableComponent}from "./PacksTableComponent";
 import {getPacksTC, searchByPackName} from "./packs-reducer";
 import {PacksFilters} from "../filters/PacksFilters";
 import {SearchBar} from "../../common/components/search/Search";
@@ -29,7 +29,8 @@ export const Packs = () => {
     };
 
     useEffect(() => {
-        dispatch(getPacksTC(page + 1, pageCount, params.userId))
+        // dispatch(getPacksTC(page + 1, pageCount, params.userId))
+        dispatch(getPacksTC());
     }, [pageCount, page, search, min, max, isMyPack]);
 
 

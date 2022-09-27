@@ -1,4 +1,5 @@
 import axios from "axios";
+import {PackParamsType} from "./packs-reducer";
 
 const instance = axios.create({
     baseURL: process.env.REACT_APP_URL || "http://localhost:7542/2.0",
@@ -6,8 +7,12 @@ const instance = axios.create({
 });
 
 export const packsAPI = {
-    getPacks(page: number, pageCount: number, userID: string) {
-        return instance.get<RequestPacksType & {cardPacks: Array<PacksType>}>(`/cards/pack?page=${page}&pageCount=${pageCount}&user_id=${userID}`)
+    // getPacks(page: number, pageCount: number, userID: string) {
+    //     return instance.get<RequestPacksType & {cardPacks: Array<PacksType>}>(`/cards/pack?page=${page}&pageCount=${pageCount}&user_id=${userID}`)
+    // },
+    getPacks(params:  PackParamsType) {
+        debugger
+        return instance.get<RequestPacksType & { cardPacks: Array<PacksType> }>(`/cards/pack`, {params})
     },
     addNewPack(name: string, isPrivate: boolean) {
         return instance.post<{ newCardsPack: Array<PacksType> }>(`/cards/pack`, {
@@ -47,7 +52,7 @@ export type PacksType = {
     more_id: string
     __v: number
 }
-export type RequestPacksType =  {
+export type RequestPacksType = {
     page: number
     pageCount: number
     cardPacksTotalCount: number
