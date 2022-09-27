@@ -35,7 +35,7 @@ export const Packs = () => {
 
 
     return (
-        <div>
+        <div className={s.packContainer}>
             <div className={s.mainFilterContainer}>
                 <SearchBar setSearchParam={searchByPackName}/>
                 <PacksFilters/>

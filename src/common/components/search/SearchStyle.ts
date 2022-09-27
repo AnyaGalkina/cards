@@ -14,7 +14,6 @@ export const Search = styled("div")(({theme}) => ({
     width: "100%",
     textAlign: "left",
     [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(3),
         width: "300px",
     },
     display:"flex",

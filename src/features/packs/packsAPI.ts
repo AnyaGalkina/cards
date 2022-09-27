@@ -11,7 +11,6 @@ export const packsAPI = {
     //     return instance.get<RequestPacksType & {cardPacks: Array<PacksType>}>(`/cards/pack?page=${page}&pageCount=${pageCount}&user_id=${userID}`)
     // },
     getPacks(params:  PackParamsType) {
-        debugger
         return instance.get<RequestPacksType & { cardPacks: Array<PacksType> }>(`/cards/pack`, {params})
     },
     addNewPack(name: string, isPrivate: boolean) {
