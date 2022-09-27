@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Dispatch} from "redux";
 import {setAppStatusAC} from "../../../app/app-reducer";
+import {errorUtils} from "../../utils/errorUtils";
 
 
 type OwnerType = "me" | "all";
@@ -10,7 +11,7 @@ const defaultFilterValues = {
     //Data from server
     max: 10,
     owner: "all" as OwnerType,
-    // isFiltersDefaultValues: true
+    search: null as null | string
 }
 
 type DefaultFilterValues = typeof defaultFilterValues;
@@ -19,6 +20,9 @@ export const initialState = {
     min: defaultFilterValues.min,
     max: defaultFilterValues.max,
     owner: defaultFilterValues.owner,
+    page: 4,
+    pageCount: 5,
+    search: defaultFilterValues.search
 }
 
 const slice = createSlice({
@@ -38,26 +42,44 @@ const slice = createSlice({
 
         },
         setOwner: (state, action: PayloadAction<{ owner: OwnerType }>) => {
-
+            state.owner = action.payload.owner
+        },
+        setPage: (state, action: PayloadAction<{ page: number }>) => {
+            state.page = action.payload.page
+        },
+        setPageCount: (state, action: PayloadAction<{ pageCount: number }>) => {
+            state.pageCount = action.payload.pageCount
+        },
+        searchByPackName: (state, action: PayloadAction<{ search: string }>) => {
+            state.search = action.payload.search
         },
     }
 })
 
 export const filtersReducer = slice.reducer;
-export const {setDefaultValues, setMaxValue, setMinValue} = slice.actions;
+export const {setDefaultValues, setPageCount, searchByPackName, setOwner,  setMaxValue, setMinValue, setPage} = slice.actions;
 
 
 // Thunks
-export const removeAllFilters =  () => async (dispatch: Dispatch) => {
+export const removeAllFiltersTC = () => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: "loading"}));
     try {
         // const response =  await packAPI.getpacks();
-        // packAPI:{
-        // get packs...
-        // }
         dispatch(setDefaultValues(defaultFilterValues));
         dispatch(setAppStatusAC({status: "succeeded"}));
-    } catch (e) {
+    } catch (err: any) {
+        errorUtils(err, dispatch);
     }
 }
 
+// export const setPageTC = (page: number) => async (dispatch: Dispatch) => {
+//     dispatch(setAppStatusAC({status: "loading"}));
+//     try {
+//         // const response =  await packAPI.getpacks();
+//
+//         dispatch(setPage({page}));
+//         dispatch(setAppStatusAC({status: "succeeded"}));
+//     } catch (err: any) {
+//         errorUtils(err, dispatch);
+//     }
+// }
