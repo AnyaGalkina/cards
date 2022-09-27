@@ -1,22 +1,38 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Dispatch} from "redux";
 import {setAppStatusAC} from "../../app/app-reducer";
-import {packsAPI, RequestPacksType} from "./packsAPI";
+import {packsAPI, PacksType} from "./packsAPI";
 import {errorUtils} from "../../common/utils/errorUtils";
+
+export const defaultFilterValues = {
+    min: 0,
+    //Data from server?
+    max: 10,
+    isMyPack: false,
+    search: ""
+}
+
+type DefaultFilterValues = typeof defaultFilterValues;
 
 const initialState = {
     params: {
         userId: '',
         page: 1,
-        pageCount: 5
+        pageCount: 5,
+        isMyPack: defaultFilterValues.isMyPack,
+        min: defaultFilterValues.min,
+        max: defaultFilterValues.max,
+        search: defaultFilterValues.search,
+        totalCount: 10
     },
     packs: [
         {
             name: '',
             cardsCount: 0,
+            user_name: '',
             private: false,
             created: ''
-        } as RequestPacksType
+        } as PacksType
     ]
 }
 
@@ -27,22 +43,50 @@ const slice = createSlice({
         getUserId(state, action: PayloadAction<{ userId: string }>) {
             state.params.userId = action.payload.userId
         },
-        getPacks(state, action: PayloadAction<Array<RequestPacksType>>) {
+        setPacks(state, action: PayloadAction<Array<PacksType>>) {
             state.packs = action.payload
+        },
+        removeAllFilters: (state, action: PayloadAction<DefaultFilterValues>) => {
+            state.params.min = action.payload.min;
+            state.params.max = action.payload.max;
+            state.params.isMyPack = action.payload.isMyPack;
+            state.params.search = action.payload.search
+        },
+        setMinValue: (state, action: PayloadAction<{ min: number }>) => {
+            state.params.min = action.payload.min
+        },
+        setMaxValue: (state, action: PayloadAction<{ max: number }>) => {
+            state.params.max = action.payload.max
+        },
+        setOwner: (state, action: PayloadAction<{ isMyPack: boolean }>) => {
+            state.params.isMyPack = action.payload.isMyPack
+        },
+        setPage: (state, action: PayloadAction<{ page: number }>) => {
+            state.params.page = action.payload.page
+        },
+        setPageCount: (state, action: PayloadAction<{ pageCount: number }>) => {
+            state.params.pageCount = action.payload.pageCount
+        },
+        searchByPackName: (state, action: PayloadAction<{ search: string }>) => {
+            state.params.search = action.payload.search
+        },
+        setTotalCount(state, action: PayloadAction<{totalCount: number }>) {
+            state.params.totalCount = action.payload.totalCount
         }
     }
 });
 
 export const packsReducer = slice.reducer;
-export const {getUserId, getPacks} = slice.actions;
+export const {getUserId, setPacks, removeAllFilters, setPageCount, searchByPackName, setOwner,  setMaxValue, setMinValue, setPage, setTotalCount} = slice.actions;
 
 //Thunk
-export const getPacksTC = (page: number, countPage: number, userId: string) => (dispatch: Dispatch) => {
+export const getPacksTC = (page: number, pageCount: number, userId: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: "loading"}))
-    packsAPI.getPacks(page, countPage, userId)
+    packsAPI.getPacks(page, pageCount, userId)
         .then(res => {
                 dispatch(setAppStatusAC({status: "succeeded"}));
-                dispatch(getPacks(res.data.cardPacks))
+                dispatch(setPacks(res.data.cardPacks))
+                dispatch(setTotalCount({totalCount: res.data.cardPacksTotalCount}))
             }
         )
         .catch(err => errorUtils(err, dispatch))

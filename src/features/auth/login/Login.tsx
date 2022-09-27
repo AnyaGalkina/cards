@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import TextField from "@mui/material/TextField";
 import {validator} from "../../../common/utils/validator";
-import {ROUTES} from "../../../common/components/header/nav/Nav";
+import {ROUTES} from "../../../common/enums/enums";
 import {Navigate} from "react-router-dom";
 import RedirectHelper from "../../../common/components/redirectHelper/RedirectHelper";
 import s from "../../../assets/style/formContainer.module.css"

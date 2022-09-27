@@ -7,10 +7,10 @@ const instance = axios.create({
 
 export const packsAPI = {
     getPacks(page: number, pageCount: number, userID: string) {
-        return instance.get<{ cardPacks: Array<RequestPacksType> }>(`/cards/pack?page=${page}&pageCount=${pageCount}&user_id=${userID}`)
+        return instance.get<RequestPacksType & {cardPacks: Array<PacksType>}>(`/cards/pack?page=${page}&pageCount=${pageCount}&user_id=${userID}`)
     },
     addNewPack(name: string, isPrivate: boolean) {
-        return instance.post<{ newCardsPack: RequestPacksType }>(`/cards/pack`, {
+        return instance.post<{ newCardsPack: Array<PacksType> }>(`/cards/pack`, {
             cardsPack: {
                 name,
                 private: isPrivate
@@ -18,10 +18,10 @@ export const packsAPI = {
         })
     },
     deletePack(packId: string) {
-        return instance.delete<{ deletedCardsPack: RequestPacksType }>(`/cards/pack?id=${packId}`)
+        return instance.delete<{ deletedCardsPack: Array<PacksType> }>(`/cards/pack?id=${packId}`)
     },
     updatePackName(packId: string, newName: string) {
-        return instance.put<{ updatedCardsPack: RequestPacksType }>(`/cards/pack`, {
+        return instance.put<{ updatedCardsPack: Array<PacksType> }>(`/cards/pack`, {
             cardsPack: {
                 _id: packId,
                 name: newName
@@ -30,7 +30,7 @@ export const packsAPI = {
     }
 };
 
-export type RequestPacksType = {
+export type PacksType = {
     _id: string
     user_id: string
     user_name: string
@@ -46,4 +46,13 @@ export type RequestPacksType = {
     updated: string
     more_id: string
     __v: number
+}
+export type RequestPacksType =  {
+    page: number
+    pageCount: number
+    cardPacksTotalCount: number
+    minCardsCount: number
+    maxCardsCount: number
+    token: string
+    tokenDeathTime: number
 }

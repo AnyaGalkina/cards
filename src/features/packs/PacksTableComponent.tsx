@@ -7,36 +7,33 @@ import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {TableHeader} from "./TableHeader/TableHeader";
-import {Rating} from "@mui/material";
-import {ResCardType} from "../cardsAPI";
-import {RequestPacksType} from "../../packs/packsAPI";
+import {PacksType} from "./packsAPI";
+import {PacksTableHeader} from "./PacksTableHeader";
+
 
 export interface Data {
-    question: string;
-    answer: string;
+    name: string;
+    cardsCount: number;
     updated: string;
-    grade: number;
-    // actions: string
+    createdBy: string;
+    actions: string
 }
 
 function createData(
-    question: string,
-    answer: string,
+    name: string,
+    cardsCount: number,
     updated: string,
-    grade: number,
-    // actions: string
+    createdBy: string,
+    actions: string
 ): Data {
     return {
-        question,
-        answer,
+        name,
+        cardsCount,
         updated,
-        grade,
-        // actions
+        createdBy,
+        actions
     };
 }
-
-
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -62,17 +59,22 @@ function getComparator<Key extends keyof any>(
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-type TableComponent = {
-    rows: ResCardType[] | RequestPacksType[]
+type PacksTableComponent = {
+    rows: PacksType[]
+    page: number
+    totalCount: number
+    handleChangePage: (event: unknown, newPage: number) => void
+    rowsPerPage: number
+    handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export default function TableComponent(props: TableComponent) {
+export default function PacksTableComponent(props: PacksTableComponent) {
     const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof Data>('question');
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
 
-    const rows = props.rows.map(card => createData(card.question, card.answer, card.updated, card.grade))
+    const rows = props.rows.map(row => {
+        return createData(row.name, row.cardsCount, row.updated, row.user_name, '')
+    })
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
@@ -83,63 +85,52 @@ export default function TableComponent(props: TableComponent) {
         setOrderBy(property);
     };
 
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
     return (
-        <Box sx={{width: '100%', display:'flex', justifyContent: 'center'}}>
-            <Paper sx={{width: '70%'}}>
+        <Box sx={{width: '100%', display: 'flex', justifyContent: 'center', margin: 5}}>
+            <Paper sx={{width: '70%', mb: 2}}>
                 <TableContainer>
                     <Table
                         sx={{minWidth: 750}}
                         aria-labelledby="tableTitle"
                     >
-                        <TableHeader
+                        <PacksTableHeader
                             order={order}
                             orderBy={orderBy}
                             onRequestSort={handleRequestSort}
                         />
                         <TableBody>
-                            {rows.map((row) => {
+                            {
+                                rows.map((row) => {
                                     return (
                                         <TableRow
-                                            key={row.question}
+                                            key={row.name}
                                         >
                                             <TableCell
                                                 component="th"
                                                 scope="row"
                                             >
-                                                {row.question}
+                                                {row.name}
                                             </TableCell>
-                                            <TableCell align="right">{row.answer}</TableCell>
+                                            <TableCell align="right">{row.cardsCount}</TableCell>
                                             <TableCell align="right">{row.updated}</TableCell>
-                                            <TableCell align="right">
-                                                <Rating value={row.grade}/>
-                                            </TableCell>
-                                            {/*<TableCell>*/}
-                                            {/*    {row.actions}*/}
-                                            {/*</TableCell>*/}
+                                            <TableCell align="right">{row.createdBy}</TableCell>
+                                            <TableCell align="right">{row.actions}</TableCell>
                                             {/*if my pack add actions* edit delete/*/}
                                         </TableRow>
                                     );
-                                })}
+                                })
+                            }
                         </TableBody>
                     </Table>
                 </TableContainer>
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={rows.length} //totalCount
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    count={props.totalCount}
+                    rowsPerPage={props.rowsPerPage}
+                    page={props.page}
+                    onPageChange={props.handleChangePage}
+                    onRowsPerPageChange={props.handleChangeRowsPerPage}
                 />
             </Paper>
         </Box>

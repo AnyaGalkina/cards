@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useAppSelector} from "../../common/hooks/useAppSelector";
 import {Navigate} from "react-router-dom";
-import {ROUTES} from "../../common/components/header/nav/Nav";
+import {ROUTES} from "../../common/enums/enums";
 import CardsTable from "./CardsTable";
 import {getCardsTC} from "./cards-reducer";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
