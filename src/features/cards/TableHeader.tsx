@@ -8,43 +8,27 @@ import {visuallyHidden} from "@mui/utils";
 import {CardsData, Order} from "./CardsTableComponent";
 
 interface HeadCell {
-    disablePadding: boolean;
     id: keyof CardsData;
     label: string;
-    numeric: boolean;
 }
 
 const headCells: readonly HeadCell[] = [
     {
         id: 'question',
-        numeric: false,
-        disablePadding: true,
-        label: 'Question',
+        label: 'Question'
     },
     {
         id: 'answer',
-        numeric: true,
-        disablePadding: false,
-        label: 'Answer',
+        label: 'Answer'
     },
     {
         id: 'updated',
-        numeric: true,
-        disablePadding: false,
-        label: 'Last Updated',
+        label: 'Last Updated'
     },
     {
         id: 'grade',
-        numeric: true,
-        disablePadding: false,
-        label: 'Grade',
+        label: 'Grade'
     }
-    // {
-    //     id: 'actions',
-    //     numeric: true,
-    //     disablePadding: false,
-    //     label: '',
-    // },
 ];
 
 interface TableHeaderProps {
@@ -66,8 +50,7 @@ export function TableHeader(props: TableHeaderProps) {
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        align={headCell.numeric ? 'right' : 'left'}
-                        padding={headCell.disablePadding ? 'none' : 'normal'}
+                        align={'right'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
                         <TableSortLabel
@@ -76,6 +59,7 @@ export function TableHeader(props: TableHeaderProps) {
                             onClick={createSortHandler(headCell.id)}
                         >
                             {headCell.label}
+
                             {orderBy === headCell.id ? (
                                 <Box component="span" sx={visuallyHidden}>
                                     {order === 'desc' ? 'sorted descending' : 'sorted ascending'}

@@ -56,9 +56,9 @@ const Cards = () => {
             <Typography variant="h5" gutterBottom>
                 {packName}
             </Typography>
-            {/*// search // learn button | add new card*/}
-            <Button variant={'contained'} color={'primary'} onClick={addCardHandler} endIcon={<Create/>}>
-              new card
+            {/*// search // learn button*/}
+            <Button variant={'contained'} color={'primary'} onClick={addCardHandler} endIcon={<Create/>}> {/*dont show when you are friends pack*/}
+                new card
             </Button>
             <CardsTableComponent
                 rows={cards}
