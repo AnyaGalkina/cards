@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {PacksType} from "./packsAPI";
+import {PacksType} from "../packsAPI";
 import {PacksTableHeader} from "./PacksTableHeader";
 
 
@@ -38,29 +38,29 @@ function createData(
     };
 }
 
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
-}
+// function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+//     if (b[orderBy] < a[orderBy]) {
+//         return -1;
+//     }
+//     if (b[orderBy] > a[orderBy]) {
+//         return 1;
+//     }
+//     return 0;
+// }
 
 export type Order = 'asc' | 'desc';
 
-function getComparator<Key extends keyof any>(
-    order: Order,
-    orderBy: Key,
-): (
-    a: { [key in Key]: number | string },
-    b: { [key in Key]: number | string },
-) => number {
-    return order === 'desc'
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
-}
+// function getComparator<Key extends keyof any>(
+//     order: Order,
+//     orderBy: Key,
+// ): (
+//     a: { [key in Key]: number | string },
+//     b: { [key in Key]: number | string },
+// ) => number {
+//     return order === 'desc'
+//         ? (a, b) => descendingComparator(a, b, orderBy)
+//         : (a, b) => -descendingComparator(a, b, orderBy);
+// }
 
 type PacksTableComponent = {
     rows: PacksType[]
