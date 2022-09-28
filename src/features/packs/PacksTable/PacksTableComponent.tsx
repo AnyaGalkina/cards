@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import {PacksType} from "../packsAPI";
 import {PacksTableHeader} from "./PacksTableHeader";
 import {useNavigate} from "react-router-dom";
-
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export interface Data {
     name: string;
@@ -18,7 +18,8 @@ export interface Data {
     updated: string;
     createdBy: string;
     actions: string;
-    id: string
+    id: string;
+    userIdFromPack: string
 }
 
 function createData(
@@ -27,7 +28,8 @@ function createData(
     updated: string,
     createdBy: string,
     actions: string,
-    id: string
+    id: string,
+    userIdFromPack: string
 ): Data {
     return {
         name,
@@ -35,7 +37,8 @@ function createData(
         updated,
         createdBy,
         actions,
-        id
+        id,
+        userIdFromPack
     };
 }
 
@@ -64,26 +67,24 @@ export type Order = 'asc' | 'desc';
 // }
 
 type PacksTableComponent = {
+    userId: string
     rows: PacksType[]
     page: number
     totalCount: number
     handleChangePage: (event: unknown, newPage: number) => void
     rowsPerPage: number
     handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
+    deletePack: (packId: string) => void
 }
 
 export default function PacksTableComponent(props: PacksTableComponent) {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
-
     const rows = props.rows.map(row => {
-        return createData(row.name, row.cardsCount, row.updated, row.user_name, '', row._id)
-    })
+        return createData(row.name, row.cardsCount, row.updated, row.user_name, '', row._id, row.user_id)
+    });
 
-    const handleRequestSort = (
-        event: React.MouseEvent<unknown>,
-        property: keyof Data,
-    ) => {
+    const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data,) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
@@ -125,7 +126,14 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                                             <TableCell align="right">{row.cardsCount}</TableCell>
                                             <TableCell align="right">{row.updated}</TableCell>
                                             <TableCell align="right">{row.createdBy}</TableCell>
-                                            <TableCell align="right">{row.actions}</TableCell>
+                                            <TableCell align="right">
+                                                {row.userIdFromPack === props.userId
+                                                    ? <DeleteIcon
+                                                        onClick={() => {
+                                                            props.deletePack(row.id)
+                                                        }}/>
+                                                    : null}
+                                            </TableCell>
                                             {/*if my pack add actions* edit delete/*/}
                                         </TableRow>
                                     );
