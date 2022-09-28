@@ -21,7 +21,7 @@ const headCells: readonly HeadCell[] = [
     {
         id: "name",
         numeric: false,
-        disablePadding: true,
+        disablePadding: false,
         label: "Name",
     },
     {
@@ -75,7 +75,7 @@ export function PacksTableHeader(props: TableHeaderProps) {
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        align={headCell.numeric ? "right" : "left"}
+                        align={"left"}
                         padding={headCell.disablePadding ? "none" : "normal"}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
