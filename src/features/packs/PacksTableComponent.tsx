@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {PacksType} from "./packsAPI";
 import {PacksTableHeader} from "./PacksTableHeader";
+import {useNavigate} from "react-router-dom";
 
 
 export interface Data {
@@ -88,6 +89,12 @@ export default function PacksTableComponent(props: PacksTableComponent) {
         setOrderBy(property);
     };
 
+    const navigate = useNavigate()
+
+    const onClickHandler = (id: string) => {
+        navigate(`/cards/card/${id}`)
+    }
+
     return (
         <Box sx={{width: '100%', display: 'flex', justifyContent: 'center', margin: 5}}>
             <Paper sx={{width: '70%', mb: 2}}>
@@ -111,6 +118,7 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                                             <TableCell
                                                 component="th"
                                                 scope="row"
+                                                onClick={()=> onClickHandler(row.id)}
                                             >
                                                 {row.name}
                                             </TableCell>

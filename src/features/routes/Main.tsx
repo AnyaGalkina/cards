@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Profile from "../profile/profile-page/Profile";
 import Login from "../auth/login/Login";
 import {SetPassword} from "../auth/new-password/SetPassword";
@@ -50,10 +50,13 @@ const Main = () => {
                 <Route path={ROUTES.SET_PASSWORD} element={<SetPassword/>}/>
                 <Route path={ROUTES.CHECK_EMAIL} element={<CheckEmail/>}/>
                 <Route path={ROUTES.PAGE_NOT_FOUND} element={<PageNotFound/>}/>
-                <Route path={"/*"} element={<Navigate to={ROUTES.PAGE_NOT_FOUND}/>}/>
-                <Route path={ROUTES.CARDS} element={<Cards/>}/>
+                <Route path={ROUTES.CARDS} element={<Cards/>}>
+                    <Route path=':cardsPack_id' element={<Cards/>}/>
+                    </Route>
                 <Route path={ROUTES.PACKS} element={<Packs/>}/>
                 <Route path={ROUTES.TEST} element={<Test/>}/>
+                {/*<Route path={"/*"} element={<Navigate to={ROUTES.PAGE_NOT_FOUND}/>}/>*/}
+                {/*звездочка всегда внизу*/}
             </Routes>
         </div>
     );

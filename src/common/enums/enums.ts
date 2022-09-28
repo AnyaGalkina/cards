@@ -6,7 +6,7 @@ export enum ROUTES {
     SET_PASSWORD = "/set-new-password/:token",
     CHECK_EMAIL= "/check-email",
     PAGE_NOT_FOUND = "/404",
-    CARDS = '/cards/card',
+    CARDS = '/cards/card/', // :id
     PACKS = '/cards/pack',
     TEST = "/test",
 }
