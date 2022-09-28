@@ -8,7 +8,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {PacksType} from "../packsAPI";
-import {PacksTableHeader} from "./PacksTableHeader";
+import {PacksTableHeader} from "./PacksTableHeader/PacksTableHeader";
 import {useNavigate} from "react-router-dom";
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
@@ -104,6 +104,9 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                                                 align="left"
                                                 component="th"
                                                 scope="row"
+                                                onClick={() => {
+                                                    onClickHandler(row.id)
+                                                }}
                                             >
                                                 {row.name}
                                             </TableCell>
@@ -111,10 +114,7 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                                             <TableCell align="left">{row.updated}</TableCell>
                                             <TableCell align="left">{row.createdBy}</TableCell>
                                             <TableCell align="left">
-                                                <MenuOutlinedIcon
-                                                    onClick={() => {
-                                                        onClickHandler(row.id)
-                                                    }}/>
+                                                <MenuOutlinedIcon/>
                                                 {row.userIdFromPack === props.userId
                                                     ?
                                                     <>
@@ -148,5 +148,6 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                 />
             </Paper>
         </Box>
-    );
+    )
+        ;
 }
