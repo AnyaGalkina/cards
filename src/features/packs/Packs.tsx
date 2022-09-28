@@ -1,7 +1,15 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {useAppSelector} from "../../common/hooks/useAppSelector";
-import {addNewPackTC, deletePackTC, getPacksTC, searchByPackName, setPage, setPageCount} from "./packs-reducer";
+import {
+    addNewPackTC,
+    deletePackTC,
+    getPacksTC,
+    searchByPackName,
+    setPage,
+    setPageCount,
+    updatePacksNameTC
+} from "./packs-reducer";
 import {PacksFilters} from "../filters/PacksFilters";
 import {SearchBar} from "../../common/components/search/Search";
 import s from "./Packs.module.css";
@@ -44,6 +52,10 @@ export const Packs = () => {
         dispatch(deletePackTC(packId))
     }, [])
 
+    const updatePacksName = useCallback((packId: string) => {
+        dispatch(updatePacksNameTC(packId, 'updated name'))
+    }, [])
+
 
     return (
         <div className={s.packContainer}>
@@ -63,6 +75,7 @@ export const Packs = () => {
                 rowsPerPage={pageCount}
                 handleChangeRowsPerPage={handleChangeRowsPerPage}
                 deletePack={deletePack}
+                updatePacksName={updatePacksName}
             />
         </div>
     )

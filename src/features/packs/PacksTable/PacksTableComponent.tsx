@@ -12,6 +12,7 @@ import {PacksTableHeader} from "./PacksTableHeader";
 import {useNavigate} from "react-router-dom";
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 
 export interface Data {
     name: string;
@@ -43,29 +44,7 @@ function createData(
     };
 }
 
-// function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-//     if (b[orderBy] < a[orderBy]) {
-//         return -1;
-//     }
-//     if (b[orderBy] > a[orderBy]) {
-//         return 1;
-//     }
-//     return 0;
-// }
-
 export type Order = 'asc' | 'desc';
-
-// function getComparator<Key extends keyof any>(
-//     order: Order,
-//     orderBy: Key,
-// ): (
-//     a: { [key in Key]: number | string },
-//     b: { [key in Key]: number | string },
-// ) => number {
-//     return order === 'desc'
-//         ? (a, b) => descendingComparator(a, b, orderBy)
-//         : (a, b) => -descendingComparator(a, b, orderBy);
-// }
 
 type PacksTableComponent = {
     userId: string
@@ -76,6 +55,7 @@ type PacksTableComponent = {
     rowsPerPage: number
     handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
     deletePack: (packId: string) => void
+    updatePacksName: (packId: string) => void
 }
 
 export default function PacksTableComponent(props: PacksTableComponent) {
@@ -129,12 +109,21 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                                             <TableCell align="left">{row.createdBy}</TableCell>
                                             <TableCell align="left">
                                                 <MenuOutlinedIcon
-                                                    onClick={() => {onClickHandler(row.id)}}/>
+                                                    onClick={() => {
+                                                        onClickHandler(row.id)
+                                                    }}/>
                                                 {row.userIdFromPack === props.userId
-                                                    ? <DeleteOutlinedIcon
-                                                        onClick={() => {
-                                                            props.deletePack(row.id)
-                                                        }}/>
+                                                    ?
+                                                    <>
+                                                        <CreateOutlinedIcon
+                                                            onClick={() => {
+                                                                props.updatePacksName(row.id)
+                                                            }}/>
+                                                        <DeleteOutlinedIcon
+                                                            onClick={() => {
+                                                                props.deletePack(row.id)
+                                                            }}/>
+                                                    </>
                                                     : null}
                                             </TableCell>
                                             {/*if my pack add actions* edit delete/*/}
@@ -156,5 +145,6 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                 />
             </Paper>
         </Box>
-    );
+    )
+        ;
 }

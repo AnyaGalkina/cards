@@ -149,3 +149,15 @@ export const deletePackTC = (packId: string) => async (dispatch: Dispatch<any>) 
         dispatch(setAppStatusAC({status: "succeeded"}));
     }
 };
+
+export const updatePacksNameTC = (packId: string, newName: string) => async (dispatch: Dispatch<any>) => {
+    dispatch(setAppStatusAC({status: "loading"}))
+    try {
+        const res = await packsAPI.updatePackName(packId, newName)
+        dispatch(getPacksTC())
+    } catch (err: any) {
+        errorUtils(err, dispatch)
+    } finally {
+        dispatch(setAppStatusAC({status: "succeeded"}));
+    }
+};
