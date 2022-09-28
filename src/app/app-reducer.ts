@@ -3,6 +3,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {setUserAC} from "../features/profile/profile-page/profile-reducer";
 import {authAPI} from "../features/auth/authAPI";
 import {setIsLoggedInAC, setRecoveryPassword} from "../features/auth/auth-reducer";
+import {setUserId} from "../features/packs/packs-reducer";
 
 const initialState: initialStateType = {
     status: 'idle',
@@ -37,6 +38,7 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
     authAPI.me().then(res => {
         dispatch(setIsLoggedInAC({value: true}));
         dispatch(setUserAC(res.data))
+        dispatch(setUserId({userId: res.data._id}))
     })
         .finally(() => {
             dispatch(setAppIsInitializedAC({isInitialized: true}));

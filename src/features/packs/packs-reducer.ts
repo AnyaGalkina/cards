@@ -41,7 +41,7 @@ const slice = createSlice({
     name: "packs",
     initialState,
     reducers: {
-        getUserId(state, action: PayloadAction<{ userId: string }>) {
+        setUserId(state, action: PayloadAction<{ userId: string }>) {
             state.params.userId = action.payload.userId
         },
         setPacks(state, action: PayloadAction<Array<PacksType>>) {
@@ -79,7 +79,7 @@ const slice = createSlice({
 
 export const packsReducer = slice.reducer;
 export const {
-    getUserId,
+    setUserId,
     setPacks,
     removeAllFilters,
     setPageCount,
@@ -90,20 +90,6 @@ export const {
     setPage,
     setTotalCount
 } = slice.actions;
-
-//Thunk
-// export const getPacksTC = (page: number, pageCount: number, userId: string) => (dispatch: Dispatch) => {
-//     dispatch(setAppStatusAC({status: "loading"}))
-//     packsAPI.getPacks(page, pageCount, userId)
-//         .then(res => {
-//                 dispatch(setAppStatusAC({status: "succeeded"}));
-//                 dispatch(setPacks(res.data.cardPacks))
-//                 dispatch(setTotalCount({totalCount: res.data.cardPacksTotalCount}))
-//             }
-//         )
-//         .catch(err => errorUtils(err, dispatch))
-// }
-
 
 export type PackParamsType = {
     pageCount?: number;
@@ -150,4 +136,16 @@ export const addNewPackTC = (name: string, isPrivate: boolean) => async (dispatc
     } finally {
         dispatch(setAppStatusAC({status: "succeeded"}));
     }
-}
+};
+
+export const deletePackTC = (packId: string) => async (dispatch: Dispatch<any>) => {
+    dispatch(setAppStatusAC({status: "loading"}))
+    try {
+        const res = await packsAPI.deletePack(packId)
+        dispatch(getPacksTC())
+    } catch (err: any) {
+        errorUtils(err, dispatch)
+    } finally {
+        dispatch(setAppStatusAC({status: "succeeded"}));
+    }
+};
