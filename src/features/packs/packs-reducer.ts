@@ -114,6 +114,7 @@ export type PackParamsType = {
     search?: string
 }
 
+//Thunk
 export const getPacksTC = () => async (dispatch: Dispatch, getState: () => AppRootState) => {
 
     const {userId, pageCount, page, isMyPack, min, max, search} = getState().packs.params
@@ -135,5 +136,18 @@ export const getPacksTC = () => async (dispatch: Dispatch, getState: () => AppRo
         dispatch(setTotalCount({totalCount: res.data.cardPacksTotalCount}))
     } catch (err: any) {
         errorUtils(err, dispatch);
+    }
+};
+
+export const addNewPackTC = (name: string, isPrivate: boolean) => async (dispatch: Dispatch<any>) => {
+    dispatch(setAppStatusAC({status: "loading"}))
+    try {
+        const res = await packsAPI.addNewPack(name, isPrivate);
+        dispatch(getPacksTC())
+
+    } catch (err: any) {
+        errorUtils(err, dispatch)
+    } finally {
+        dispatch(setAppStatusAC({status: "succeeded"}));
     }
 }

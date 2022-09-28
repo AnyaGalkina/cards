@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {useAppSelector} from "../../common/hooks/useAppSelector";
-import {getPacksTC, searchByPackName, setPage, setPageCount} from "./packs-reducer";
+import {addNewPackTC, getPacksTC, searchByPackName, setPage, setPageCount} from "./packs-reducer";
 import {PacksFilters} from "../filters/PacksFilters";
 import {SearchBar} from "../../common/components/search/Search";
 import s from "./Packs.module.css";
-import PacksTableComponent from "./PacksTableComponent";
+import PacksTableComponent from "./PacksTable/PacksTableComponent";
+import {CustomButton} from "./CustomButton/CustomButton";
 
 export const Packs = () => {
     const dispatch = useAppDispatch();
@@ -31,13 +32,21 @@ export const Packs = () => {
         dispatch(setPageCount({pageCount: parseInt(event.target.value, 10)}))
     };
 
+    const handleChangeAddNewPack = () => {
+        dispatch(addNewPackTC('created pack', false))
+    }
+
     useEffect(() => {
         dispatch(getPacksTC())
     }, [pageCount, page, search, min, max, isMyPack]);
 
 
     return (
+
         <div className={s.packContainer}>
+            <CustomButton
+                name={'Add new Pack'}
+                onClickHandler={handleChangeAddNewPack}/>
             <div className={s.mainFilterContainer}>
                 <SearchBar setSearchParam={searchByPackName}/>
                 <PacksFilters/>
