@@ -10,9 +10,9 @@ import Paper from '@mui/material/Paper';
 import {PacksType} from "../packsAPI";
 import {PacksTableHeader} from "./PacksTableHeader";
 import {useNavigate} from "react-router-dom";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import {SortPacksType} from "../packs-reducer";
-
 
 export interface Data {
     name: string;
@@ -121,18 +121,20 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                                             key={row.id}
                                         >
                                             <TableCell
+                                                align="left"
                                                 component="th"
                                                 scope="row"
-                                                onClick={()=> onClickHandler(row.id)}
                                             >
                                                 {row.name}
                                             </TableCell>
-                                            <TableCell align="right">{row.cardsCount}</TableCell>
-                                            <TableCell align="right">{row.updated}</TableCell>
-                                            <TableCell align="right">{row.createdBy}</TableCell>
-                                            <TableCell align="right">
+                                            <TableCell align="left">{row.cardsCount}</TableCell>
+                                            <TableCell align="left">{row.updated}</TableCell>
+                                            <TableCell align="left">{row.createdBy}</TableCell>
+                                            <TableCell align="left">
+                                                <MenuOutlinedIcon
+                                                    onClick={() => {onClickHandler(row.id)}}/>
                                                 {row.userIdFromPack === props.userId
-                                                    ? <DeleteIcon
+                                                    ? <DeleteOutlinedIcon
                                                         onClick={() => {
                                                             props.deletePack(row.id)
                                                         }}/>
