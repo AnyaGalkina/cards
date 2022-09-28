@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {CardQueryParamsType, cardsAPI, ResGetCardsType} from "./cardsAPI";
+import {CardQueryParamsType, cardsAPI, NewCardType, ResGetCardsType} from "./cardsAPI";
 import {Dispatch} from "redux";
 import {setAppStatusAC} from "../../app/app-reducer";
 import {errorUtils} from "../../common/utils/errorUtils";
@@ -13,7 +13,8 @@ const initialState = {
         minGrade: 0,
         page: 0,
         pageCount: 10,
-        packUserId: ''
+        packUserId: '',
+        packName: ''
     } as ResGetCardsType,
     params: {
         cardsPack_id: '',
@@ -48,6 +49,19 @@ export const getCardsTC = (params: CardQueryParamsType) => async (dispatch: Disp
 
         dispatch(setCardsAC(res.data))
 
+        dispatch(setAppStatusAC({status: 'succeeded'}))
+    } catch (e) {
+        errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
+        dispatch(setAppStatusAC({status: 'failed'}))
+    }
+}
+
+export const addCardsTC = (data: NewCardType) => async (dispatch: any) => {
+    try {
+        dispatch(setAppStatusAC({status: 'loading'}))
+        let res = await cardsAPI.createCard(data)
+
+        dispatch(getCardsTC({cardsPack_id: data.card.cardsPack_id}))
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e) {
         errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)

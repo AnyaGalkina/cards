@@ -16,7 +16,7 @@ export interface CardsData {
     question: string;
     answer: string;
     updated: string;
-    grade: number;
+    grade: number | undefined,
     // actions: string
 }
 
@@ -24,7 +24,7 @@ function createData(
     question: string,
     answer: string,
     updated: string,
-    grade: number,
+    grade: number | undefined,
     // actions: string
 ): CardsData {
     return {
@@ -50,9 +50,6 @@ type CardsTableComponent = {
 export const CardsTableComponent = (props: CardsTableComponent) => {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof CardsData>('question');
-
-    // const [page, setPage] = React.useState(0);
-    // const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const rows = props.rows.map(card => createData(card.question, card.answer, card.updated, card.grade))
 

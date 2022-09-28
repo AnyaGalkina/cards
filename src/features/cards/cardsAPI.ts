@@ -37,13 +37,17 @@ export type ResGetCardsType = {
     page: number
     pageCount: number
     packUserId: string
+    packName: string,
 }
+
+
+
 
 export type CardType = {
     cardsPack_id: string
     question: string
     answer: string
-    grade: number
+    grade?: number
     shots?: number
     answerImg?: string
     questionImg?: string
@@ -62,6 +66,7 @@ export type ResCardType = CardType &
         created: string;
         updated: string;
         __v: number;
+
     }
 
 export type NewCardType = {
