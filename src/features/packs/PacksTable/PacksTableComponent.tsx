@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import {PacksType} from "../packsAPI";
 import {PacksTableHeader} from "./PacksTableHeader";
 import {useNavigate} from "react-router-dom";
+import {SortPacksType} from "../packs-reducer";
 
 
 export interface Data {
@@ -70,6 +71,7 @@ type PacksTableComponent = {
     handleChangePage: (event: unknown, newPage: number) => void
     rowsPerPage: number
     handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
+    sortPacks: SortPacksType
 }
 
 export default function PacksTableComponent(props: PacksTableComponent) {
@@ -107,6 +109,7 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                             order={order}
                             orderBy={orderBy}
                             onRequestSort={handleRequestSort}
+                            sortPacks={props.sortPacks}
                         />
                         <TableBody>
                             {

@@ -17,6 +17,7 @@ export const Packs = () => {
     const max = useAppSelector(state => state.packs.params.max);
     const pageCount = useAppSelector(state => state.packs.params.pageCount);
     const search = useAppSelector(state => state.packs.params.search);
+    const sortPacks = useAppSelector (state => state.packs.params.sortPacks);
 
     //need this useState because Pagination starts with 0
     const [page, setPageS] = useState(0);
@@ -38,7 +39,7 @@ export const Packs = () => {
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [pageCount, page, search, min, max, isMyPack]);
+    }, [pageCount, page, search, min, max, isMyPack, sortPacks]);
 
 
     return (
@@ -58,6 +59,7 @@ export const Packs = () => {
                 handleChangePage={handleChangePage}
                 rowsPerPage={pageCount}
                 handleChangeRowsPerPage={handleChangeRowsPerPage}
+                sortPacks={sortPacks}
             />
         </div>
     )

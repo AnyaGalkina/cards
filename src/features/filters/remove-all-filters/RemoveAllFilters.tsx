@@ -10,7 +10,6 @@ export const RemoveAllFilters = () => {
 
     const onRemoveAllFiltersClickHandler = () => {
         dispatch(removeAllFilters(defaultFilterValues));
-        console.log("you set all values to default")
     }
 
     return (

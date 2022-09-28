@@ -10,10 +10,12 @@ export const defaultFilterValues = {
     //Data from server?
     max: 10,
     isMyPack: false,
-    search: ""
+    search: "",
+    sortPacks: "0updated" as SortPacksType
 }
 
 type DefaultFilterValues = typeof defaultFilterValues;
+export type SortPacksType = "0updated" | "1updated";
 
 const initialState = {
     params: {
@@ -24,7 +26,8 @@ const initialState = {
         min: defaultFilterValues.min,
         max: defaultFilterValues.max,
         search: defaultFilterValues.search,
-        totalCount: 10
+        totalCount: 10,
+        sortPacks: defaultFilterValues.sortPacks
     },
     packs: [
         {
@@ -41,17 +44,18 @@ const slice = createSlice({
     name: "packs",
     initialState,
     reducers: {
-        getUserId(state, action: PayloadAction<{ userId: string }>) {
+        getUserId:(state, action: PayloadAction<{ userId: string }>)  =>{
             state.params.userId = action.payload.userId
         },
-        setPacks(state, action: PayloadAction<Array<PacksType>>) {
+        setPacks:(state, action: PayloadAction<Array<PacksType>>) => {
             state.packs = action.payload
         },
         removeAllFilters: (state, action: PayloadAction<DefaultFilterValues>) => {
             state.params.min = action.payload.min;
             state.params.max = action.payload.max;
             state.params.isMyPack = action.payload.isMyPack;
-            state.params.search = action.payload.search
+            state.params.search = action.payload.search;
+            state.params.sortPacks = action.payload.sortPacks;
         },
         setMinValue: (state, action: PayloadAction<{ min: number }>) => {
             state.params.min = action.payload.min
@@ -71,8 +75,11 @@ const slice = createSlice({
         searchByPackName: (state, action: PayloadAction<{ search: string }>) => {
             state.params.search = action.payload.search
         },
-        setTotalCount(state, action: PayloadAction<{ totalCount: number }>) {
+        setTotalCount:(state, action: PayloadAction<{ totalCount: number }>)  => {
             state.params.totalCount = action.payload.totalCount
+        },
+        setSortPacksByDate:(state, action: PayloadAction<{ sortPacks: SortPacksType }>) => {
+            state.params.sortPacks = action.payload.sortPacks
         }
     }
 });
@@ -88,21 +95,9 @@ export const {
     setMaxValue,
     setMinValue,
     setPage,
-    setTotalCount
+    setTotalCount,
+    setSortPacksByDate
 } = slice.actions;
-
-//Thunk
-// export const getPacksTC = (page: number, pageCount: number, userId: string) => (dispatch: Dispatch) => {
-//     dispatch(setAppStatusAC({status: "loading"}))
-//     packsAPI.getPacks(page, pageCount, userId)
-//         .then(res => {
-//                 dispatch(setAppStatusAC({status: "succeeded"}));
-//                 dispatch(setPacks(res.data.cardPacks))
-//                 dispatch(setTotalCount({totalCount: res.data.cardPacksTotalCount}))
-//             }
-//         )
-//         .catch(err => errorUtils(err, dispatch))
-// }
 
 
 export type PackParamsType = {
@@ -110,28 +105,30 @@ export type PackParamsType = {
     page?: number;
     min?: number;
     max?: number;
-    userId?: string;
-    search?: string
+    user_id?: string;
+    packName?: string;
+    sortPacks?: SortPacksType;
+    block?: boolean;
 }
 
 //Thunk
 export const getPacksTC = () => async (dispatch: Dispatch, getState: () => AppRootState) => {
 
-    const {userId, pageCount, page, isMyPack, min, max, search} = getState().packs.params
-    let params: PackParamsType = {pageCount, page, min, max};
+    const {userId, pageCount, page, isMyPack, min, max, search, sortPacks} = getState().packs.params
+    let params: PackParamsType = {pageCount, page, min, max, sortPacks};
 
     if (isMyPack) {
-        params = {...params, userId}
+        params = {...params, user_id: userId}
     }
     if (search) {
-        params = {...params, search}
+        params = {...params, packName: search}
     }
+
 
     dispatch(setAppStatusAC({status: "loading"}))
     try {
         const res = await packsAPI.getPacks(params);
-        // const res = await packsAPI.getPacks({pageCount, page, userId, min, max, search});
-        dispatch(setPacks(res.data.cardPacks))
+        dispatch(setPacks(res.data.cardPacks));
         dispatch(setAppStatusAC({status: "succeeded"}));
         dispatch(setTotalCount({totalCount: res.data.cardPacksTotalCount}))
     } catch (err: any) {
