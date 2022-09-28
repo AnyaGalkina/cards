@@ -18,12 +18,11 @@ export const Packs = () => {
     const pageCount = useAppSelector(state => state.packs.params.pageCount);
     const search = useAppSelector(state => state.packs.params.search);
     const userId = useAppSelector(state => state.packs.params.userId);
+    const sortPacks = useAppSelector (state => state.packs.params.sortPacks);
+
     //need this useState because Pagination starts with 0
     const [page, setPageS] = useState(0);
 
-    useEffect(() => {
-        dispatch(getPacksTC())
-    }, [pageCount, page, search, min, max, isMyPack]);
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPageS(newPage);
@@ -44,8 +43,13 @@ export const Packs = () => {
         dispatch(deletePackTC(packId))
     }, [])
 
+    useEffect(() => {
+        dispatch(getPacksTC())
+    }, [pageCount, page, search, min, max, isMyPack, sortPacks]]);
+
 
     return (
+
         <div className={s.packContainer}>
             <CustomButton
                 name={'Add new Pack'}
@@ -63,6 +67,7 @@ export const Packs = () => {
                 rowsPerPage={pageCount}
                 handleChangeRowsPerPage={handleChangeRowsPerPage}
                 deletePack={deletePack}
+                sortPacks={sortPacks}
             />
         </div>
     )

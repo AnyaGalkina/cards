@@ -11,6 +11,8 @@ import {PacksType} from "../packsAPI";
 import {PacksTableHeader} from "./PacksTableHeader";
 import {useNavigate} from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
+import {SortPacksType} from "../packs-reducer";
+
 
 export interface Data {
     name: string;
@@ -75,6 +77,7 @@ type PacksTableComponent = {
     rowsPerPage: number
     handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
     deletePack: (packId: string) => void
+    sortPacks: SortPacksType
 }
 
 export default function PacksTableComponent(props: PacksTableComponent) {
@@ -108,6 +111,7 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                             order={order}
                             orderBy={orderBy}
                             onRequestSort={handleRequestSort}
+                            sortPacks={props.sortPacks}
                         />
                         <TableBody>
                             {
