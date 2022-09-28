@@ -7,10 +7,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {PacksType} from "./packsAPI";
-import {PacksTableHeader} from "./PacksTableHeader";
+import {PacksType} from "../packsAPI";
+import {PacksTableHeader} from "./PacksTableHeader/PacksTableHeader";
 import {useNavigate} from "react-router-dom";
-
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+import {SortPacksType} from "../packs-reducer";
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 
 export interface Data {
     name: string;
@@ -18,7 +21,8 @@ export interface Data {
     updated: string;
     createdBy: string;
     actions: string;
-    id: string
+    id: string;
+    userIdFromPack: string
 }
 
 function createData(
@@ -27,7 +31,8 @@ function createData(
     updated: string,
     createdBy: string,
     actions: string,
-    id: string
+    id: string,
+    userIdFromPack: string
 ): Data {
     return {
         name,
@@ -35,55 +40,34 @@ function createData(
         updated,
         createdBy,
         actions,
-        id
+        id,
+        userIdFromPack
     };
-}
-
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
 }
 
 export type Order = 'asc' | 'desc';
 
-function getComparator<Key extends keyof any>(
-    order: Order,
-    orderBy: Key,
-): (
-    a: { [key in Key]: number | string },
-    b: { [key in Key]: number | string },
-) => number {
-    return order === 'desc'
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
 type PacksTableComponent = {
+    userId: string
     rows: PacksType[]
     page: number
     totalCount: number
     handleChangePage: (event: unknown, newPage: number) => void
     rowsPerPage: number
     handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
+    deletePack: (packId: string) => void
+    updatePacksName: (packId: string) => void
+    sortPacks: SortPacksType
 }
 
 export default function PacksTableComponent(props: PacksTableComponent) {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
-
     const rows = props.rows.map(row => {
-        return createData(row.name, row.cardsCount, row.updated, row.user_name, '', row._id)
-    })
+        return createData(row.name, row.cardsCount, row.updated, row.user_name, '', row._id, row.user_id)
+    });
 
-    const handleRequestSort = (
-        event: React.MouseEvent<unknown>,
-        property: keyof Data,
-    ) => {
+    const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data,) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
@@ -107,6 +91,7 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                             order={order}
                             orderBy={orderBy}
                             onRequestSort={handleRequestSort}
+                            sortPacks={props.sortPacks}
                         />
                         <TableBody>
                             {
@@ -116,16 +101,34 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                                             key={row.id}
                                         >
                                             <TableCell
+                                                align="left"
                                                 component="th"
                                                 scope="row"
-                                                onClick={()=> onClickHandler(row.id)}
+                                                onClick={() => {
+                                                    onClickHandler(row.id)
+                                                }}
                                             >
                                                 {row.name}
                                             </TableCell>
-                                            <TableCell align="right">{row.cardsCount}</TableCell>
-                                            <TableCell align="right">{row.updated}</TableCell>
-                                            <TableCell align="right">{row.createdBy}</TableCell>
-                                            <TableCell align="right">{row.actions}</TableCell>
+                                            <TableCell align="left">{row.cardsCount}</TableCell>
+                                            <TableCell align="left">{row.updated}</TableCell>
+                                            <TableCell align="left">{row.createdBy}</TableCell>
+                                            <TableCell align="left">
+                                                <MenuOutlinedIcon/>
+                                                {row.userIdFromPack === props.userId
+                                                    ?
+                                                    <>
+                                                        <CreateOutlinedIcon
+                                                            onClick={() => {
+                                                                props.updatePacksName(row.id)
+                                                            }}/>
+                                                        <DeleteOutlinedIcon
+                                                            onClick={() => {
+                                                                props.deletePack(row.id)
+                                                            }}/>
+                                                    </>
+                                                    : null}
+                                            </TableCell>
                                             {/*if my pack add actions* edit delete/*/}
                                         </TableRow>
                                     );
@@ -145,5 +148,6 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                 />
             </Paper>
         </Box>
-    );
+    )
+        ;
 }
