@@ -10,10 +10,12 @@ export const defaultFilterValues = {
     //Data from server?
     max: 10,
     isMyPack: false,
-    search: ""
+    search: "",
+    sortPacks: "0updated" as SortPacksType
 }
 
 type DefaultFilterValues = typeof defaultFilterValues;
+type SortPacksType = "0updated" | "1updated";
 
 const initialState = {
     params: {
@@ -24,7 +26,8 @@ const initialState = {
         min: defaultFilterValues.min,
         max: defaultFilterValues.max,
         search: defaultFilterValues.search,
-        totalCount: 10
+        totalCount: 10,
+        sortPacks: defaultFilterValues.sortPacks
     },
     packs: [
         {
@@ -51,7 +54,8 @@ const slice = createSlice({
             state.params.min = action.payload.min;
             state.params.max = action.payload.max;
             state.params.isMyPack = action.payload.isMyPack;
-            state.params.search = action.payload.search
+            state.params.search = action.payload.search;
+            state.params.sortPacks = action.payload.sortPacks;
         },
         setMinValue: (state, action: PayloadAction<{ min: number }>) => {
             state.params.min = action.payload.min
@@ -111,7 +115,9 @@ export type PackParamsType = {
     min?: number;
     max?: number;
     userId?: string;
-    search?: string
+    packName?: string;
+    sortPacks?: SortPacksType;
+    block?: boolean;
 }
 
 export const getPacksTC = () => async (dispatch: Dispatch, getState: () => AppRootState) => {
@@ -123,14 +129,13 @@ export const getPacksTC = () => async (dispatch: Dispatch, getState: () => AppRo
         params = {...params, userId}
     }
     if (search) {
-        params = {...params, search}
+        params = {...params, packName: search}
     }
 
     dispatch(setAppStatusAC({status: "loading"}))
     try {
         const res = await packsAPI.getPacks(params);
-        // const res = await packsAPI.getPacks({pageCount, page, userId, min, max, search});
-        dispatch(setPacks(res.data.cardPacks))
+        dispatch(setPacks(res.data.cardPacks));
         dispatch(setAppStatusAC({status: "succeeded"}));
         dispatch(setTotalCount({totalCount: res.data.cardPacksTotalCount}))
     } catch (err: any) {
