@@ -10,14 +10,13 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import {Rating} from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
-
+import {Delete, Edit} from "@mui/icons-material";
 
 export interface CardsData {
     question: string;
     answer: string;
     updated: string;
-    grade: number | undefined,
-    // actions: string
+    grade: number | undefined
 }
 
 function createData(
@@ -25,14 +24,12 @@ function createData(
     answer: string,
     updated: string,
     grade: number | undefined,
-    // actions: string
 ): CardsData {
     return {
         question,
         answer,
         updated,
-        grade,
-        // actions
+        grade
     };
 }
 
@@ -62,6 +59,14 @@ export const CardsTableComponent = (props: CardsTableComponent) => {
         setOrderBy(property);
     }
 
+    const editCardHandler = () => { // cardId, question..
+        alert('edit')
+    }
+
+    const deleteCardHandler = () => {  // cardId, cardPackId
+        alert('delete')
+    }
+
     return (
         <Box sx={{width: '100%', display: 'flex', justifyContent: 'center'}}>
             <Paper sx={{width: '70%'}}>
@@ -84,6 +89,7 @@ export const CardsTableComponent = (props: CardsTableComponent) => {
                                         <TableCell
                                             component="th"
                                             scope="row"
+                                            align="right"
                                         >
                                             {row.question}
                                         </TableCell>
@@ -92,10 +98,11 @@ export const CardsTableComponent = (props: CardsTableComponent) => {
                                         <TableCell align="right">
                                             <Rating value={row.grade}/>
                                         </TableCell>
-                                        {/*<TableCell>*/}
-                                        {/*    {row.actions}*/}
-                                        {/*</TableCell>*/}
-                                        {/*if my pack add actions* edit delete/*/}
+                                        <TableCell>
+                                            <Edit onClick={editCardHandler}/>
+                                            <Delete onClick={deleteCardHandler}/>  {/*dont show when you are friends pack*/}
+                                        </TableCell>
+
                                     </TableRow>
                                 );
                             })}
