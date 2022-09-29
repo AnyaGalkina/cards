@@ -1,4 +1,5 @@
 import axios, {AxiosResponse} from "axios";
+import {SortCardsType} from "./cards-reducer";
 
 const instance = axios.create({
     baseURL: process.env.REACT_APP_URL || "http://localhost:7542/2.0",
@@ -7,6 +8,7 @@ const instance = axios.create({
 
 export const cardsAPI = {
     getCards(params: CardQueryParamsType) {
+        debugger
         return instance.get<ResGetCardsType>("/cards/card", {params})
     },
     createCard(data: NewCardType) {
@@ -24,9 +26,10 @@ export type CardQueryParamsType = {
     cardsPack_id: string;
     cardQuestion?: string;
     cardAnswer?: string;
-    sortCards?: string;
+    sortCards?:  SortCardsType;
     page?: number;
     pageCount?: number;
+    search?: string;
 };
 
 export type ResGetCardsType = {

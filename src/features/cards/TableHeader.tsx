@@ -6,6 +6,9 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Box from "@mui/material/Box";
 import {visuallyHidden} from "@mui/utils";
 import {CardsData, Order} from "./CardsTableComponent";
+import {setSortCards, SortCardsType} from "./cards-reducer";
+import {useAppDispatch} from "../../common/hooks/useAppDispatch";
+import {useAppSelector} from "../../common/hooks/useAppSelector";
 
 interface HeadCell {
     disablePadding: boolean;
@@ -54,10 +57,18 @@ interface TableHeaderProps {
 }
 
 export function TableHeader(props: TableHeaderProps) {
-    const {order, orderBy, onRequestSort } = props;
+    const {order, orderBy, onRequestSort} = props;
+    const sortCards = useAppSelector(state => state.cards.params.sortCards);
+    const dispatch = useAppDispatch();
+
     const createSortHandler =
         (property: keyof CardsData) => (event: React.MouseEvent<unknown>) => {
             onRequestSort(event, property);
+            if(property === "grade") {
+                sortCards === "0grade"
+                    ? dispatch(setSortCards({sortCards: "1grade"}))
+                    : dispatch(setSortCards({sortCards: "0grade"}))
+            }
         };
 
     return (
