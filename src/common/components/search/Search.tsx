@@ -5,12 +5,14 @@ import {useAppDispatch} from "../../hooks/useAppDispatch";
 import {useDebounce} from "../../hooks/useDebounce";
 import {SearchIconWrapper, Search, StyledInputBase} from "./SearchStyle";
 import s from "../../../features/filters/PacksFilters.module.css";
+import {useAppSelector} from "../../hooks/useAppSelector";
 
 type PropsType = {
     setSearchParam: (payload: {search: string}) => void;
 }
 
 export const SearchBar = ({setSearchParam}: PropsType) => {
+    const appStatus= useAppSelector(state => state.app.status);
     const dispatch = useAppDispatch();
 
     const [value, setValue] = useState<string>("");
@@ -21,6 +23,7 @@ export const SearchBar = ({setSearchParam}: PropsType) => {
     }
 
     useEffect(() => {
+        debugger
         //@ts-ignore
         dispatch(setSearchParam({search: debouncedValue}));
     }, [debouncedValue])
@@ -33,6 +36,7 @@ export const SearchBar = ({setSearchParam}: PropsType) => {
                     <SearchIcon/>
                 </SearchIconWrapper>
                 <StyledInputBase
+                    disabled={appStatus === "loading"}
                     value={value}
                     onChange={handleSearchChange}
                     placeholder="Provide your text"

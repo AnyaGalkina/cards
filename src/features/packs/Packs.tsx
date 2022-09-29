@@ -26,7 +26,7 @@ export const Packs = () => {
     const pageCount = useAppSelector(state => state.packs.params.pageCount);
     const search = useAppSelector(state => state.packs.params.search);
     const userId = useAppSelector(state => state.packs.params.userId);
-    const sortPacks = useAppSelector(state => state.packs.params.sortPacks);
+    const sortPacks = useAppSelector (state => state.packs.params.sortPacks);
 
     //need this useState because Pagination starts with 0
     const [page, setPageS] = useState(0);
@@ -50,12 +50,12 @@ export const Packs = () => {
         dispatch(getPacksTC())
     }, [pageCount, page, search, min, max, isMyPack, sortPacks]);
 
-    return <>
-        <div className={s.packContainer}>
+    return (
+        <div className={s.tableContainer}>
             <AddNewPackButton
                 name={'Add new Pack'}
                 addNewPack={addNewPack}/>
-            <div className={s.mainFilterContainer}>
+            <div className={s.searchContainer}>
                 <SearchBar setSearchParam={searchByPackName}/>
                 <PacksFilters/>
             </div>
@@ -72,5 +72,5 @@ export const Packs = () => {
                 sortPacks={sortPacks}
             />
         </div>
-    </>
+    )
 }
