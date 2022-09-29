@@ -17,8 +17,8 @@ export const cardsAPI = {
     deleteCard(cardID: string) {
         return instance.delete<AxiosResponse<ResDeletedCardType>>(`/cards/card?id=${cardID}`)
     },
-    updateCard(data: UpdatedCardType) {
-        return instance.put<AxiosResponse<ResUpdatedCardType>>('/cards/card', data)
+    updateCard(card: UpdatedCardType) {
+        return instance.put<AxiosResponse<ResUpdatedCardType>>('/cards/card', {card})
     }
 }
 
@@ -43,13 +43,10 @@ export type ResGetCardsType = {
     packName: string,
 }
 
-
-
-
 export type CardType = {
     cardsPack_id: string
-    question: string
-    answer: string
+    question?: string
+    answer?: string
     grade?: number
     shots?: number
     answerImg?: string
@@ -76,9 +73,7 @@ export type NewCardType = {
     card: CardType
 }
 
-export type UpdatedCardType = {
-    card: CardType & { _id: string, comments?: string }
-}
+export type UpdatedCardType = CardType & { _id: string, comments?: string, question?: string, answer?: string }
 
 export type ResUpdatedCardType = {
     updatedCard: ResCardType
