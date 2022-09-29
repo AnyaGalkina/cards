@@ -43,9 +43,9 @@ const Cards = () => {
     //         dispatch(getCardsTC({cardsPack_id, page, pageCount}))
     //     }
     // }, [cardsPack_id, page, pageCount])
-        if (cardsPack_id) {
+    //     if (cardsPack_id) {
             dispatch(getCardsTC())
-        }
+        // }
     }, [cardsPack_id, search, page, pageCount, sortCards])
 
     if (!isLoggedIn) {
