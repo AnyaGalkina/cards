@@ -8,6 +8,7 @@ import {ErrorSnackbar} from "../../common/components/error/ErrorSnackbar";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {Footer} from "../../common/components/footer/Footer";
 import {RoutesComponent} from "./Routes";
+import s from "./Main.module.css";
 
 
 const Main = () => {
@@ -27,7 +28,7 @@ const Main = () => {
     }
 
     return (
-        <div>
+        <div className={s.mainContainer}>
             <Header/>
             <ErrorSnackbar/>
             {appStatus === "loading" && <LinearProgress/>}
