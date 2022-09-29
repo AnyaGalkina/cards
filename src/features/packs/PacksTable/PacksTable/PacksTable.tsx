@@ -9,7 +9,7 @@ import {PacksType} from "../../packsAPI";
 import {PacksTableHeader} from "../PacksTableHeader/PacksTableHeader";
 import {SortPacksType} from "../../packs-reducer";
 import {Pack} from "../Pack/Pack";
-import {createData, PackData} from "../../../../common/utils/createPacksData";
+import {createPacksData, PackData} from "../../../../common/utils/createData";
 
 //Types
 export type Order = 'asc' | 'desc';
@@ -31,7 +31,7 @@ export const PacksTable = (props: PacksTablePropsType) => {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof PackData>('name');
     const rows = props.rows.map(row => {
-        return createData(row.name, row.cardsCount, row.updated, row.user_name, row._id, '', row.user_id)
+        return createPacksData(row.name, row.cardsCount, row.updated, row.user_name, row._id, '', row.user_id)
     });
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof PackData,) => {
