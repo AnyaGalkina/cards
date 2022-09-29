@@ -5,6 +5,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import {useNavigate} from "react-router-dom";
+import {useCallback} from "react";
 
 type PackPropsType = {
     id: string
@@ -21,9 +22,9 @@ type PackPropsType = {
 export const Pack = React.memo((props: PackPropsType) => {
         const navigate = useNavigate();
 
-        const updatePacksName = () => props.updatePacksName(props.id, 'updated name')
-        const deletePack = () => props.deletePack(props.id)
-        const goToCardsHandler = () => navigate(`/cards/card/${props.id}`)
+        const updatePacksName = useCallback(() => props.updatePacksName(props.id, 'updated name'), [props.updatePacksName, props.id])
+        const deletePack = useCallback(() => props.deletePack(props.id), [props.deletePack, props.id])
+        const goToCardsHandler = useCallback(() => navigate(`/cards/card/${props.id}`), [props.id])
 
         return (
             <TableRow

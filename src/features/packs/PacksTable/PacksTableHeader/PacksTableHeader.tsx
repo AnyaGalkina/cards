@@ -5,14 +5,15 @@ import TableCell from "@mui/material/TableCell";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import Box from "@mui/material/Box";
 import {visuallyHidden} from "@mui/utils";
-import {Data, Order} from "../PacksTableComponent";
+import {Order} from "../PacksTable/PacksTable";
 import {setSortPacksByDate, SortPacksType} from "../../packs-reducer";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
+import {PackData} from "../../../../common/utils/createPacksData";
 
 
 interface HeadCell {
     disablePadding: boolean;
-    id: keyof Data;
+    id: keyof PackData;
     label: string;
     numeric: boolean;
 }
@@ -51,7 +52,7 @@ const headCells: readonly HeadCell[] = [
 ];
 
 interface TableHeaderProps {
-    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof Data) => void;
+    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof PackData) => void;
     order: Order;
     orderBy: string;
     sortPacks: SortPacksType
@@ -61,7 +62,7 @@ export function PacksTableHeader(props: TableHeaderProps) {
     const dispatch = useAppDispatch();
 
     const {order, orderBy, onRequestSort} = props;
-    const createSortHandler = (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+    const createSortHandler = (property: keyof PackData) => (event: React.MouseEvent<unknown>) => {
             onRequestSort(event, property);
             if (property === "updated") {
                 props.sortPacks === "0updated" && dispatch(setSortPacksByDate({sortPacks: "1updated"}));

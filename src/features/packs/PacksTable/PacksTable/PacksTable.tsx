@@ -5,64 +5,36 @@ import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import Paper from '@mui/material/Paper';
-import {PacksType} from "../packsAPI";
-import {PacksTableHeader} from "./PacksTableHeader/PacksTableHeader";
-import {SortPacksType} from "../packs-reducer";
-import {Pack} from "./Pack";
+import {PacksType} from "../../packsAPI";
+import {PacksTableHeader} from "../PacksTableHeader/PacksTableHeader";
+import {SortPacksType} from "../../packs-reducer";
+import {Pack} from "../Pack/Pack";
+import {createData, PackData} from "../../../../common/utils/createPacksData";
 
-export interface Data {
-    name: string;
-    cardsCount: number;
-    updated: string;
-    createdBy: string;
-    id: string;
-    actions: string;
-    userIdFromPack: string
-}
-
-function createData(
-    name: string,
-    cardsCount: number,
-    updated: string,
-    createdBy: string,
-    id: string,
-    actions: string,
-    userIdFromPack: string
-): Data {
-    return {
-        name,
-        cardsCount,
-        updated,
-        createdBy,
-        id,
-        actions,
-        userIdFromPack
-    };
-}
-
+//Types
 export type Order = 'asc' | 'desc';
-
-type PacksTableComponent = {
+type PacksTablePropsType = {
     userId: string
     rows: PacksType[]
     page: number
     totalCount: number
-    handleChangePage: (event: unknown, newPage: number) => void
+    changePage: (event: unknown, newPage: number) => void
     rowsPerPage: number
-    handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
+    changeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
     deletePack: (packId: string) => void
     updatePacksName: (packId: string, name: string) => void
     sortPacks: SortPacksType
 }
 
-export default function PacksTableComponent(props: PacksTableComponent) {
+
+export const PacksTable = (props: PacksTablePropsType) => {
     const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
+    const [orderBy, setOrderBy] = React.useState<keyof PackData>('name');
     const rows = props.rows.map(row => {
         return createData(row.name, row.cardsCount, row.updated, row.user_name, row._id, '', row.user_id)
     });
 
-    const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data,) => {
+    const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof PackData,) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
@@ -106,8 +78,8 @@ export default function PacksTableComponent(props: PacksTableComponent) {
                     count={props.totalCount}
                     rowsPerPage={props.rowsPerPage}
                     page={props.page}
-                    onPageChange={props.handleChangePage}
-                    onRowsPerPageChange={props.handleChangeRowsPerPage}
+                    onPageChange={props.changePage}
+                    onRowsPerPageChange={props.changeRowsPerPage}
                 />
             </Paper>
         </Box>
