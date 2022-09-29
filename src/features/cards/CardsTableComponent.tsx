@@ -36,6 +36,7 @@ function createData(
 export type Order = 'asc' | 'desc';
 
 type CardsTableComponent = {
+    myProfile: boolean
     rows: ResCardType[]
     page: number
     totalCount: number
@@ -98,11 +99,12 @@ export const CardsTableComponent = (props: CardsTableComponent) => {
                                         <TableCell align="right">
                                             <Rating value={row.grade}/>
                                         </TableCell>
-                                        <TableCell>
-                                            <Edit onClick={editCardHandler}/>
-                                            <Delete onClick={deleteCardHandler}/>  {/*dont show when you are friends pack*/}
-                                        </TableCell>
-
+                                        {props.myProfile ?
+                                            (<TableCell>
+                                                <Edit onClick={editCardHandler}/>
+                                                <Delete onClick={deleteCardHandler}/>
+                                            </TableCell>) : null
+                                        }
                                     </TableRow>
                                 );
                             })}
