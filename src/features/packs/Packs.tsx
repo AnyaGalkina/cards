@@ -50,8 +50,8 @@ export const Packs = () => {
         dispatch(deletePackTC(packId))
     }, [])
 
-    const updatePacksName = useCallback((packId: string) => {
-        dispatch(updatePacksNameTC(packId, 'updated name'))
+    const updatePacksName = useCallback((packId: string, name: string) => {
+        dispatch(updatePacksNameTC(packId, name))
     }, [])
 
     useEffect(() => {
