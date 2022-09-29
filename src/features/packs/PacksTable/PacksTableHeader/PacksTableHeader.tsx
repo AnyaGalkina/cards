@@ -8,7 +8,7 @@ import {visuallyHidden} from "@mui/utils";
 import {Order} from "../PacksTable/PacksTable";
 import {setSortPacksByDate, SortPacksType} from "../../packs-reducer";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
-import {PackData} from "../../../../common/utils/createPacksData";
+import {PackData} from "../../../../common/utils/createData";
 
 
 interface HeadCell {

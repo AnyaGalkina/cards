@@ -8,7 +8,7 @@ export interface PackData {
     userIdFromPack: string
 }
 
-export function createData(
+export function createPacksData(
     name: string,
     cardsCount: number,
     updated: string,
