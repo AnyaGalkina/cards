@@ -51,11 +51,11 @@ export const Packs = () => {
     }, [pageCount, page, search, min, max, isMyPack, sortPacks]);
 
     return (
-        <div className={s.packContainer}>
+        <div className={s.tableContainer}>
             <AddNewPackButton
                 name={'Add new Pack'}
                 addNewPack={addNewPack}/>
-            <div className={s.mainFilterContainer}>
+            <div className={s.searchContainer}>
                 <SearchBar setSearchParam={searchByPackName}/>
                 <PacksFilters/>
             </div>

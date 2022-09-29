@@ -16,7 +16,8 @@ const initialState = {
         minGrade: 0,
         page: 0,
         pageCount: 10,
-        packUserId: ''
+        packUserId: '',
+        packName: '',
     } as ResGetCardsType,
     params: {
         cardsPack_id: '',
@@ -82,7 +83,8 @@ export const addCardsTC = (data: NewCardType) => async (dispatch: any) => {
         dispatch(setAppStatusAC({status: 'loading'}))
         let res = await cardsAPI.createCard(data)
 
-        dispatch(getCardsTC({cardsPack_id: data.card.cardsPack_id}))
+        dispatch(getCardsTC())
+        // dispatch(getCardsTC({cardsPack_id: data.card.cardsPack_id}))
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e) {
         errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
@@ -95,7 +97,8 @@ export const updateCardsTC = (data: UpdatedCardType) => async (dispatch: any) =>
         dispatch(setAppStatusAC({status: 'loading'}))
         let res = await cardsAPI.updateCard(data)
 
-        dispatch(getCardsTC({cardsPack_id: data.card.cardsPack_id}))
+        dispatch(getCardsTC())
+        // dispatch(getCardsTC({cardsPack_id: data.card.cardsPack_id}))
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e) {
         errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
@@ -108,7 +111,8 @@ export const deleteCardsTC = (cardId: string, cardsPack_id: string) => async (di
         dispatch(setAppStatusAC({status: 'loading'}))
         let res = await cardsAPI.deleteCard(cardId)
 
-        dispatch(getCardsTC({cardsPack_id}))
+        dispatch(getCardsTC())
+        // dispatch(getCardsTC({cardsPack_id}))
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e) {
         errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
