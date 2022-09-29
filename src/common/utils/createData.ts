@@ -27,3 +27,32 @@ export function createPacksData(
         userIdFromPack
     };
 }
+
+export interface CardsData {
+    question: string | undefined,
+    answer: string | undefined,
+    updated: string
+    grade: number | undefined
+    cardId: string
+    cardsPack_id: string
+    actions: string
+}
+export function createCardsData(
+    question: string | undefined,
+    answer: string | undefined,
+    updated: string,
+    grade: number | undefined,
+    cardId: string,
+    cardsPack_id: string,
+    actions: string
+): CardsData {
+    return <CardsData> {
+        question,
+        answer,
+        updated,
+        grade,
+        cardId,
+        cardsPack_id,
+        actions
+    };
+}

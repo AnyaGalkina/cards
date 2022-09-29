@@ -4,7 +4,7 @@ import {Navigate, useParams} from "react-router-dom";
 import {ROUTES} from "../../common/enums/enums";
 import {getCardsTC} from "./cards-reducer";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
-import {CardsTableComponent} from "./CardsTableComponent";
+import {CardsTableComponent} from "./CardsTable/CardsTable";
 import UserPreview from "./userPreview/UserPreview";
 import CardsHeader from "./CardsHeader/CardsHeader";
 

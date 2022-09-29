@@ -1,41 +1,23 @@
 import React from 'react';
-import {ResCardType} from "./cardsAPI";
+import {ResCardType} from "../cardsAPI";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
-import {TableHeader} from "./TableHeader";
+import {TableHeader} from "./CardsTableHeader/TableHeader";
 import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import {Rating} from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
 import {Delete, Edit} from "@mui/icons-material";
-
-export interface CardsData {
-    question: string;
-    answer: string;
-    updated: string;
-    grade: number | undefined
-}
-
-function createData(
-    question: string,
-    answer: string,
-    updated: string,
-    grade: number | undefined,
-): CardsData {
-    return {
-        question,
-        answer,
-        updated,
-        grade
-    };
-}
+import {CardsData, createCardsData} from "../../../common/utils/createData";
+import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
+import {deleteCardsTC, updateCardsTC} from "../cards-reducer";
 
 export type Order = 'asc' | 'desc';
 
-type CardsTableComponent = {
+type CardsTable = {
     myProfile: boolean
     rows: ResCardType[]
     page: number
@@ -45,11 +27,13 @@ type CardsTableComponent = {
     handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const CardsTableComponent = (props: CardsTableComponent) => {
+export const CardsTableComponent = (props: CardsTable) => {
+    const dispatch = useAppDispatch()
+
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof CardsData>('question');
 
-    const rows = props.rows.map(card => createData(card.question, card.answer, card.updated, card.grade))
+    const cards = props.rows.map(card => createCardsData(card.question, card.answer, card.updated, card.grade, card._id, card.cardsPack_id, ''))
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
@@ -60,12 +44,12 @@ export const CardsTableComponent = (props: CardsTableComponent) => {
         setOrderBy(property);
     }
 
-    const editCardHandler = () => { // cardId, question..
-        alert('edit')
+    const updateCardHandler = (_id: string, cardsPack_id: string, question: string) => { // cardId, question..
+        dispatch(updateCardsTC({_id ,cardsPack_id, question}))
     }
 
-    const deleteCardHandler = () => {  // cardId, cardPackId
-        alert('delete')
+    const deleteCardHandler = (cardId: string, cardsPack_id: string) => {  // cardId, cardPackId
+       dispatch(deleteCardsTC(cardId, cardsPack_id))
     }
 
     return (
@@ -82,27 +66,27 @@ export const CardsTableComponent = (props: CardsTableComponent) => {
                             onRequestSort={handleRequestSort}
                         />
                         <TableBody>
-                            {rows.map((row) => {
+                            {cards.map((card) => {
                                 return (
                                     <TableRow
-                                        key={row.question}
+                                        key={card.cardId}
                                     >
                                         <TableCell
                                             component="th"
                                             scope="row"
-                                            align="right"
+                                            align="left"
                                         >
-                                            {row.question}
+                                            {card.question}
                                         </TableCell>
-                                        <TableCell align="right">{row.answer}</TableCell>
-                                        <TableCell align="right">{row.updated}</TableCell>
-                                        <TableCell align="right">
-                                            <Rating value={row.grade}/>
+                                        <TableCell align="left">{card.answer}</TableCell>
+                                        <TableCell align="left">{card.updated}</TableCell>
+                                        <TableCell align="left">
+                                            <Rating value={card.grade}/>
                                         </TableCell>
                                         {props.myProfile ?
-                                            (<TableCell>
-                                                <Edit onClick={editCardHandler}/>
-                                                <Delete onClick={deleteCardHandler}/>
+                                            (<TableCell title={card.actions}>
+                                                <Edit onClick={()=> updateCardHandler(card.cardId, card.cardsPack_id, 'update question')}/>
+                                                <Delete onClick={()=> deleteCardHandler(card.cardId, card.cardsPack_id)}/>
                                             </TableCell>) : null
                                         }
                                     </TableRow>

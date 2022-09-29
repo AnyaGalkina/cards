@@ -69,12 +69,12 @@ export const addCardsTC = (data: NewCardType) => async (dispatch: any) => {
     }
 }
 
-export const updateCardsTC = (data: UpdatedCardType) => async (dispatch: any) => {
+export const updateCardsTC = (card: UpdatedCardType) => async (dispatch: any) => {
     try {
         dispatch(setAppStatusAC({status: 'loading'}))
-        let res = await cardsAPI.updateCard(data)
+        let res = await cardsAPI.updateCard(card)
 
-        dispatch(getCardsTC({cardsPack_id: data.card.cardsPack_id}))
+        dispatch(getCardsTC({cardsPack_id: card.cardsPack_id}))
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e) {
         errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)

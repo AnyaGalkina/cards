@@ -32,13 +32,10 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({myProfile, cardsPack_id, p
         <Box>
             {myProfile ?
                 (<Box sx={headerBoxStyle}>
-                        <Box sx={{ width: '100px', display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
+                        <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
                             <Typography variant="h5">
                                 {packName}
                             </Typography>
-                            {/*<IconButton color={'primary'}>*/}
-                            {/*    <MoreHorizIcon style={{fontSize: 'medium'}}/>*/}
-                            {/*</IconButton>*/}
                             <FadeMenu/>
                         </Box>
                         <Button variant={'contained'} color={'primary'} onClick={addCardHandler} endIcon={<Create/>}>
