@@ -2,20 +2,19 @@ import React, {useEffect, useState} from "react";
 import {useAppSelector} from "../../common/hooks/useAppSelector";
 import {Navigate, useParams} from "react-router-dom";
 import {ROUTES} from "../../common/enums/enums";
-import {addCardsTC, getCardsTC} from "./cards-reducer";
+import {getCardsTC} from "./cards-reducer";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {CardsTableComponent} from "./CardsTableComponent";
-import {Button, Typography} from "@mui/material";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {Create} from "@mui/icons-material";
+import UserPreview from "./userPreview/UserPreview";
+import CardsHeader from "./CardsHeader/CardsHeader";
 
 
 const Cards = () => {
     const dispatch = useAppDispatch()
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-    const {cards, cardsTotalCount} = useAppSelector(state => state.cards.cardsState);
     const {cardsPack_id} = useParams()
 
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const {cards, cardsTotalCount} = useAppSelector(state => state.cards.cardsState);
     const myProfileId = useAppSelector(state => state.profile.user._id)
     const {packUserId, packName} = useAppSelector(state => state.cards.cardsState)
 
@@ -31,11 +30,6 @@ const Cards = () => {
         setPage(0);
     };
 
-    const addCardHandler = () => {
-        if (cardsPack_id) {
-            dispatch(addCardsTC({card: {cardsPack_id, question: 'new question', answer: 'new answer'}}))
-        }
-    }
 
     useEffect(() => {
         if (cardsPack_id) {
@@ -49,18 +43,10 @@ const Cards = () => {
 
     return (
         <div>
-            {/*avatar profile name*/}
-            <Button href={'#/cards/pack'} color={'primary'} startIcon={ <ArrowBackIcon/>}>
-                Back to Packs
-            </Button>
-            <Typography variant="h5" gutterBottom>
-                {packName}
-            </Typography>
-            {/*// search // learn button*/}
-            <Button variant={'contained'} color={'primary'} onClick={addCardHandler} endIcon={<Create/>}> {/*dont show when you are friends pack*/}
-                new card
-            </Button>
+            <UserPreview/>
+            <CardsHeader myProfile={myProfileId === packUserId} cardsPack_id={cardsPack_id} packName={packName}/>
             <CardsTableComponent
+                myProfile={myProfileId === packUserId}
                 rows={cards}
                 page={page}
                 totalCount={cardsTotalCount}
