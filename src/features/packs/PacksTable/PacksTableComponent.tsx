@@ -21,6 +21,7 @@ export interface Data {
     updated: string;
     createdBy: string;
     id: string;
+    actions: string;
     userIdFromPack: string
 }
 
@@ -30,6 +31,7 @@ function createData(
     updated: string,
     createdBy: string,
     id: string,
+    actions: string,
     userIdFromPack: string
 ): Data {
     return {
@@ -38,6 +40,7 @@ function createData(
         updated,
         createdBy,
         id,
+        actions,
         userIdFromPack
     };
 }
@@ -61,7 +64,7 @@ export default function PacksTableComponent(props: PacksTableComponent) {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
     const rows = props.rows.map(row => {
-        return createData(row.name, row.cardsCount, row.updated, row.user_name, row._id, row.user_id)
+        return createData(row.name, row.cardsCount, row.updated, row.user_name,  row._id, '', row.user_id)
     });
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data,) => {
