@@ -16,8 +16,7 @@ const initialState = {
         minGrade: 0,
         page: 0,
         pageCount: 10,
-        packUserId: '',
-        packName: ''
+        packUserId: ''
     } as ResGetCardsType,
     params: {
         cardsPack_id: '',
@@ -70,6 +69,7 @@ export const getCardsTC = () => async (dispatch: Dispatch, getState: () => AppRo
 
         dispatch(setCardsAC(res.data))
 
+        dispatch(setAppStatusAC({status: "succeeded"}))
         dispatch(setAppStatusAC({status: "succeeded"}))
     } catch (e) {
         errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)

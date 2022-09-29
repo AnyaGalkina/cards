@@ -26,7 +26,7 @@ export const Packs = () => {
     const pageCount = useAppSelector(state => state.packs.params.pageCount);
     const search = useAppSelector(state => state.packs.params.search);
     const userId = useAppSelector(state => state.packs.params.userId);
-    const sortPacks = useAppSelector(state => state.packs.params.sortPacks);
+    const sortPacks = useAppSelector (state => state.packs.params.sortPacks);
 
     //need this useState because Pagination starts with 0
     const [page, setPageS] = useState(0);
