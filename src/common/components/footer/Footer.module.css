@@ -1,0 +1,6 @@
+.footer {
+    height: 80px;
+    background-color: #8eadee;
+    display: flex;
+    justify-content: right;
+}

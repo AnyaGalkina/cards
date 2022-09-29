@@ -23,7 +23,6 @@ export const SearchBar = ({setSearchParam}: PropsType) => {
     }
 
     useEffect(() => {
-        debugger
         //@ts-ignore
         dispatch(setSearchParam({search: debouncedValue}));
     }, [debouncedValue])

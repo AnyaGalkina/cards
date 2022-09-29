@@ -47,7 +47,7 @@ const slice = createSlice({
         setUserId(state, action: PayloadAction<{ userId: string }>) {
             state.params.userId = action.payload.userId
         },
-        setPacks:(state, action: PayloadAction<Array<PacksType>>) => {
+        setPacks: (state, action: PayloadAction<Array<PacksType>>) => {
             state.packs = action.payload
         },
         removeAllFilters: (state, action: PayloadAction<DefaultFilterValues>) => {
@@ -75,10 +75,10 @@ const slice = createSlice({
         searchByPackName: (state, action: PayloadAction<{ search: string }>) => {
             state.params.search = action.payload.search
         },
-        setTotalCount:(state, action: PayloadAction<{ totalCount: number }>)  => {
+        setTotalCount: (state, action: PayloadAction<{ totalCount: number }>) => {
             state.params.totalCount = action.payload.totalCount
         },
-        setSortPacksByDate:(state, action: PayloadAction<{ sortPacks: SortPacksType }>) => {
+        setSortPacksByDate: (state, action: PayloadAction<{ sortPacks: SortPacksType }>) => {
             state.params.sortPacks = action.payload.sortPacks
         }
     }
@@ -117,10 +117,10 @@ export const getPacksTC = () => async (dispatch: Dispatch, getState: () => AppRo
     let params: PackParamsType = {pageCount, page, min, max, sortPacks};
 
     if (isMyPack) {
-        params = {...params, user_id: userId}
+        params.user_id = userId
     }
     if (search) {
-        params = {...params, packName: search}
+        params.packName = search
     }
 
     dispatch(setAppStatusAC({status: "loading"}))
