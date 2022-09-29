@@ -17,7 +17,6 @@ import CheckEmail from "../auth/check-email/CheckEmail";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import Cards from "../cards/Cards";
 import {Packs} from "../packs/Packs";
-import {Test} from "../../common/components/search/Test";
 
 
 const Main = () => {
@@ -54,7 +53,6 @@ const Main = () => {
                     <Route path=':cardsPack_id' element={<Cards/>}/>
                     </Route>
                 <Route path={ROUTES.PACKS} element={<Packs/>}/>
-                <Route path={ROUTES.TEST} element={<Test/>}/>
                 {/*<Route path={"/*"} element={<Navigate to={ROUTES.PAGE_NOT_FOUND}/>}/>*/}
                 {/*звездочка всегда внизу*/}
             </Routes>

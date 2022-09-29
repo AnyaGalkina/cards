@@ -13,9 +13,9 @@ export const Search = styled("div")(({theme}) => ({
     marginLeft: 0,
     width: "100%",
     textAlign: "left",
-    [theme.breakpoints.up("sm")]: {
-        width: "300px",
-    },
+    // [theme.breakpoints.up("sm")]: {
+    //     width: "300px",
+    // },
     display:"flex",
     flexDirection: "row"
 }));

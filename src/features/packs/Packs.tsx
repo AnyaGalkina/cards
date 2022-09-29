@@ -60,11 +60,11 @@ export const Packs = () => {
 
 
     return (
-        <div className={s.packContainer}>
+        <div className={s.tableContainer}>
             <CustomButton
                 name={'Add new Pack'}
                 onClickHandler={addNewPack}/>
-            <div className={s.mainFilterContainer}>
+            <div className={s.searchContainer}>
                 <SearchBar setSearchParam={searchByPackName}/>
                 <PacksFilters/>
             </div>
