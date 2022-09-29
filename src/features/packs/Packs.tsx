@@ -50,7 +50,7 @@ export const Packs = () => {
         dispatch(getPacksTC())
     }, [pageCount, page, search, min, max, isMyPack, sortPacks]);
 
-    return <>
+    return (
         <div className={s.packContainer}>
             <AddNewPackButton
                 name={'Add new Pack'}
@@ -72,5 +72,5 @@ export const Packs = () => {
                 sortPacks={sortPacks}
             />
         </div>
-    </>
+    )
 }

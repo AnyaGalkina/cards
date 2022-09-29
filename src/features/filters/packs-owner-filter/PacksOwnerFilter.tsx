@@ -7,6 +7,7 @@ import {setOwner} from "../../packs/packs-reducer";
 
 export const PacksOwnerFilter = () => {
     const isMyPack = useAppSelector(state => state.packs.params.isMyPack);
+    const appStatus= useAppSelector(state => state.app.status);
     const dispatch = useAppDispatch();
 
     const handleOnMeClick = () => {
@@ -22,11 +23,13 @@ export const PacksOwnerFilter = () => {
             <span>Show Packs Cards</span>
             <ButtonGroup>
                 <Button
+                    disabled={appStatus === "loading"}
                     variant={`${isMyPack ? "contained" : "text"}`}
                     onClick={handleOnMeClick}
                 >Me
                 </Button>
                 <Button
+                    disabled={appStatus === "loading"}
                     variant={`${!isMyPack ?  "contained" : "text"}`}
                     onClick={handleOnAllClick}
                 >All

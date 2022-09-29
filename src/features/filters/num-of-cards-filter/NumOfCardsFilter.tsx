@@ -10,6 +10,7 @@ import {useDebounce} from "../../../common/hooks/useDebounce";
 export const NumOfCardsFilter = () => {
     const min = useAppSelector(state => state.packs.params.min);
     const max = useAppSelector(state => state.packs.params.max);
+    const appStatus= useAppSelector(state => state.app.status);
     const dispatch = useAppDispatch();
     const [value1, setValue1] = useState(min)
     const [value2, setValue2] = useState(max)
@@ -44,6 +45,7 @@ export const NumOfCardsFilter = () => {
             <div className={s.sliderContainer}>
                 <span className={s.value}>{min}</span>
                 <Slider
+                    disabled={appStatus === "loading"}
                     sx={{width: 155}}
                     value={value}
                     step={1}
