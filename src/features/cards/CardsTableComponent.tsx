@@ -10,7 +10,6 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import {Rating} from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
-import {SortCardsType} from "./cards-reducer";
 
 import {Delete, Edit} from "@mui/icons-material";
 

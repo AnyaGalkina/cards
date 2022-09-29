@@ -43,6 +43,8 @@ interface TableHeaderProps {
 export function TableHeader(props: TableHeaderProps) {
     const {order, orderBy, onRequestSort} = props;
     const sortCards = useAppSelector(state => state.cards.params.sortCards);
+    const appStatus = useAppSelector(state => state.app.status);
+
     const dispatch = useAppDispatch();
 
     const createSortHandler =
@@ -65,6 +67,7 @@ export function TableHeader(props: TableHeaderProps) {
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
                         <TableSortLabel
+                            disabled={appStatus === "loading"}
                             active={orderBy === headCell.id}
                             direction={orderBy === headCell.id ? order : 'asc'}
                             onClick={createSortHandler(headCell.id)}

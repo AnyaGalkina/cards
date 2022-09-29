@@ -9,6 +9,7 @@ import {Order} from "../PacksTable/PacksTable";
 import {setSortPacksByDate, SortPacksType} from "../../packs-reducer";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {PackData} from "../../../../common/utils/createData";
+import {useAppSelector} from "../../../../common/hooks/useAppSelector";
 
 
 interface HeadCell {
@@ -60,13 +61,15 @@ interface TableHeaderProps {
 
 export function PacksTableHeader(props: TableHeaderProps) {
     const dispatch = useAppDispatch();
+    const appStatus = useAppSelector(state => state.app.status);
 
     const {order, orderBy, onRequestSort} = props;
     const createSortHandler = (property: keyof PackData) => (event: React.MouseEvent<unknown>) => {
             onRequestSort(event, property);
             if (property === "updated") {
-                props.sortPacks === "0updated" && dispatch(setSortPacksByDate({sortPacks: "1updated"}));
-                props.sortPacks === "1updated" && dispatch(setSortPacksByDate({sortPacks: "0updated"}));
+                props.sortPacks === "0updated"
+                    ? dispatch(setSortPacksByDate({sortPacks: "1updated"}))
+                    : dispatch(setSortPacksByDate({sortPacks: "0updated"}));
             }
         };
 
@@ -81,6 +84,7 @@ export function PacksTableHeader(props: TableHeaderProps) {
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
                         <TableSortLabel
+                            disabled={appStatus === "loading"}
                             active={orderBy === headCell.id}
                             direction={orderBy === headCell.id ? order : "asc"}
                             onClick={createSortHandler(headCell.id)}
