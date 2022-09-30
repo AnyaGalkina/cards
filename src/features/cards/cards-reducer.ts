@@ -24,7 +24,7 @@ const initialState = {
         cardQuestion: '',
         cardAnswer: '',
         sortCards: '',
-        page: 0,
+        page: 1,
         pageCount: 5,
         search: ""
     } as CardQueryParamsType
@@ -57,8 +57,8 @@ const slice = createSlice({
 export const cardsReducer = slice.reducer
 export const {setCards, setSearchCards, setSortCards, setCardsPackId, setCardsPage, setCardsPageCount} = slice.actions
 
-export const getCardsTC = () => async (dispatch: Dispatch, getState: () => AppRootState) => {
-    const {pageCount, page, sortCards, search, cardsPack_id} = getState().cards.params;
+export const getCardsTC = (cardsPack_id:string) => async (dispatch: Dispatch, getState: () => AppRootState) => {
+    const {pageCount, page, sortCards, search} = getState().cards.params;
     const params: CardQueryParamsType = {pageCount, page, cardsPack_id};
 
     if (search) {
@@ -90,8 +90,8 @@ export const addCardsTC = (data: NewCardType) => async (dispatch: any) => {
         dispatch(setAppStatusAC({status: 'loading'}))
         let res = await cardsAPI.createCard(data)
 
-        dispatch(getCardsTC())
-        // dispatch(getCardsTC({cardsPack_id: data.card.cardsPack_id}))
+        //dispatch(getCardsTC())
+         dispatch(getCardsTC( data.card.cardsPack_id!))
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e) {
         errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
@@ -104,8 +104,8 @@ export const updateCardsTC = (card: UpdatedCardType) => async (dispatch: any) =>
         dispatch(setAppStatusAC({status: 'loading'}))
         let res = await cardsAPI.updateCard(card)
 
-        dispatch(getCardsTC())
-        // dispatch(getCardsTC({cardsPack_id: card.cardsPack_id}))
+        //dispatch(getCardsTC())
+         dispatch(getCardsTC(card.cardsPack_id!))
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e) {
         errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
@@ -118,8 +118,8 @@ export const deleteCardsTC = (cardId: string) => async (dispatch: any) => {
         dispatch(setAppStatusAC({status: 'loading'}))
         let res = await cardsAPI.deleteCard(cardId)
 
-        dispatch(getCardsTC())
-        // dispatch(getCardsTC({cardsPack_id}))
+       // dispatch(getCardsTC())
+         dispatch(getCardsTC(cardId))
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e) {
         errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)

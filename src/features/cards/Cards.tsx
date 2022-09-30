@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useAppSelector} from "../../common/hooks/useAppSelector";
 import {Navigate, useParams} from "react-router-dom";
 import {ROUTES} from "../../common/enums/enums";
@@ -14,37 +14,39 @@ import s from "./Cards.module.css";
 
 const Cards = () => {
     const dispatch = useAppDispatch()
-    const {cardsPack_id} = useParams()
+     const {cardsPack_id} = useParams()
 
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const {cards, cardsTotalCount} = useAppSelector(state => state.cards.cardsState);
     const myProfileId = useAppSelector(state => state.profile.user._id)
     const {packUserId, packName} = useAppSelector(state => state.cards.cardsState)
-    const {sortCards, search, page, pageCount} = useAppSelector(state => state.cards.params);
+    const {sortCards, search, pageCount} = useAppSelector(state => state.cards.params);
+
+    const [page, setPageS] = useState(0);
 
     const handleChangePage = (event: unknown, newPage: number) => {
+        setPageS(newPage);
         dispatch(setCardsPage({page: newPage + 1}))
     };
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPageS(0)
         dispatch(setCardsPage({page: 1}))
         dispatch(setCardsPageCount({pageCount: parseInt(event.target.value, 10)}))
     };
 
 
     useEffect(() => {
-    //     if (cardsPack_id) {
-    //         dispatch(getCardsTC({cardsPack_id, page, pageCount}))
-    //     }
-    // }, [cardsPack_id, page, pageCount])
-    //     if (cardsPack_id) {
-            dispatch(getCardsTC())
-        // }
+        if (cardsPack_id) {
+            dispatch(getCardsTC(cardsPack_id))
+        }
     }, [cardsPack_id, search, page, pageCount, sortCards])
 
     if (!isLoggedIn) {
         return <Navigate to={ROUTES.LOGIN}/>
     }
+
+
 
     return (
         <div  className={s.tableContainer}>
@@ -56,7 +58,7 @@ const Cards = () => {
             <CardsTableComponent
                 myProfile={myProfileId === packUserId}
                 rows={cards}
-                page={page as number}
+                page={page}
                 totalCount={cardsTotalCount}
                 handleChangePage={handleChangePage}
                 rowsPerPage={pageCount as number}
