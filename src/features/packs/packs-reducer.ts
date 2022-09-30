@@ -102,6 +102,7 @@ export const {
     setMaxCardsCount
 } = slice.actions;
 
+
 export type PackParamsType = {
     pageCount?: number;
     page?: number;
