@@ -10,13 +10,23 @@ import {useDebounce} from "../../../common/hooks/useDebounce";
 export const NumOfCardsFilter = () => {
     const min = useAppSelector(state => state.packs.params.min);
     const max = useAppSelector(state => state.packs.params.max);
+    const maxCardsCount= useAppSelector(state => state.packs.maxCardsCount);
     const appStatus= useAppSelector(state => state.app.status);
     const dispatch = useAppDispatch();
     const [value1, setValue1] = useState(min)
-    const [value2, setValue2] = useState(max)
+    const [value2, setValue2] = useState(maxCardsCount)
     let value = useMemo(() => {return [value1, value2]}, [value1, value2])
 
     const debouncedValue = useDebounce<number[]>(value, 1000);
+
+    const onDoubleChangeHandler = (newValue: [number, number]) => {
+        setValue1(newValue[0]);
+        setValue2(newValue[1]);
+    }
+
+    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>, newValue: number | number[]) => {
+        onDoubleChangeHandler && onDoubleChangeHandler(newValue as [number, number]);
+    };
 
     useEffect(() => {
         dispatch(setMinValue({min: value1}));
@@ -27,17 +37,6 @@ export const NumOfCardsFilter = () => {
         setValue1(min)
         setValue2(max)
     }, [min, max])
-
-    const onDoubleChangeHandler = (newValue: [number, number]) => {
-        setValue1(newValue[0]);
-        setValue2(newValue[1]);
-    }
-
-
-    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>, newValue: number | number[]) => {
-        onDoubleChangeHandler && onDoubleChangeHandler(newValue as [number, number]);
-    };
-
 
     return (
         <div className={sContainer.filterContainer}>
@@ -50,8 +49,7 @@ export const NumOfCardsFilter = () => {
                     value={value}
                     step={1}
                     min={0}
-                    //max from server???
-                    max={10}
+                    max={maxCardsCount}
                     //@ts-ignore
                     onChange={onChangeCallback}
                     valueLabelDisplay="auto"

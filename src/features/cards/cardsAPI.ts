@@ -8,7 +8,6 @@ const instance = axios.create({
 
 export const cardsAPI = {
     getCards(params: CardQueryParamsType) {
-        debugger
         return instance.get<ResGetCardsType>("/cards/card", {params})
     },
     createCard(data: NewCardType) {
