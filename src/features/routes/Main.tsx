@@ -29,9 +29,11 @@ const Main = () => {
 
     return (
         <div className={s.mainContainer}>
-            <Header/>
+            <div>
+                <Header/>
+                {appStatus === "loading" && <LinearProgress/>}
+            </div>
             <ErrorSnackbar/>
-            {appStatus === "loading" && <LinearProgress/>}
             <RoutesComponent/>
             <Footer/>
         </div>
