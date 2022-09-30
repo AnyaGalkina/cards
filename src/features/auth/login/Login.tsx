@@ -48,7 +48,7 @@ const Login = () => {
         <Grid item justifyContent={'center'} className={s.formContainer}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl className={s.formControl}>
-                    <h3>Sing In</h3>
+                    <h3>Sign In</h3>
                     <FormGroup>
                         <TextField
                             label={"Email"}
@@ -82,7 +82,7 @@ const Login = () => {
                                         onClickHandler={() => dispatch(setRecoveryPassword({isRecoveryPasswordAsked: false}))}
                         />
                         <Button type={'submit'} variant={'contained'} color={'primary'}>
-                            Sing In
+                            Sign In
                         </Button>
                     </FormGroup>
                 </FormControl>

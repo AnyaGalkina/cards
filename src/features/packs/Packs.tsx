@@ -27,6 +27,7 @@ export const Packs = () => {
     const search = useAppSelector(state => state.packs.params.search);
     const userId = useAppSelector(state => state.packs.params.userId);
     const sortPacks = useAppSelector (state => state.packs.params.sortPacks);
+    const status = useAppSelector(state => state.app.status);
 
     //need this useState because Pagination starts with 0
     const [page, setPageS] = useState(0);
@@ -53,6 +54,7 @@ export const Packs = () => {
     return (
         <div className={s.tableContainer}>
             <AddNewPackButton
+                status={status}
                 name={'Add new Pack'}
                 addNewPack={addNewPack}/>
             <div className={s.searchContainer}>
