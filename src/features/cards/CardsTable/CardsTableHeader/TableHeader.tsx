@@ -66,7 +66,7 @@ export function TableHeader(props: TableHeaderProps) {
         <TableHead>
             <TableRow>
                 {headCells.map((headCell) => (
-                    headCell.id === 'actions' ?
+                    headCell.id !== 'actions' ?
                         (
                             <TableCell
                                 key={headCell.id}

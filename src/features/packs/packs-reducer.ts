@@ -7,8 +7,6 @@ import {AppRootState} from "../../app/store";
 
 export const defaultFilterValues = {
     min: 0,
-    //Data from server?
-    max: 10,
     isMyPack: false,
     search: "",
     sortPacks: "0updated" as SortPacksType
@@ -24,7 +22,7 @@ const initialState = {
         pageCount: 5,
         isMyPack: defaultFilterValues.isMyPack,
         min: defaultFilterValues.min,
-        max: defaultFilterValues.max,
+        max: 0,
         search: defaultFilterValues.search,
         totalCount: 10,
         sortPacks: defaultFilterValues.sortPacks
@@ -37,7 +35,8 @@ const initialState = {
             private: false,
             created: ""
         } as PacksType
-    ]
+    ],
+    maxCardsCount: 0
 }
 
 const slice = createSlice({
@@ -52,8 +51,7 @@ const slice = createSlice({
         },
         removeAllFilters: (state, action: PayloadAction<DefaultFilterValues>) => {
             state.params.min = action.payload.min;
-            state.params.max = action.payload.max;
-            state.params.isMyPack = action.payload.isMyPack;
+            state.params.max = state.maxCardsCount;
             state.params.search = action.payload.search;
             state.params.sortPacks = action.payload.sortPacks;
         },
@@ -80,7 +78,10 @@ const slice = createSlice({
         },
         setSortPacksByDate: (state, action: PayloadAction<{ sortPacks: SortPacksType }>) => {
             state.params.sortPacks = action.payload.sortPacks
-        }
+        },
+        setMaxCardsCount: (state, action: PayloadAction<{ maxCardsCount: number }>) => {
+            state.maxCardsCount = action.payload.maxCardsCount
+        },
     }
 });
 
@@ -96,7 +97,8 @@ export const {
     setMinValue,
     setPage,
     setTotalCount,
-    setSortPacksByDate
+    setSortPacksByDate,
+    setMaxCardsCount
 } = slice.actions;
 
 export type PackParamsType = {
@@ -127,6 +129,7 @@ export const getPacksTC = () => async (dispatch: Dispatch, getState: () => AppRo
     try {
         const res = await packsAPI.getPacks(params);
         dispatch(setPacks(res.data.cardPacks));
+        dispatch(setMaxCardsCount({maxCardsCount: res.data.maxCardsCount}));
         dispatch(setAppStatusAC({status: "succeeded"}));
         dispatch(setTotalCount({totalCount: res.data.cardPacksTotalCount}))
     } catch (err: any) {
