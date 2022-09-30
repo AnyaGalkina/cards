@@ -54,6 +54,7 @@ const slice = createSlice({
             state.params.max = state.maxCardsCount;
             state.params.search = action.payload.search;
             state.params.sortPacks = action.payload.sortPacks;
+            state.params.isMyPack = false;
         },
         setMinValue: (state, action: PayloadAction<{ min: number }>) => {
             state.params.min = action.payload.min
@@ -62,7 +63,7 @@ const slice = createSlice({
             state.params.max = action.payload.max
         },
         setOwner: (state, action: PayloadAction<{ isMyPack: boolean }>) => {
-            state.params.isMyPack = action.payload.isMyPack
+            state.params.isMyPack = action.payload.isMyPack;
         },
         setPage: (state, action: PayloadAction<{ page: number }>) => {
             state.params.page = action.payload.page
@@ -100,6 +101,7 @@ export const {
     setSortPacksByDate,
     setMaxCardsCount
 } = slice.actions;
+
 
 export type PackParamsType = {
     pageCount?: number;
