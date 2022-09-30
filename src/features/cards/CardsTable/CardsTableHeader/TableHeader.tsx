@@ -56,9 +56,9 @@ export function TableHeader(props: TableHeaderProps) {
         (property: keyof CardsData) => (event: React.MouseEvent<unknown>) => {
             onRequestSort(event, property);
             if(property === "grade") {
-                sortCards === "0grade"
-                    ? dispatch(setSortCards({sortCards: "1grade"}))
-                    : dispatch(setSortCards({sortCards: "0grade"}))
+                sortCards === "1grade"
+                    ? dispatch(setSortCards({sortCards: "0grade"}))
+                    : dispatch(setSortCards({sortCards: "1grade"}))
             }
         };
 
