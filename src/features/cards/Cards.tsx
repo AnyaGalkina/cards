@@ -5,7 +5,6 @@ import {ROUTES} from "../../common/enums/enums";
 import {getCardsTC, setCardsPage, setCardsPageCount, setSearchCards} from "./cards-reducer";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {CardsTableComponent} from "./CardsTable/CardsTable";
-import UserPreview from "./userPreview/UserPreview";
 import CardsHeader from "./CardsHeader/CardsHeader";
 import {SearchBar} from "../../common/components/search/Search";
 import s from "./Cards.module.css";
@@ -50,7 +49,6 @@ const Cards = () => {
 
     return (
         <div  className={s.tableContainer}>
-            <UserPreview/>
             <CardsHeader myProfile={myProfileId === packUserId} cardsPack_id={cardsPack_id} packName={packName}/>
             <div className={s.searchContainer}>
                 <SearchBar setSearchParam={setSearchCards}/>
