@@ -11,7 +11,7 @@ import s from "./Cards.module.css";
 import {InfoNotFound} from "../../common/components/info-not-found/InfoNotFound";
 
 
-const Cards = () => {
+export const Cards = () => {
     const dispatch = useAppDispatch()
      const {cardsPack_id} = useParams()
 
@@ -69,5 +69,4 @@ const Cards = () => {
     );
 };
 
-export default Cards;
 

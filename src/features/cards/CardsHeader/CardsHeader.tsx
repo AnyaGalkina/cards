@@ -26,13 +26,13 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({myProfile, cardsPack_id, p
     }
 
     const headerBoxStyle = {
-        display: 'flex', alignItems: 'center', justifyContent: 'space-around', margin: '10px'}
+        display: 'flex', justifyContent: 'space-around', margin: '10px'}
 
     return (
-        <Box>
+        <Box >
             {myProfile ?
                 (<Box sx={headerBoxStyle}>
-                        <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
+                        <Box sx={{display: 'flex',justifyContent: 'space-around'}}>
                             <Typography variant="h5">
                                 {packName}
                             </Typography>

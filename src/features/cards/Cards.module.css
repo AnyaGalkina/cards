@@ -1,18 +1,19 @@
 .tableContainer{
     display: flex;
     flex-direction: column;
-    /*align-content: center;*/
-    align-items: center;
+    /*!*align-content: center;*!*/
+    /*align-items: center;*/
 }
 
 .searchContainer {
     margin-top: 40px;
     display: flex;
-    justify-content: left;
+    /*justify-content: left;*/
     align-content: center;
     flex-wrap: wrap;
-    width: 70%;
+    width: 60%;
     background-color: #EFEFEF;
     margin-bottom: 10px;
     padding: 5px 50px;
+    align-self: center;
 }
