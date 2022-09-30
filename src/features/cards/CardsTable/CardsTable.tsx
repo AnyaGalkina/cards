@@ -10,7 +10,6 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import {Rating} from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
-
 import {Delete, Edit} from "@mui/icons-material";
 import {CardsData, createCardsData} from "../../../common/utils/createData";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
@@ -34,7 +33,7 @@ export const CardsTableComponent = (props: CardsTable) => {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof CardsData>('question');
 
-    const cards = props.rows.map(card => createCardsData(card.question, card.answer, card.updated, card.grade, card._id, card.cardsPack_id, ''))
+    const cards = props.rows.map(card => createCardsData(card.question, card.answer, card.updated, card.grade, card._id, ''))
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
@@ -45,12 +44,12 @@ export const CardsTableComponent = (props: CardsTable) => {
         setOrderBy(property);
     }
 
-    const updateCardHandler = (_id: string, cardsPack_id: string, question: string) => { // cardId, question..
-        dispatch(updateCardsTC({_id ,cardsPack_id, question}))
+    const updateCardHandler = (_id: string, question: string) => {
+        dispatch(updateCardsTC({_id, question}))
     }
 
-    const deleteCardHandler = (cardId: string, cardsPack_id: string) => {  // cardId, cardPackId
-       dispatch(deleteCardsTC(cardId, cardsPack_id))
+    const deleteCardHandler = (cardId: string) => {
+       dispatch(deleteCardsTC(cardId))
     }
 
     return (
@@ -86,8 +85,8 @@ export const CardsTableComponent = (props: CardsTable) => {
                                         </TableCell>
                                         {props.myProfile ?
                                             (<TableCell title={card.actions}>
-                                                <Edit onClick={()=> updateCardHandler(card.cardId, card.cardsPack_id, 'update question')}/>
-                                                <Delete onClick={()=> deleteCardHandler(card.cardId, card.cardsPack_id)}/>
+                                                <Edit onClick={()=> updateCardHandler(card.cardId, 'update question')}/>
+                                                <Delete onClick={()=> deleteCardHandler(card.cardId)}/>
                                             </TableCell>) : null
                                         }
                                     </TableRow>

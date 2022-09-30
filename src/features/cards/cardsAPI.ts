@@ -44,7 +44,7 @@ export type ResGetCardsType = {
 }
 
 export type CardType = {
-    cardsPack_id: string
+    cardsPack_id?: string // для создания обязательна
     question?: string
     answer?: string
     grade?: number
@@ -73,7 +73,7 @@ export type NewCardType = {
     card: CardType
 }
 
-export type UpdatedCardType = CardType & { _id: string, comments?: string, question?: string, answer?: string }
+export type UpdatedCardType = CardType & { _id: string, comments?: string}
 
 export type ResUpdatedCardType = {
     updatedCard: ResCardType
