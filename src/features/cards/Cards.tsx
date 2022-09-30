@@ -9,7 +9,7 @@ import UserPreview from "./userPreview/UserPreview";
 import CardsHeader from "./CardsHeader/CardsHeader";
 import {SearchBar} from "../../common/components/search/Search";
 import s from "./Cards.module.css";
-
+import {InfoNotFound} from "../../common/components/info-not-found/InfoNotFound";
 
 
 const Cards = () => {
@@ -33,13 +33,9 @@ const Cards = () => {
 
 
     useEffect(() => {
-    //     if (cardsPack_id) {
-    //         dispatch(getCardsTC({cardsPack_id, page, pageCount}))
-    //     }
-    // }, [cardsPack_id, page, pageCount])
-    //     if (cardsPack_id) {
+        if (cardsPack_id) {
             dispatch(getCardsTC())
-        // }
+        }
     }, [cardsPack_id, search, page, pageCount, sortCards])
 
     if (!isLoggedIn) {
@@ -47,21 +43,24 @@ const Cards = () => {
     }
 
     return (
-        <div  className={s.tableContainer}>
+        <div className={s.tableContainer}>
             <UserPreview/>
             <CardsHeader myProfile={myProfileId === packUserId} cardsPack_id={cardsPack_id} packName={packName}/>
             <div className={s.searchContainer}>
                 <SearchBar setSearchParam={setSearchCards}/>
             </div>
-            <CardsTableComponent
-                myProfile={myProfileId === packUserId}
-                rows={cards}
-                page={page as number}
-                totalCount={cardsTotalCount}
-                handleChangePage={handleChangePage}
-                rowsPerPage={pageCount as number}
-                handleChangeRowsPerPage={handleChangeRowsPerPage}
-            />
+            {cards.length === 0
+                ? <InfoNotFound itemName={"Cards"}/>
+                : <CardsTableComponent
+                    myProfile={myProfileId === packUserId}
+                    rows={cards}
+                    page={page as number}
+                    totalCount={cardsTotalCount}
+                    handleChangePage={handleChangePage}
+                    rowsPerPage={pageCount as number}
+                    handleChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+            }
         </div>
     );
 };
