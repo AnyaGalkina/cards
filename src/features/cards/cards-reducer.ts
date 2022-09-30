@@ -24,31 +24,38 @@ const initialState = {
         cardQuestion: '',
         cardAnswer: '',
         sortCards: '',
-        page: 1,
+        page: 0,
         pageCount: 5,
         search: ""
     } as CardQueryParamsType
 }
 
-
 const slice = createSlice({
     name: 'cards',
     initialState: initialState,
     reducers: {
-        setCardsAC(state, action: PayloadAction<ResGetCardsType>) {
+        setCards(state, action: PayloadAction<ResGetCardsType>) {
             state.cardsState = action.payload
+        },
+        setCardsPackId(state, action: PayloadAction<string>) {
+            state.params.cardsPack_id = action.payload
         },
         setSearchCards(state, action: PayloadAction<{ search: string }>) {
             state.params.search = action.payload.search
         },
-        setSortCards(state, action: PayloadAction<{ sortCards: SortCardsType }>) {
+        setSortCards(state, action: PayloadAction<{sortCards: SortCardsType }>) {
             state.params.sortCards = action.payload.sortCards
-        }
-    }
+        },
+        setCardsPage: (state, action: PayloadAction<{page: number}>) => {
+            state.params.page = action.payload.page
+        },
+        setCardsPageCount: (state, action: PayloadAction<{pageCount: number}>) => {
+            state.params.pageCount = action.payload.pageCount
+    }}
 })
 
 export const cardsReducer = slice.reducer
-export const {setCardsAC, setSearchCards, setSortCards} = slice.actions
+export const {setCards, setSearchCards, setSortCards, setCardsPackId, setCardsPage, setCardsPageCount} = slice.actions
 
 export const getCardsTC = () => async (dispatch: Dispatch, getState: () => AppRootState) => {
     const {pageCount, page, sortCards, search, cardsPack_id} = getState().cards.params;
@@ -68,7 +75,7 @@ export const getCardsTC = () => async (dispatch: Dispatch, getState: () => AppRo
         let res = await cardsAPI.getCards(params)
         console.log(res.data)
 
-        dispatch(setCardsAC(res.data))
+        dispatch(setCards(res.data))
 
         dispatch(setAppStatusAC({status: "succeeded"}))
         dispatch(setAppStatusAC({status: "succeeded"}))
@@ -106,7 +113,7 @@ export const updateCardsTC = (card: UpdatedCardType) => async (dispatch: any) =>
     }
 }
 
-export const deleteCardsTC = (cardId: string, cardsPack_id: string) => async (dispatch: any) => {
+export const deleteCardsTC = (cardId: string) => async (dispatch: any) => {
     try {
         dispatch(setAppStatusAC({status: 'loading'}))
         let res = await cardsAPI.deleteCard(cardId)
