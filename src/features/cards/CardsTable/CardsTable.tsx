@@ -33,7 +33,7 @@ export const CardsTableComponent = (props: CardsTable) => {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof CardsData>('question');
 
-    const cards = props.rows.map(card => createCardsData(card.question, card.answer, card.updated, card.grade, card._id, ''))
+    const cards = props.rows.map(card => createCardsData(card.question, card.answer, card.updated, card.grade, card._id, card.cardsPack_id!, ''))
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
@@ -44,12 +44,12 @@ export const CardsTableComponent = (props: CardsTable) => {
         setOrderBy(property);
     }
 
-    const updateCardHandler = (_id: string, question: string) => {
-        dispatch(updateCardsTC({_id, question}))
+    const updateCardHandler = (_id: string, cardsPack_id: string, question: string) => {
+        dispatch(updateCardsTC({_id, cardsPack_id, question}))
     }
 
-    const deleteCardHandler = (cardId: string) => {
-       dispatch(deleteCardsTC(cardId))
+    const deleteCardHandler = (cardId: string, cardsPack_id: string) => {
+       dispatch(deleteCardsTC(cardId, cardsPack_id))
     }
 
     return (
@@ -85,8 +85,8 @@ export const CardsTableComponent = (props: CardsTable) => {
                                         </TableCell>
                                         {props.myProfile ?
                                             (<TableCell title={card.actions}>
-                                                <Edit onClick={()=> updateCardHandler(card.cardId, 'update question')}/>
-                                                <Delete onClick={()=> deleteCardHandler(card.cardId)}/>
+                                                <Edit onClick={()=> updateCardHandler(card.cardId, card.cardsPack_id, 'update question')}/>
+                                                <Delete onClick={()=> deleteCardHandler(card.cardId, card.cardsPack_id)}/>
                                             </TableCell>) : null
                                         }
                                     </TableRow>

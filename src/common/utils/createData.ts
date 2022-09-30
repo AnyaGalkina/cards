@@ -34,6 +34,7 @@ export interface CardsData {
     updated: string
     grade: number | undefined
     cardId: string
+    cardsPack_id: string
     actions: string
 }
 export function createCardsData(
@@ -42,6 +43,7 @@ export function createCardsData(
     updated: string,
     grade: number | undefined,
     cardId: string,
+    cardsPack_id: string,
     actions: string
 ): CardsData {
     return <CardsData> {
@@ -50,6 +52,7 @@ export function createCardsData(
         updated,
         grade,
         cardId,
+        cardsPack_id,
         actions
     };
 }

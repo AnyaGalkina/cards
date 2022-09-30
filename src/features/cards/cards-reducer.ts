@@ -58,6 +58,7 @@ export const cardsReducer = slice.reducer
 export const {setCards, setSearchCards, setSortCards, setCardsPackId, setCardsPage, setCardsPageCount} = slice.actions
 
 export const getCardsTC = (cardsPack_id:string) => async (dispatch: Dispatch, getState: () => AppRootState) => {
+
     const {pageCount, page, sortCards, search} = getState().cards.params;
     const params: CardQueryParamsType = {pageCount, page, cardsPack_id};
 
@@ -91,7 +92,7 @@ export const addCardsTC = (data: NewCardType) => async (dispatch: any) => {
         let res = await cardsAPI.createCard(data)
 
         //dispatch(getCardsTC())
-         dispatch(getCardsTC( data.card.cardsPack_id!))
+         dispatch(getCardsTC(data.card.cardsPack_id!))
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e) {
         errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
@@ -113,13 +114,13 @@ export const updateCardsTC = (card: UpdatedCardType) => async (dispatch: any) =>
     }
 }
 
-export const deleteCardsTC = (cardId: string) => async (dispatch: any) => {
+export const deleteCardsTC = (cardId: string, cardsPack_id: string) => async (dispatch: any) => {
     try {
         dispatch(setAppStatusAC({status: 'loading'}))
         let res = await cardsAPI.deleteCard(cardId)
 
        // dispatch(getCardsTC())
-         dispatch(getCardsTC(cardId))
+         dispatch(getCardsTC(cardsPack_id))
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e) {
         errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
