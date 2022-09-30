@@ -8,7 +8,7 @@ import {CardsTableComponent} from "./CardsTable/CardsTable";
 import CardsHeader from "./CardsHeader/CardsHeader";
 import {SearchBar} from "../../common/components/search/Search";
 import s from "./Cards.module.css";
-
+import {InfoNotFound} from "../../common/components/info-not-found/InfoNotFound";
 
 
 const Cards = () => {
@@ -53,15 +53,18 @@ const Cards = () => {
             <div className={s.searchContainer}>
                 <SearchBar setSearchParam={setSearchCards}/>
             </div>
-            <CardsTableComponent
-                myProfile={myProfileId === packUserId}
-                rows={cards}
-                page={page}
-                totalCount={cardsTotalCount}
-                handleChangePage={handleChangePage}
-                rowsPerPage={pageCount as number}
-                handleChangeRowsPerPage={handleChangeRowsPerPage}
-            />
+            {cards.length === 0
+                ? <InfoNotFound itemName={"Cards"}/>
+                : <CardsTableComponent
+                    myProfile={myProfileId === packUserId}
+                    rows={cards}
+                    page={page}
+                    totalCount={cardsTotalCount}
+                    handleChangePage={handleChangePage}
+                    rowsPerPage={pageCount as number}
+                    handleChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+            }
         </div>
     );
 };

@@ -15,6 +15,7 @@ import {SearchBar} from "../../common/components/search/Search";
 import s from "./Packs.module.css";
 import {AddNewPackButton} from "./AddNewPackButton/AddNewPackButton";
 import {PacksTable} from "./PacksTable/PacksTable/PacksTable";
+import {InfoNotFound} from "../../common/components/info-not-found/InfoNotFound";
 
 export const Packs = () => {
     const dispatch = useAppDispatch();
@@ -26,7 +27,7 @@ export const Packs = () => {
     const pageCount = useAppSelector(state => state.packs.params.pageCount);
     const search = useAppSelector(state => state.packs.params.search);
     const userId = useAppSelector(state => state.packs.params.userId);
-    const sortPacks = useAppSelector (state => state.packs.params.sortPacks);
+    const sortPacks = useAppSelector(state => state.packs.params.sortPacks);
 
     //need this useState because Pagination starts with 0
     const [page, setPageS] = useState(0);
@@ -53,24 +54,27 @@ export const Packs = () => {
     return (
         <div className={s.tableContainer}>
             <AddNewPackButton
-                name={'Add new Pack'}
+                name={"Add new Pack"}
                 addNewPack={addNewPack}/>
             <div className={s.searchContainer}>
                 <SearchBar setSearchParam={searchByPackName}/>
                 <PacksFilters/>
             </div>
-            <PacksTable
-                userId={userId}
-                rows={packs}
-                page={page}
-                totalCount={params.totalCount}
-                changePage={changePage}
-                rowsPerPage={pageCount}
-                changeRowsPerPage={changeRowsPerPage}
-                deletePack={deletePack}
-                updatePacksName={updatePacksName}
-                sortPacks={sortPacks}
-            />
+            { packs.length === 0
+                    ? <InfoNotFound itemName={"Packs"} />
+                    : <PacksTable
+                        userId={userId}
+                        rows={packs}
+                        page={page}
+                        totalCount={params.totalCount}
+                        changePage={changePage}
+                        rowsPerPage={pageCount}
+                        changeRowsPerPage={changeRowsPerPage}
+                        deletePack={deletePack}
+                        updatePacksName={updatePacksName}
+                        sortPacks={sortPacks}
+                    />
+            }
         </div>
     )
 }
