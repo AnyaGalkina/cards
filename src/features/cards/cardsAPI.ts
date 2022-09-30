@@ -27,7 +27,7 @@ export type CardQueryParamsType = {
     cardQuestion?: string;
     cardAnswer?: string;
     sortCards?:  SortCardsType;
-    page?: number;
+    page: number;
     pageCount?: number;
     search?: string;
 };
