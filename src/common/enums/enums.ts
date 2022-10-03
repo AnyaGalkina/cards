@@ -9,4 +9,5 @@ export enum ROUTES {
     CARDS = '/cards/card/', // :id
     PACKS = '/cards/pack',
     TEST = "/test",
+    LEARN = '/learn'
 }

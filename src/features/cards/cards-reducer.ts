@@ -1,5 +1,12 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {CardQueryParamsType, cardsAPI, NewCardType, ResGetCardsType, UpdatedCardType} from "./cardsAPI";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {
+    CardQueryParamsType,
+    cardsAPI,
+    NewCardType,
+    ResGetCardsType,
+    UpdatedCardType,
+    UpdatedGradeType
+} from "./cardsAPI";
 import {Dispatch} from "redux";
 import {setAppStatusAC} from "../../app/app-reducer";
 import {errorUtils} from "../../common/utils/errorUtils";
@@ -29,6 +36,17 @@ const initialState = {
         search: ""
     } as CardQueryParamsType
 }
+
+export const changeGradeTC = createAsyncThunk('cards/changeGradeTC',async (data: UpdatedGradeType, thunkAPI)=> {
+    thunkAPI.dispatch(setAppStatusAC({status: 'loading'}))
+    try {
+        let res = await cardsAPI.changeGrade(data)
+        thunkAPI.dispatch(setAppStatusAC({status: 'succeeded'}))
+    } catch (e) {
+        errorUtils(e as Error | AxiosError<{ error: string }>, thunkAPI.dispatch)
+        thunkAPI.dispatch(setAppStatusAC({status: 'failed'}))
+    }
+})
 
 const slice = createSlice({
     name: 'cards',

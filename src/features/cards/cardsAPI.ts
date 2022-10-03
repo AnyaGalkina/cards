@@ -18,6 +18,9 @@ export const cardsAPI = {
     },
     updateCard(card: UpdatedCardType) {
         return instance.put<AxiosResponse<ResUpdatedCardType>>('/cards/card', {card})
+    },
+    changeGrade(data: UpdatedGradeType) {
+        return instance.put<AxiosResponse<ResUpdatedGradeType>>('/cards/grade', data)
     }
 }
 
@@ -80,4 +83,17 @@ export type ResUpdatedCardType = {
 
 export type ResDeletedCardType = {
     deletedCard: ResCardType
+}
+
+export type ResUpdatedGradeType = {
+    updatedGrade: UpdatedGradeType & {
+        _id: string
+        cardsPack_id: string
+        user_id: string
+        shots: number }
+}
+
+export type UpdatedGradeType = {
+    grade: number
+    card_id: string
 }

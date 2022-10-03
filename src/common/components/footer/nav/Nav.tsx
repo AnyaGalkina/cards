@@ -14,6 +14,7 @@ const Nav = () => {
             <Link path={ROUTES.PASSWORD_RECOVERY} title={"forgotPassword"} />
             <Link path={ROUTES.SET_PASSWORD} title={"setPassword"} />
             <Link path={ROUTES.CHECK_EMAIL} title={"checkEmail"} />
+            <Link path={ROUTES.LEARN} title={"learn"} />
         </div>
     );
 };
