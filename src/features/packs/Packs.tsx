@@ -29,6 +29,7 @@ export const Packs = () => {
     const userId = useAppSelector(state => state.packs.params.userId);
     const sortPacks = useAppSelector (state => state.packs.params.sortPacks);
     const status = useAppSelector(state => state.app.status);
+    const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
 
     //need this useState because Pagination starts with 0
     const [page, setPageS] = useState(0);
@@ -50,7 +51,7 @@ export const Packs = () => {
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [pageCount, page, search, min, max, isMyPack, sortPacks]);
+    }, [pageCount, page, search, min, max, isMyPack, sortPacks, maxCardsCount]);
 
     return (
         <div className={s.tableContainer}>

@@ -3,9 +3,9 @@ import './App.css';
 import {store} from "./store";
 import {HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import Main from "../features/routes/Main";
+import {Main} from "../features/routes/Main";
 
-const  App = () => {
+const App = () => {
   return (
     <div className="App">
       <HashRouter>

@@ -43,11 +43,12 @@ const slice = createSlice({
     name: "packs",
     initialState,
     reducers: {
-        setUserId(state, action: PayloadAction<{ userId: string }>) {
+        setUserId: (state, action: PayloadAction<{ userId: string }>) => {
             state.params.userId = action.payload.userId
         },
-        setPacks: (state, action: PayloadAction<Array<PacksType>>) => {
-            state.packs = action.payload
+        setPacks: (state, action: PayloadAction<{ cardPacks: Array<PacksType>, maxCardsCount: number }>) => {
+            state.packs = action.payload.cardPacks;
+            state.maxCardsCount = action.payload.maxCardsCount;
         },
         removeAllFilters: (state, action: PayloadAction<DefaultFilterValues>) => {
             state.params.min = action.payload.min;
@@ -80,9 +81,6 @@ const slice = createSlice({
         setSortPacksByDate: (state, action: PayloadAction<{ sortPacks: SortPacksType }>) => {
             state.params.sortPacks = action.payload.sortPacks
         },
-        setMaxCardsCount: (state, action: PayloadAction<{ maxCardsCount: number }>) => {
-            state.maxCardsCount = action.payload.maxCardsCount
-        },
     }
 });
 
@@ -99,7 +97,6 @@ export const {
     setPage,
     setTotalCount,
     setSortPacksByDate,
-    setMaxCardsCount
 } = slice.actions;
 
 
@@ -130,12 +127,12 @@ export const getPacksTC = () => async (dispatch: Dispatch, getState: () => AppRo
     dispatch(setAppStatusAC({status: "loading"}))
     try {
         const res = await packsAPI.getPacks(params);
-        dispatch(setPacks(res.data.cardPacks));
-        dispatch(setMaxCardsCount({maxCardsCount: res.data.maxCardsCount}));
-        dispatch(setAppStatusAC({status: "succeeded"}));
-        dispatch(setTotalCount({totalCount: res.data.cardPacksTotalCount}))
+        dispatch(setPacks({cardPacks: res.data.cardPacks, maxCardsCount: res.data.maxCardsCount}));
+        dispatch(setTotalCount({totalCount: res.data.cardPacksTotalCount}));
     } catch (err: any) {
         errorUtils(err, dispatch);
+    } finally {
+        dispatch(setAppStatusAC({status: "succeeded"}));
     }
 };
 

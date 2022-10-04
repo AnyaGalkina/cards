@@ -10,11 +10,11 @@ export const PacksOwnerFilter = () => {
     const appStatus= useAppSelector(state => state.app.status);
     const dispatch = useAppDispatch();
 
-    const handleOnMeClick = () => {
+    const onMeClickHandler = () => {
         dispatch(setOwner({isMyPack: true}));
     }
 
-    const handleOnAllClick = () => {
+    const onAllClickHandler = () => {
         dispatch(setOwner({isMyPack: false}));
     }
 
@@ -25,13 +25,13 @@ export const PacksOwnerFilter = () => {
                 <Button
                     disabled={appStatus === "loading"}
                     variant={`${isMyPack ? "contained" : "text"}`}
-                    onClick={handleOnMeClick}
+                    onClick={onMeClickHandler}
                 >Me
                 </Button>
                 <Button
                     disabled={appStatus === "loading"}
                     variant={`${!isMyPack ?  "contained" : "text"}`}
-                    onClick={handleOnAllClick}
+                    onClick={onAllClickHandler}
                 >All
                 </Button>
             </ButtonGroup>

@@ -7,7 +7,7 @@ import {SignUp} from "../auth/sign-up/SignUp";
 import {PasswordRecovery} from "../auth/forgot-password/PasswordRecovery";
 import {SetPassword} from "../auth/new-password/SetPassword";
 import CheckEmail from "../auth/check-email/CheckEmail";
-import PageNotFound from "../../common/components/404/PageNotFound";
+import {PageNotFound} from "../../common/components/info-not-found/404/PageNotFound";
 import {Cards} from "../cards/Cards";
 import {Packs} from "../packs/Packs";
 import {Learn} from "../cards/Learn/Learn";
