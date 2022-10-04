@@ -16,13 +16,13 @@ import {loginTC, setRecoveryPassword} from "../auth-reducer";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
 
 
-const Login = () => {
+export const Login = () => {
 
     const dispatch = useAppDispatch();
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
     const [passwordType, setPasswordType] = useState("password");
 
-    const toggleShowPassword = useCallback(() => {
+    const toggleShowPasswordHandler = useCallback(() => {
         passwordType === "password" ? setPasswordType("text") : setPasswordType("password")
     }, [passwordType]);
 
@@ -65,7 +65,7 @@ const Login = () => {
                             InputProps={{
                                 endAdornment: <InputAdornment position="end">
                                     <PasswordVisibility passwordType={passwordType}
-                                                        toggleShowPassword={toggleShowPassword}/>
+                                                        toggleShowPassword={toggleShowPasswordHandler}/>
                                 </InputAdornment>
                             }}
                         />
@@ -93,7 +93,4 @@ const Login = () => {
             />
         </Grid>
     </Grid>
-
 };
-
-export default Login;

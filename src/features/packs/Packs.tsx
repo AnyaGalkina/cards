@@ -43,7 +43,6 @@ export const Packs = () => {
         setPageS(newPage);
         dispatch(setPage({page: newPage + 1}))
     }, [dispatch])
-
     const changeRowsPerPage = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setPageS(0)
         dispatch(setPage({page: 1}))

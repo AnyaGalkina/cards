@@ -1,6 +1,5 @@
 import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
-import Login from "../auth/login/Login";
 import {ROUTES} from "../../common/enums/enums";
 import Profile from "../profile/profile-page/Profile";
 import {SignUp} from "../auth/sign-up/SignUp";
@@ -11,6 +10,7 @@ import {PageNotFound} from "../../common/components/info-not-found/404/PageNotFo
 import {Cards} from "../cards/Cards";
 import {Packs} from "../packs/Packs";
 import {Learn} from "../cards/Learn/Learn";
+import {Login} from "../auth/login/Login";
 
 
 export const RoutesComponent = () => {

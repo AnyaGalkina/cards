@@ -27,14 +27,14 @@ type PacksTablePropsType = {
 }
 
 
-export const PacksTable = (props: PacksTablePropsType) => {
+export const PacksTable = React.memo((props: PacksTablePropsType) => {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof PackData>('name');
     const rows = props.rows.map(row => {
         return createPacksData(row.name, row.cardsCount, row.updated, row.user_name, row._id, '', row.user_id)
     });
 
-    const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof PackData,) => {
+    const requestSortHandler = (event: React.MouseEvent<unknown>, property: keyof PackData,) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
@@ -51,7 +51,7 @@ export const PacksTable = (props: PacksTablePropsType) => {
                         <PacksTableHeader
                             order={order}
                             orderBy={orderBy}
-                            onRequestSort={handleRequestSort}
+                            onRequestSort={requestSortHandler}
                             sortPacks={props.sortPacks}
                         />
                         <TableBody>
@@ -84,4 +84,4 @@ export const PacksTable = (props: PacksTablePropsType) => {
             </Paper>
         </Box>
     </>
-}
+})
