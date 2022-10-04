@@ -5,10 +5,11 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import {useNavigate} from "react-router-dom";
-import {useCallback} from "react";
+import {useCallback, useState} from "react";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {setCardsPackId} from "../../../cards/cards-reducer";
 import {BasicModal} from "../../../../common/components/modal/Modal";
+import {UpdateNameModal} from "../../../../common/components/modal/updateNameNodal/updateNameModal";
 
 type PackPropsType = {
     id: string
@@ -25,8 +26,10 @@ type PackPropsType = {
 export const Pack = React.memo((props: PackPropsType) => {
         const navigate = useNavigate();
         const dispatch = useAppDispatch();
+        const [open, setOpen] = useState(false);
+        const openModalHandler = () => setOpen(true);
+        const closeModalHandler = () => setOpen(false);
 
-        const updatePacksName = useCallback(() => props.updatePacksName(props.id, 'updated name'), [props.updatePacksName, props.id])
         const deletePack = useCallback(() => props.deletePack(props.id), [props.deletePack, props.id])
         const goToCardsHandler = useCallback(() => {
             dispatch(setCardsPackId(props.id))
@@ -54,11 +57,13 @@ export const Pack = React.memo((props: PackPropsType) => {
                         ?
                         <>
                             <CreateOutlinedIcon
-                                onClick={updatePacksName}/>
+                                onClick={openModalHandler}/>
                             <DeleteOutlinedIcon
                                 onClick={deletePack}/>
                         </>
                         : null}
+                    <UpdateNameModal updatePacksName={props.updatePacksName} packId={props.id} open={open}
+                                     setClose={closeModalHandler}/>
                 </TableCell>
             </TableRow>
         )

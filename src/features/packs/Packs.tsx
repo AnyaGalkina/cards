@@ -16,7 +16,7 @@ import s from "./Packs.module.css";
 import {AddNewPackButton} from "./AddNewPackButton/AddNewPackButton";
 import {PacksTable} from "./PacksTable/PacksTable/PacksTable";
 import {InfoNotFound} from "../../common/components/info-not-found/InfoNotFound";
-import {AddModal} from "../../common/components/modal/AddModal/AddModal";
+import {AddModal} from "../../common/components/modal/addNameModal/AddModal";
 import {Button} from "@mui/material";
 
 export const Packs = () => {
