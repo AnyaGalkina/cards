@@ -18,7 +18,7 @@ const slice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        setIsLoggedInAC(state, action: PayloadAction<{ value: boolean }>) {
+        setIsLoggedInAC: (state, action: PayloadAction<{ value: boolean }>) => {
             state.isLoggedIn = action.payload.value
         },
         setIsSignedUp: (state, action: PayloadAction<{ isSignedUp: boolean }>) => {
@@ -38,50 +38,54 @@ export const {setIsLoggedInAC, setIsSignedUp, setRecoveryPassword, setEmail} = s
 
 //Thunks
 
-export const loginTC = (data: LoginRequestType) => (dispatch: Dispatch<any>) => {
-    dispatch(setAppStatusAC({status: "loading"}))
-    authAPI.login(data)
-        .then(res => {
-                dispatch(setAppStatusAC({status: "succeeded"}));
-                dispatch(setIsLoggedInAC({value: true}));
-                dispatch(setUserAC(res.data))
-                dispatch(setUserId({userId: res.data._id}))
-            }
-        )
-        .catch(err => errorUtils(err, dispatch)
-        )
-};
+export const loginTC = (data: LoginRequestType) => async (dispatch: Dispatch<any>) => {
+        dispatch(setAppStatusAC({status: "loading"}))
+        try {
+            const res = await authAPI.login(data)
+            dispatch(setIsLoggedInAC({value: true}));
+            dispatch(setUserAC(res.data))
+            dispatch(setUserId({userId: res.data._id}))
+        } catch (err: any) {
+            errorUtils(err, dispatch);
+        } finally {
+            dispatch(setAppStatusAC({status: "succeeded"}));
+        }
+    }
+;
 
 export const signUpTC = (payload: SignUpType) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: "loading"}));
     try {
-        const response = await authAPI.signUp(payload);
+        const res = await authAPI.signUp(payload);
         dispatch(setIsSignedUp({isSignedUp: true}));
-        dispatch(setAppStatusAC({status: "succeeded"}));
     } catch (err: any) {
         errorUtils(err, dispatch);
+    } finally {
+        dispatch(setAppStatusAC({status: "succeeded"}));
     }
 }
 
 export const forgotPasswordTC = (payload: { email: string }) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: "loading"}));
     try {
-        const response = await authAPI.forgotPassword(payload);
+        const res = await authAPI.forgotPassword(payload);
         dispatch(setRecoveryPassword({isRecoveryPasswordAsked: true}));
         dispatch(setEmail({email: payload.email}));
-        dispatch(setAppStatusAC({status: "succeeded"}));
     } catch (err: any) {
         errorUtils(err, dispatch);
+    } finally {
+        dispatch(setAppStatusAC({status: "succeeded"}));
     }
 }
 
 export const setNewPasswordTC = (payload: { password: string, resetPasswordToken: string }) => async (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: "loading"}));
     try {
-        const response = await authAPI.setNewPassword(payload);
+        const res = await authAPI.setNewPassword(payload);
         dispatch(setIsSignedUp({isSignedUp: true}));
-        dispatch(setAppStatusAC({status: "succeeded"}));
     } catch (err: any) {
         errorUtils(err, dispatch);
+    } finally {
+        dispatch(setAppStatusAC({status: "succeeded"}));
     }
 }

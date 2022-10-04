@@ -3,7 +3,7 @@ import Link from "../../navlink/Navlink";
 import styles from "./Nav.module.css";
 import {ROUTES} from "../../../enums/enums";
 
-const Nav = () => {
+export const Nav = () => {
     return (
         <div className={styles.nav}>
             <Link path={ROUTES.PROFILE} title={"profile"} />
@@ -17,5 +17,3 @@ const Nav = () => {
         </div>
     );
 };
-
-export default Nav;

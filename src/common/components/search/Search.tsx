@@ -8,23 +8,29 @@ import s from "../../../features/filters/PacksFilters.module.css";
 import {useAppSelector} from "../../hooks/useAppSelector";
 
 type PropsType = {
-    setSearchParam: (payload: {search: string}) => void;
+    setSearchParam: (payload: { search: string }) => void;
 }
 
 export const SearchBar = ({setSearchParam}: PropsType) => {
-    const appStatus= useAppSelector(state => state.app.status);
+    const appStatus = useAppSelector(state => state.app.status);
     const dispatch = useAppDispatch();
 
+    const [isFirstSearchReq, setIsFirstSearchReq] = useState(false);
     const [value, setValue] = useState<string>("");
+
     const debouncedValue = useDebounce<string>(value, 1000);
 
-    const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value)
+    const onSearchChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        setIsFirstSearchReq(true);
+        setValue(event.target.value);
     }
 
     useEffect(() => {
-        //@ts-ignore
-        dispatch(setSearchParam({search: debouncedValue}));
+        debugger
+        if (isFirstSearchReq) {
+            //@ts-ignore
+            dispatch(setSearchParam({search: debouncedValue}));
+        }
     }, [debouncedValue])
 
     return (
@@ -37,7 +43,7 @@ export const SearchBar = ({setSearchParam}: PropsType) => {
                 <StyledInputBase
                     disabled={appStatus === "loading"}
                     value={value}
-                    onChange={handleSearchChange}
+                    onChange={onSearchChangeHandler}
                     placeholder="Provide your text"
                     inputProps={{"aria-label": "search"}}
                 />

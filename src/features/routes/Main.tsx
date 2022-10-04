@@ -11,7 +11,7 @@ import {RoutesComponent} from "./Routes";
 import s from "./Main.module.css";
 
 
-const Main = () => {
+export const Main = () => {
     const dispatch = useAppDispatch();
     const isInitialized = useSelector<AppRootState, boolean>(state => state.app.isInitialized);
     const appStatus = useSelector<AppRootState, RequestStatusType>(state => state.app.status);
@@ -39,5 +39,3 @@ const Main = () => {
         </div>
     );
 };
-
-export default Main;
