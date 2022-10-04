@@ -94,6 +94,6 @@ export type ResUpdatedGradeType = {
 }
 
 export type UpdatedGradeType = {
-    grade: number
+    grade:  number
     card_id: string
 }
