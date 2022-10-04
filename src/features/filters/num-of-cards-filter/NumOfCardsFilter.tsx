@@ -10,27 +10,38 @@ import {useDebounce} from "../../../common/hooks/useDebounce";
 export const NumOfCardsFilter = () => {
     const min = useAppSelector(state => state.packs.params.min);
     const max = useAppSelector(state => state.packs.params.max);
-    const maxCardsCount= useAppSelector(state => state.packs.maxCardsCount);
-    const appStatus= useAppSelector(state => state.app.status);
+    const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
+    const appStatus = useAppSelector(state => state.app.status);
     const dispatch = useAppDispatch();
-    const [value1, setValue1] = useState(min)
-    const [value2, setValue2] = useState(maxCardsCount)
-    let value = useMemo(() => {return [value1, value2]}, [value1, value2])
+    const [isFirstSearchReq, setIsFirstSearchReq] = useState(false);
+    const [value1, setValue1] = useState(min);
+    const [value2, setValue2] = useState(maxCardsCount);
 
-    const debouncedValue = useDebounce<number[]>(value, 1000);
+    let value = useMemo(() => {
+        return [value1, value2]
+    }, [value1, value2])
+
+    const debouncedValue = useDebounce<any>(value, 1000);
 
     const onDoubleChangeHandler = (newValue: [number, number]) => {
         setValue1(newValue[0]);
         setValue2(newValue[1]);
+        setIsFirstSearchReq(true);
     }
 
-    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>, newValue: number | number[]) => {
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>, newValue: number | number[]) => {
         onDoubleChangeHandler && onDoubleChangeHandler(newValue as [number, number]);
     };
 
     useEffect(() => {
-        dispatch(setMinValue({min: value1}));
-        dispatch(setMaxValue({max: value2}));
+        setValue2(maxCardsCount)
+    }, [maxCardsCount])
+
+    useEffect(() => {
+        if(isFirstSearchReq){
+            dispatch(setMinValue({min: value1}));
+            dispatch(setMaxValue({max: value2}));
+        }
     }, [debouncedValue])
 
     useEffect(() => {
@@ -46,15 +57,15 @@ export const NumOfCardsFilter = () => {
                 <Slider
                     disabled={appStatus === "loading"}
                     sx={{width: 155}}
-                    value={value}
+                    value={[value1, value2]}
                     step={1}
                     min={0}
                     max={maxCardsCount}
                     //@ts-ignore
-                    onChange={onChangeCallback}
+                    onChange={onChangeHandler}
                     valueLabelDisplay="auto"
                 />
-                <span className={s.value}>{max}</span>
+                <span className={s.value}>{maxCardsCount}</span>
             </div>
         </div>
     );
