@@ -26,7 +26,6 @@ export const SearchBar = ({setSearchParam}: PropsType) => {
     }
 
     useEffect(() => {
-        debugger
         if (isFirstSearchReq) {
             //@ts-ignore
             dispatch(setSearchParam({search: debouncedValue}));

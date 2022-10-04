@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 import {useCallback} from "react";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {setCardsPackId} from "../../../cards/cards-reducer";
+import {BasicModal} from "../../../../common/components/modal/Modal";
 
 type PackPropsType = {
     id: string

@@ -16,6 +16,8 @@ import s from "./Packs.module.css";
 import {AddNewPackButton} from "./AddNewPackButton/AddNewPackButton";
 import {PacksTable} from "./PacksTable/PacksTable/PacksTable";
 import {InfoNotFound} from "../../common/components/info-not-found/InfoNotFound";
+import {AddModal} from "../../common/components/modal/AddModal/AddModal";
+import {Button} from "@mui/material";
 
 export const Packs = () => {
     const dispatch = useAppDispatch();
@@ -33,6 +35,9 @@ export const Packs = () => {
 
     //need this useState because Pagination starts with 0
     const [page, setPageS] = useState(0);
+    const [open, setOpen] = useState(false);
+    const openModalHandler = () => setOpen(true);
+    const closeModalHandler = () => setOpen(false);
 
     const changePage = useCallback((event: unknown, newPage: number) => {
         setPageS(newPage);
@@ -58,7 +63,8 @@ export const Packs = () => {
             <AddNewPackButton
                 status={status}
                 name={'Add new Pack'}
-                addNewPack={addNewPack}/>
+                openModal={openModalHandler}/>
+            <AddModal addPack={addNewPack} open={open} setClose={closeModalHandler}/>
             <div className={s.searchContainer}>
                 <SearchBar setSearchParam={searchByPackName}/>
                 <PacksFilters/>

@@ -4,12 +4,10 @@ import {RequestStatusType} from "../../../app/app-reducer";
 type AddNewPackButtonPropsType = {
     status: RequestStatusType
     name: string
-    addNewPack: (name: string, isPrivate: boolean) => void
+    openModal: () => void
 }
 
 export const AddNewPackButton = (props: AddNewPackButtonPropsType) => {
-
-    const addNewPack = () => props.addNewPack('created pack', false)
 
     return (
         <Button
@@ -17,7 +15,7 @@ export const AddNewPackButton = (props: AddNewPackButtonPropsType) => {
             color='primary'
             sx={{margin: 3}}
             disabled={props.status === 'loading'}
-            onClick={addNewPack}>
+            onClick={props.openModal}>
             {props.name}
         </Button>
     )
