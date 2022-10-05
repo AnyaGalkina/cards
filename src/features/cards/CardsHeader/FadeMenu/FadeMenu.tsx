@@ -46,11 +46,10 @@ export const FadeMenu: React.FC<FadeMenuPropsType> = ({learnHandler, packId, pac
     //
     // const deletePack = useCallback((packId: string) => {
     //     dispatch(deletePackTC(packId))
-    //     navigate(/cards/pack)
+    //     navigate(`/cards/pack`)
     // } , [dispatch]);
     //
     // const updatePacksName = useCallback((packId: string, name: string) => dispatch(updatePacksNameTC(packId, name)), [dispatch]);
-
 
     return (
         <div>
@@ -77,17 +76,17 @@ export const FadeMenu: React.FC<FadeMenuPropsType> = ({learnHandler, packId, pac
                     // onClick={openUpdateModalHandler}
                 >
                     <EditOutlined style={IconStyle}/>
-                    Edit
+                     Edit
                 </MenuItem>
                 <MenuItem
                     // onClick={openDeleteModalHandler}
                 >
                     <DeleteOutline style={IconStyle} />
-                    Delete
+                     Delete
                 </MenuItem>
                 <MenuItem onClick={learnHandler}>
                     <SchoolOutlined style={IconStyle}/>
-                    Learn
+                     Learn
                 </MenuItem>
                 {/*<UpdateNameModal updatePacksName={updatePacksName}*/}
                 {/*                 packId={packId}*/}
