@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {BasicModal} from "../Modal";
+import {BasicModal} from "../../Modal";
 import {TextField} from "@mui/material";
 
 type UpdateNameModalType = {

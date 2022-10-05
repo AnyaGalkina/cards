@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {BasicModal} from "../Modal";
+import {BasicModal} from "../../Modal";
 import {Checkbox, TextField, Typography} from "@mui/material";
 
 type AddModalType = {
