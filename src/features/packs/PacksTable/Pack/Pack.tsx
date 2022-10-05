@@ -8,8 +8,8 @@ import {useNavigate} from "react-router-dom";
 import {useCallback, useState} from "react";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {setCardsPackId} from "../../../cards/cards-reducer";
-import {UpdateNameModal} from "../../../../common/components/modal/updateNameNodal/UpdateNameModal";
-import {DeleteModal} from "../../../../common/components/modal/deleteModal/DeleteModal";
+import {UpdateNameModal} from "../../../../common/components/modal/packs/updateNameNodal/UpdateNameModal";
+import {DeleteModal} from "../../../../common/components/modal/packs/deleteModal/DeleteModal";
 
 
 type PackPropsType = {

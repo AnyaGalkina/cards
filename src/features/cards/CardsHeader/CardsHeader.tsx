@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Box, Button, Typography} from "@mui/material";
 import {Create} from "@mui/icons-material";
 import SchoolIcon from "@mui/icons-material/School";
@@ -7,6 +7,7 @@ import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import FadeMenu from "./FadeMenu/FadeMenu";
 import {useNavigate} from "react-router-dom";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
+import {AddCardModal} from "../../../common/components/modal/cards/addCardModal/AddCardModal";
 
 type CardsHeaderPropsType = {
     myProfile: boolean
@@ -19,10 +20,14 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({myProfile, cardsPack_id, p
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
+    //State for Add Card Modal
+    const [open, setOpen] = useState(false);
+    const openModalHandler = () => setOpen(true);
+    const closeModalHandler = () => setOpen(false);
 
-    const addCardHandler = () => {
+    const addCardHandler = (cardsPack_id: string, question: string, answer: string) => {
         if (cardsPack_id) {
-            dispatch(addCardsTC({card: {cardsPack_id, question: "new question", answer: "new answer"}}))
+            dispatch(addCardsTC({card: {cardsPack_id, question, answer}}))
         }
     }
 
@@ -48,9 +53,13 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({myProfile, cardsPack_id, p
                             </Typography>
                             <FadeMenu/>
                         </Box>
-                        <Button variant={"contained"} color={"primary"} onClick={addCardHandler} endIcon={<Create/>}>
+                        <Button variant={"contained"} color={"primary"} onClick={openModalHandler} endIcon={<Create/>}>
                             new card
                         </Button>
+                        <AddCardModal addCard={addCardHandler}
+                                      cardsPack_id={cardsPack_id}
+                                      open={open}
+                                      setClose={closeModalHandler}/>
                     </Box>
                 ) : (
                     <Box sx={headerBoxStyle}>
