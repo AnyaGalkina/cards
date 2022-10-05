@@ -14,7 +14,10 @@ export const DeleteModal = (props: DeleteModalType) => {
 
     const {open, setClose, packId, packName, deletePack} = props;
 
-    const deletePackHandler = () => deletePack(packId)
+    const deletePackHandler = () => {
+        deletePack(packId)
+        setClose();
+    }
 
     return <>
         <BasicModal open={open}
