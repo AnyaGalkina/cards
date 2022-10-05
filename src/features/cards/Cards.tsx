@@ -5,7 +5,7 @@ import {ROUTES} from "../../common/enums/enums";
 import {getCardsTC, setCardsPage, setCardsPageCount, setSearchCards} from "./cards-reducer";
 import {useAppDispatch} from "../../common/hooks/useAppDispatch";
 import {CardsTableComponent} from "./CardsTable/CardsTable";
-import CardsHeader from "./CardsHeader/CardsHeader";
+import {CardsHeader} from "./CardsHeader/CardsHeader";
 import {SearchBar} from "../../common/components/search/Search";
 import s from "./Cards.module.css";
 import {InfoNotFound} from "../../common/components/info-not-found/InfoNotFound";
@@ -15,7 +15,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export const Cards = () => {
     const dispatch = useAppDispatch()
-     const {cardsPack_id} = useParams()
+    const {cardsPack_id} = useParams()
 
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const {cards, cardsTotalCount} = useAppSelector(state => state.cards.cardsState);
@@ -54,7 +54,7 @@ export const Cards = () => {
             <Button className={s.backButton} href={'#/cards/pack'} color={'primary'} startIcon={ <ArrowBackIcon/>}>
                 Back to Packs
             </Button>
-            <CardsHeader myProfile={myProfileId === packUserId} cardsPack_id={cardsPack_id} packName={packName}/>
+            <CardsHeader myProfile={myProfileId === packUserId} cardsPack_id={cardsPack_id!} packName={packName}/>
             <div className={s.searchContainer}>
                 <SearchBar setSearchParam={setSearchCards}/>
             </div>
@@ -73,5 +73,3 @@ export const Cards = () => {
         </div>
     );
 };
-
-
