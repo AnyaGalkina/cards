@@ -24,3 +24,6 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk),
     devTools: true
 })
+
+// @ts-ignore
+window.store = store;

@@ -8,7 +8,7 @@ import {ResCardType} from "../cardsAPI";
 import {useNavigate, useParams} from "react-router-dom";
 import {Answer} from "./answer/Answer";
 import s from "./Learn.module.css";
-import {changeGradeTC} from "../cards-reducer";
+import {changeGradeTC, setCardsPageCount} from "../cards-reducer";
 import {defaultFilterValues, removeAllFilters} from "../../packs/packs-reducer";
 
 export const Learn = () => {
@@ -46,7 +46,7 @@ export const Learn = () => {
             dispatch(removeAllFilters(defaultFilterValues));
             // navigate(ROUTES.PACKS);
             navigate(`/cards/card/${packId}`);
-
+            dispatch(setCardsPageCount({pageCount: 5}));
         }
     }, [cardsToLearn]);
 
