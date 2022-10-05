@@ -9,7 +9,7 @@ import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../../common/enums/enums";
 import {Answer} from "./answer/Answer";
 import s from "./Learn.module.css";
-import {getCardsTC} from "../cards-reducer";
+import {changeGradeTC} from "../cards-reducer";
 import {defaultFilterValues, removeAllFilters} from "../../packs/packs-reducer";
 
 export const Learn = () => {
@@ -25,9 +25,9 @@ export const Learn = () => {
         setIsChecked(true);
     }
 
-    // const onGradeClickHandler = (data: { grade: number, card_id: string }) => {
-    //     dispatch(changeGradeTC(data));
-    // }
+    const onGradeClickHandler = (grade:number) => {
+        dispatch(changeGradeTC({grade, card_id: card._id}));
+    }
 
     const onNextClickHandler = () => {
         setCardsToLearn(cardsToLearn.filter(c => c._id !== card?._id));
@@ -60,7 +60,7 @@ export const Learn = () => {
                     </Typography>
                     <Typography className={s.shots}>You've already tried {card.shots!} times</Typography>
                 {isChecked
-                    ? <Answer answer={card.answer!} onNextClickHandler={onNextClickHandler}/>
+                    ? <Answer answer={card.answer!} onNextClickHandler={onNextClickHandler} onGradeClickHandler={onGradeClickHandler} />
                     : <Button style={{width: "100%"}} onClick={showAnswerHandler} variant={"contained"} color={"primary"}>
                         Show answer
                     </Button>
