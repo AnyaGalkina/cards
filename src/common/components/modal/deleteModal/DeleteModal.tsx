@@ -1,6 +1,9 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {BasicModal} from "../Modal";
 import {TextField, Typography} from "@mui/material";
+import React from "react";
+import {BasicModal} from "../Modal";
+import {Typography} from "@mui/material";
 
 type DeleteModalType = {
     deletePack: (packId: string) => void
