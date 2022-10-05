@@ -1,13 +1,13 @@
 import * as React from 'react';
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
-import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import {useNavigate} from "react-router-dom";
 import {useCallback, useState} from "react";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
-import {setCardsPackId} from "../../../cards/cards-reducer";
+import {getCardsTC, setCardsPackId, setCardsPageCount} from "../../../cards/cards-reducer";
+import {SchoolOutlined} from "@mui/icons-material";
 import {UpdateNameModal} from "../../../../common/components/modal/packs/updateNameNodal/UpdateNameModal";
 import {DeleteModal} from "../../../../common/components/modal/packs/deleteModal/DeleteModal";
 
@@ -43,6 +43,14 @@ export const Pack = React.memo((props: PackPropsType) => {
             navigate(`/cards/card/${props.id}`)
         }, [props.id])
 
+        const learnHandler = () => {
+            if (props.id) {
+                dispatch(setCardsPageCount({pageCount:  props.cardsCount}));
+                dispatch(getCardsTC(props.id));
+                navigate(`/learn/${props.id}`);
+            }
+        }
+
         return (
             <TableRow
                 key={props.id}
@@ -59,7 +67,7 @@ export const Pack = React.memo((props: PackPropsType) => {
                 <TableCell align="left">{props.updated}</TableCell>
                 <TableCell align="left">{props.createdBy}</TableCell>
                 <TableCell align="left">
-                    <MenuOutlinedIcon/>
+                    <SchoolOutlined onClick={learnHandler}/>
                     {props.userIdFromPack === props.userId
                         ?
                         <>
