@@ -46,6 +46,7 @@ export const Learn = () => {
             dispatch(removeAllFilters(defaultFilterValues));
             // navigate(ROUTES.PACKS);
             navigate(`/cards/card/${packId}`);
+
         }
     }, [cardsToLearn]);
 
@@ -63,7 +64,7 @@ export const Learn = () => {
                     <Typography className={s.shots}>You've already tried {card.shots!} times</Typography>
                 {isChecked
                     ? <Answer answer={card.answer!} onNextClickHandler={onNextClickHandler} onGradeClickHandler={onGradeClickHandler} />
-                    : <Button style={{width: "100%"}} onClick={showAnswerHandler} variant={"contained"} color={"primary"}>
+                    : <Button style={{width: "100%", marginTop: '10px'}} onClick={showAnswerHandler} variant={"contained"} color={"primary"}>
                         Show answer
                     </Button>
                 }
