@@ -9,7 +9,8 @@ import {useCallback, useState} from "react";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {setCardsPackId} from "../../../cards/cards-reducer";
 import {BasicModal} from "../../../../common/components/modal/Modal";
-import {UpdateNameModal} from "../../../../common/components/modal/updateNameNodal/updateNameModal";
+import {UpdateNameModal} from "../../../../common/components/modal/updateNameNodal/UpdateNameModal";
+import {DeleteModal} from "../../../../common/components/modal/deleteModal/DeleteModal";
 
 type PackPropsType = {
     id: string
@@ -26,11 +27,17 @@ type PackPropsType = {
 export const Pack = React.memo((props: PackPropsType) => {
         const navigate = useNavigate();
         const dispatch = useAppDispatch();
-        const [open, setOpen] = useState(false);
-        const openModalHandler = () => setOpen(true);
-        const closeModalHandler = () => setOpen(false);
 
-        const deletePack = useCallback(() => props.deletePack(props.id), [props.deletePack, props.id])
+        //State for Update Modal Opened/Closed
+        const [openUpdate, setUpdateOpen] = useState(false);
+        const openUpdateModalHandler = () => setUpdateOpen(true);
+        const closeUpdateModalHandler = () => setUpdateOpen(false);
+
+        //State for Delete Modal Opened/Closed
+        const [openDelete, setDeleteOpen] = useState(false);
+        const openDeleteModalHandler = () => setDeleteOpen(true);
+        const closeDeleteModalHandler = () => setDeleteOpen(false);
+
         const goToCardsHandler = useCallback(() => {
             dispatch(setCardsPackId(props.id))
             navigate(`/cards/card/${props.id}`)
@@ -57,13 +64,21 @@ export const Pack = React.memo((props: PackPropsType) => {
                         ?
                         <>
                             <CreateOutlinedIcon
-                                onClick={openModalHandler}/>
+                                onClick={openUpdateModalHandler}/>
                             <DeleteOutlinedIcon
-                                onClick={deletePack}/>
+                                onClick={openDeleteModalHandler}/>
                         </>
                         : null}
-                    <UpdateNameModal updatePacksName={props.updatePacksName} packId={props.id} open={open}
-                                     setClose={closeModalHandler}/>
+                    <UpdateNameModal updatePacksName={props.updatePacksName}
+                                     packId={props.id}
+                                     packName={props.name}
+                                     open={openUpdate}
+                                     setClose={closeUpdateModalHandler}/>
+                    <DeleteModal deletePack={props.deletePack}
+                                 packId={props.id}
+                                 packName={props.name}
+                                 open={openDelete}
+                                 setClose={closeDeleteModalHandler}/>
                 </TableCell>
             </TableRow>
         )
