@@ -1,6 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {BasicModal} from "../Modal";
-import {Button, Checkbox, TextField} from "@mui/material";
+import {Checkbox, TextField, Typography} from "@mui/material";
 
 type AddModalType = {
     addPack: (name: string, isPrivate: boolean) => void
@@ -41,7 +41,11 @@ export const AddModal = ({addPack, open, setClose}: AddModalType) => {
     }
 
     return <>
-        <BasicModal open={open} title={'Add new Pack'}>
+        <BasicModal open={open}
+                    title={'Add new Pack'}
+                    buttonTitle={'Save'}
+                    onSaveDeleteClickHandler={setPacksNameHandler}
+                    onCancelClickHandler={setClose}>
             <div>
                 <TextField variant={'outlined'}
                            value={title}
@@ -50,24 +54,14 @@ export const AddModal = ({addPack, open, setClose}: AddModalType) => {
                            error={!!error}
                            helperText={error}
                            label={'Pack name'}/>
-                <div>
+                <div style={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center'}}>
                     <Checkbox name={'Private pack'}
                               value={isPrivate}
                               onChange={onChangePrivacyHandler}/>
-                    Private Pack
+                    <Typography variant={'subtitle1'}>
+                        Private pack
+                    </Typography>
                 </div>
-                <footer>
-                    <Button variant="contained"
-                            color='primary'
-                            onClick={setPacksNameHandler}>
-                        Save
-                    </Button>
-                    <Button variant="contained"
-                            color='inherit'
-                            onClick={setClose}>
-                        Cancel
-                    </Button>
-                </footer>
             </div>
         </BasicModal>
     </>

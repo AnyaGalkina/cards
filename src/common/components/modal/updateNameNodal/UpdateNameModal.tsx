@@ -1,33 +1,34 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {BasicModal} from "../Modal";
-import {Button, Checkbox, TextField} from "@mui/material";
+import {TextField} from "@mui/material";
 
 type UpdateNameModalType = {
     updatePacksName: (packId: string, name: string) => void
     packId: string
+    packName: string
     open: boolean
     setClose: () => void
 }
 
-export const UpdateNameModal = ({updatePacksName, open, setClose, packId}: UpdateNameModalType) => {
+export const UpdateNameModal = (props: UpdateNameModalType) => {
 
-    const [title, setTitle] = useState('');
+    const {updatePacksName, open, setClose, packId, packName} = props;
+
+    const [newPackName, setNewPackName] = useState(packName);
     const [error, setError] = useState<string | null>(null);
 
     const setPacksNameHandler = () => {
-        if (title.trim() !== '') {
-            updatePacksName(packId, title);
-            setTitle('');
+        if (newPackName.trim() !== '') {
+            updatePacksName(packId, newPackName);
+            setNewPackName(packName);
             setClose();
         } else {
             setError('Title is required');
         }
     }
-
     const onChangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
+        setNewPackName(e.currentTarget.value)
     }
-
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (error !== null) {
             setError(null);
@@ -38,27 +39,19 @@ export const UpdateNameModal = ({updatePacksName, open, setClose, packId}: Updat
     }
 
     return <>
-        <BasicModal open={open} title={'Edit Pack'}>
+        <BasicModal open={open}
+                    title={'Edit Pack'}
+                    buttonTitle={'Save'}
+                    onSaveDeleteClickHandler={setPacksNameHandler}
+                    onCancelClickHandler={setClose}>
             <div>
                 <TextField variant={'outlined'}
-                           value={title}
+                           value={newPackName}
                            onChange={onChangeNameHandler}
                            onKeyPress={onKeyPressHandler}
                            error={!!error}
                            helperText={error}
                            label={'New name'}/>
-                <footer>
-                    <Button variant="contained"
-                            color='primary'
-                            onClick={setPacksNameHandler}>
-                        Save
-                    </Button>
-                    <Button variant="contained"
-                            color='inherit'
-                            onClick={setClose}>
-                        Cancel
-                    </Button>
-                </footer>
             </div>
         </BasicModal>
     </>
