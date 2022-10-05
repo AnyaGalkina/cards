@@ -4,18 +4,18 @@ import {Create} from "@mui/icons-material";
 import SchoolIcon from "@mui/icons-material/School";
 import {addCardsTC, getCardsTC, setCardsPageCount} from "../cards-reducer";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
-import FadeMenu from "./FadeMenu/FadeMenu";
+import {FadeMenu} from "./FadeMenu/FadeMenu";
 import {useNavigate} from "react-router-dom";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
 import {AddCardModal} from "../../../common/components/modal/cards/addCardModal/AddCardModal";
 
 type CardsHeaderPropsType = {
     myProfile: boolean
-    cardsPack_id: string | undefined
+    cardsPack_id: string
     packName: string
 }
 
-const CardsHeader: React.FC<CardsHeaderPropsType> = ({myProfile, cardsPack_id, packName}) => {
+export const CardsHeader: React.FC<CardsHeaderPropsType> = ({myProfile, cardsPack_id, packName}) => {
     const cardsTotalCount = useAppSelector(state => state.cards.cardsState.cardsTotalCount);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -51,7 +51,9 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({myProfile, cardsPack_id, p
                             <Typography variant="h5">
                                 {packName}
                             </Typography>
-                            <FadeMenu/>
+                            <FadeMenu learnHandler={learnHandler}
+                                      packId={cardsPack_id} packName={packName} // для модалок удаления и апдейта
+                            />
                         </Box>
                         <Button variant={"contained"} color={"primary"} onClick={openModalHandler} endIcon={<Create/>}>
                             new card
@@ -75,5 +77,3 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({myProfile, cardsPack_id, p
         </Box>
     );
 };
-
-export default CardsHeader;
