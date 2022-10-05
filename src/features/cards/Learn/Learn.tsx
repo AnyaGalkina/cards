@@ -5,8 +5,7 @@ import {useAppSelector} from "../../../common/hooks/useAppSelector";
 import {getCard} from "../../../common/utils/cardsSmartRandom";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {ResCardType} from "../cardsAPI";
-import {useNavigate} from "react-router-dom";
-import {ROUTES} from "../../../common/enums/enums";
+import {useNavigate, useParams} from "react-router-dom";
 import {Answer} from "./answer/Answer";
 import s from "./Learn.module.css";
 import {changeGradeTC} from "../cards-reducer";
@@ -20,6 +19,8 @@ export const Learn = () => {
     const [card, setCard] = useState<ResCardType>({} as ResCardType);
     const [cardsToLearn, setCardsToLearn] = useState<ResCardType[]>(allCards);
     const navigate = useNavigate();
+
+    const {packId} = useParams()
 
     const showAnswerHandler = () => {
         setIsChecked(true);
@@ -43,7 +44,8 @@ export const Learn = () => {
             setCard(getCard(cardsToLearn));
         } else {
             dispatch(removeAllFilters(defaultFilterValues));
-            navigate(ROUTES.PACKS);
+            // navigate(ROUTES.PACKS);
+            navigate(`/cards/card/${packId}`);
         }
     }, [cardsToLearn]);
 

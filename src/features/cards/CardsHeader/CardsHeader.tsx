@@ -6,7 +6,6 @@ import {addCardsTC, getCardsTC, setCardsPageCount} from "../cards-reducer";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import FadeMenu from "./FadeMenu/FadeMenu";
 import {useNavigate} from "react-router-dom";
-import {ROUTES} from "../../../common/enums/enums";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
 
 type CardsHeaderPropsType = {
@@ -16,7 +15,7 @@ type CardsHeaderPropsType = {
 }
 
 const CardsHeader: React.FC<CardsHeaderPropsType> = ({myProfile, cardsPack_id, packName}) => {
-    // const cardsTotalCount = useAppSelector(state => state.cards.cardsState.cardsTotalCount);
+    const cardsTotalCount = useAppSelector(state => state.cards.cardsState.cardsTotalCount);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -28,11 +27,11 @@ const CardsHeader: React.FC<CardsHeaderPropsType> = ({myProfile, cardsPack_id, p
     }
 
     const learnHandler = () => {
-        // if (cardsPack_id) {
-        //     dispatch(setCardsPageCount({pageCount: cardsTotalCount}));
-        //     dispatch(getCardsTC(cardsPack_id));
-            navigate(ROUTES.LEARN);
-        // }
+        if (cardsPack_id) {
+            dispatch(setCardsPageCount({pageCount: cardsTotalCount}));
+            dispatch(getCardsTC(cardsPack_id));
+            navigate(`/learn/${cardsPack_id}`);
+        }
     }
 
     const headerBoxStyle = {
