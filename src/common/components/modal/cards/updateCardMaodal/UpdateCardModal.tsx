@@ -31,6 +31,13 @@ export const UpdateCardModal = ({updateCard, open, setClose, packId, cardId, que
         }
     }
 
+    const onCancelClickHandler = () => {
+        setClose();
+        setError(null);
+        setNewQuestion('');
+        setNewAnswer('');
+    }
+
     const onChangeQuestionHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNewQuestion(e.currentTarget.value)
     }
@@ -52,7 +59,7 @@ export const UpdateCardModal = ({updateCard, open, setClose, packId, cardId, que
                     title={'Edit Card'}
                     buttonTitle={'Save'}
                     onSaveDeleteClickHandler={setCardHandler}
-                    onCancelClickHandler={setClose}>
+                    onCancelClickHandler={onCancelClickHandler}>
             <div style={{margin: '20px'}}>
                 <TextField variant={'outlined'}
                            value={newQuestion}

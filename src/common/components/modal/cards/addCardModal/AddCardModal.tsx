@@ -27,6 +27,12 @@ export const AddCardModal = ({addCard, open, setClose, cardsPack_id}: AddCardMod
             setError('Title is required');
         }
     }
+    const onCancelClickHandler = () => {
+        setClose();
+        setError(null);
+        setQuestion('');
+        setAnswer('');
+    }
 
     const onChangeQuestionHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setQuestion(e.currentTarget.value)
@@ -49,7 +55,7 @@ export const AddCardModal = ({addCard, open, setClose, cardsPack_id}: AddCardMod
                     title={'Add new Card'}
                     buttonTitle={'Save'}
                     onSaveDeleteClickHandler={setCardHandler}
-                    onCancelClickHandler={setClose}>
+                    onCancelClickHandler={onCancelClickHandler}>
             <div style={{margin: '20px'}}>
                 <TextField variant={'outlined'}
                            value={question}

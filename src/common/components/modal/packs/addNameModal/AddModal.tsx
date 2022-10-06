@@ -25,6 +25,13 @@ export const AddModal = ({addPack, open, setClose}: AddModalType) => {
         }
     }
 
+    const onCancelClickHandler = () => {
+        setClose();
+        setError(null);
+        setTitle('');
+        setPrivacy(false);
+    }
+
     const onChangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
@@ -45,7 +52,7 @@ export const AddModal = ({addPack, open, setClose}: AddModalType) => {
                     title={'Add new Pack'}
                     buttonTitle={'Save'}
                     onSaveDeleteClickHandler={setPacksNameHandler}
-                    onCancelClickHandler={setClose}>
+                    onCancelClickHandler={onCancelClickHandler}>
             <div>
                 <TextField variant={'outlined'}
                            value={title}
