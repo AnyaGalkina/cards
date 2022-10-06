@@ -44,6 +44,7 @@ export const Pack = React.memo((props: PackPropsType) => {
         }, [props.id])
 
         const learnHandler = () => {
+            debugger
             if (props.id) {
                 dispatch(setCardsPageCount({pageCount:  props.cardsCount}));
                 dispatch(getCardsTC(props.id));

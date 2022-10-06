@@ -76,7 +76,6 @@ export const cardsReducer = slice.reducer
 export const {setCards, setSearchCards, setSortCards, setCardsPackId, setCardsPage, setCardsPageCount} = slice.actions
 
 export const getCardsTC = (cardsPack_id:string) => async (dispatch: Dispatch, getState: () => AppRootState) => {
-
     const {pageCount, page, sortCards, search} = getState().cards.params;
     const params: CardQueryParamsType = {pageCount, page, cardsPack_id};
 
@@ -145,19 +144,3 @@ export const deleteCardsTC = (cardId: string, cardsPack_id: string) => async (di
         dispatch(setAppStatusAC({status: 'failed'}))
     }
 }
-
-// export const getCardsTC = (params: CardQueryParamsType) => async (dispatch: Dispatch) => {
-//     try {
-//         dispatch(setAppStatusAC({status: 'loading'}))
-//
-//         let res = await cardsAPI.getCards(params)
-//         console.log(res.data)
-//
-//         dispatch(setCardsAC(res.data))
-//
-//         dispatch(setAppStatusAC({status: 'succeeded'}))
-//     } catch (e) {
-//         errorUtils(e as Error | AxiosError<{ error: string }>, dispatch)
-//         dispatch(setAppStatusAC({status: 'failed'}))
-//     }
-// }

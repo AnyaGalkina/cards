@@ -7,9 +7,6 @@ const instance = axios.create({
 });
 
 export const packsAPI = {
-    // getPacks(page: number, pageCount: number, userID: string) {
-    //     return instance.get<RequestPacksType & {cardPacks: Array<PacksType>}>(`/cards/pack?page=${page}&pageCount=${pageCount}&user_id=${userID}`)
-    // },
     getPacks(params:  PackParamsType) {
         return instance.get<RequestPacksType & { cardPacks: Array<PacksType> }>(`/cards/pack`, {params})
     },

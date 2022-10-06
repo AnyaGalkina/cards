@@ -55,7 +55,7 @@ export const Cards = () => {
                 Back to Packs
             </Button>
             <CardsHeader myProfile={myProfileId === packUserId} cardsPack_id={cardsPack_id!} packName={packName}/>
-            <div className={s.searchContainer}>
+            <div className={s.searchContainer}>x
                 <SearchBar setSearchParam={setSearchCards}/>
             </div>
             {cards.length === 0

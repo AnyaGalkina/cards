@@ -18,7 +18,6 @@ export const Learn = () => {
     const [isChecked, setIsChecked] = useState(false);
     const [card, setCard] = useState<ResCardType>({} as ResCardType);
     const [cardsToLearn, setCardsToLearn] = useState<ResCardType[]>(allCards);
-    // const [grade, setGrade] = React.useState('');
     const navigate = useNavigate();
 
     const {packId} = useParams()
@@ -26,10 +25,6 @@ export const Learn = () => {
     const showAnswerHandler = () => {
         setIsChecked(true);
     }
-
-    // const onGradeClickHandler = (grade:number) => {
-    // dispatch(changeGradeTC({grade, card_id: card._id}));
-    // }
 
     const onNextClickHandler = (grade: number) => {
         console.log(typeof grade)
@@ -41,19 +36,21 @@ export const Learn = () => {
     }
 
     useEffect(() => {
+        setCardsToLearn(allCards);
         setCard(getCard(cardsToLearn));
-    }, []);
+    }, [allCards]);
+
 
     useEffect(() => {
+        debugger
         if (cardsToLearn.length > 0) {
             setCard(getCard(cardsToLearn));
         } else {
             dispatch(removeAllFilters(defaultFilterValues));
-            // navigate(ROUTES.PACKS);
             navigate(`/cards/card/${packId}`);
             dispatch(setCardsPageCount({pageCount: 5}));
         }
-    }, [cardsToLearn]);
+    }, [cardsToLearn, allCards]);
 
     return (
         <Grid container style={{padding: "10px"}} justifyContent={"center"}>
@@ -67,14 +64,14 @@ export const Learn = () => {
                         <span className={s.subTitle}>Question:</span> {card.question!}
                     </Typography>
                     <Typography className={s.shots}>You've already tried {card.shots!} times</Typography>
-                {isChecked
-                    ? <Answer answer={card.answer!} onNextClickHandler={onNextClickHandler}
-                              // setGrade={setGrade} grade={grade}
-                    />
-                    : <Button style={{width: "100%", marginTop: '10px'}} onClick={showAnswerHandler} variant={"contained"} color={"primary"}>
-                        Show answer
-                    </Button>
-                }
+                    {isChecked
+                        ? <Answer answer={card.answer!} onNextClickHandler={onNextClickHandler}
+                        />
+                        : <Button style={{width: "100%", marginTop: "10px"}} onClick={showAnswerHandler}
+                                  variant={"contained"} color={"primary"}>
+                            Show answer
+                        </Button>
+                    }
                 </Paper>
             </Grid>
         </Grid>

@@ -27,7 +27,7 @@ type PacksTablePropsType = {
 }
 
 
-export const PacksTable = React.memo((props: PacksTablePropsType) => {
+export const  PacksTable = React.memo((props: PacksTablePropsType) => {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof PackData>('name');
     const rows = props.rows.map(row => {
