@@ -2,43 +2,47 @@ import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {BasicModal} from "../../Modal";
 import {TextField} from "@mui/material";
 
-type AddCardModalType = {
-    addCard: (cardsPack_id: string, question: string, answer: string) => void
-    cardsPack_id: string | undefined
+type UpdateCardModalType = {
+    updateCard: (cardId: string, packId: string, question: string, answer: string) => void
+    cardId: string
+    packId: string | undefined
+    question: string
+    answer: string
     open: boolean
     setClose: () => void
 }
 
-export const AddCardModal = ({addCard, open, setClose, cardsPack_id}: AddCardModalType) => {
+export const UpdateCardModal = ({updateCard, open, setClose, packId, cardId, question, answer}: UpdateCardModalType) => {
 
-    const [question, setQuestion] = useState('');
-    const [answer, setAnswer] = useState('');
+    const [newQuestion, setNewQuestion] = useState(question);
+    const [newAnswer, setNewAnswer] = useState(answer);
     const [error, setError] = useState<string | null>(null);
 
     const setCardHandler = () => {
-        if (question.trim() !== '' && answer.trim() !== '') {
-            if (cardsPack_id) {
-                addCard(cardsPack_id, question, answer);
-                setQuestion('');
-                setAnswer('');
+        if (newQuestion.trim() !== '' && newAnswer.trim() !== '') {
+            if (packId) {
+                updateCard(cardId, packId, newQuestion, newAnswer);
+                setNewQuestion(question);
+                setNewAnswer(answer);
                 setClose();
             }
         } else {
             setError('Title is required');
         }
     }
+
     const onCancelClickHandler = () => {
         setClose();
         setError(null);
-        setQuestion('');
-        setAnswer('');
+        setNewQuestion('');
+        setNewAnswer('');
     }
 
     const onChangeQuestionHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setQuestion(e.currentTarget.value)
+        setNewQuestion(e.currentTarget.value)
     }
     const onChangeAnswerHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setAnswer(e.currentTarget.value)
+        setNewAnswer(e.currentTarget.value)
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -52,13 +56,13 @@ export const AddCardModal = ({addCard, open, setClose, cardsPack_id}: AddCardMod
 
     return <>
         <BasicModal open={open}
-                    title={'Add new Card'}
+                    title={'Edit Card'}
                     buttonTitle={'Save'}
                     onSaveDeleteClickHandler={setCardHandler}
                     onCancelClickHandler={onCancelClickHandler}>
             <div style={{margin: '20px'}}>
                 <TextField variant={'outlined'}
-                           value={question}
+                           value={newQuestion}
                            onChange={onChangeQuestionHandler}
                            onKeyPress={onKeyPressHandler}
                            error={!!error}
@@ -67,7 +71,7 @@ export const AddCardModal = ({addCard, open, setClose, cardsPack_id}: AddCardMod
             </div>
             <div style={{margin: '20px'}}>
                 <TextField variant={'outlined'}
-                           value={answer}
+                           value={newAnswer}
                            onChange={onChangeAnswerHandler}
                            onKeyPress={onKeyPressHandler}
                            error={!!error}

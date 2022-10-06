@@ -8,7 +8,7 @@ import {DeleteOutline, EditOutlined, SchoolOutlined} from "@mui/icons-material";
 import {useCallback, useState} from "react";
 import {deletePackTC, updatePacksNameTC} from "../../../packs/packs-reducer";
 import {UpdateNameModal} from "../../../../common/components/modal/packs/updateNameNodal/UpdateNameModal";
-import {DeleteModal} from "../../../../common/components/modal/packs/deleteModal/DeleteModal";
+import {DeletePackModal} from "../../../../common/components/modal/packs/deleteModal/DeletePackModal";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {useNavigate} from "react-router-dom";
 

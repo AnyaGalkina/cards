@@ -26,6 +26,13 @@ export const UpdateNameModal = (props: UpdateNameModalType) => {
             setError('Title is required');
         }
     }
+
+    const onCancelClickHandler = () => {
+        setClose();
+        setError(null);
+        setNewPackName('');
+    }
+
     const onChangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNewPackName(e.currentTarget.value)
     }
@@ -43,7 +50,7 @@ export const UpdateNameModal = (props: UpdateNameModalType) => {
                     title={'Edit Pack'}
                     buttonTitle={'Save'}
                     onSaveDeleteClickHandler={setPacksNameHandler}
-                    onCancelClickHandler={setClose}>
+                    onCancelClickHandler={onCancelClickHandler}>
             <div>
                 <TextField variant={'outlined'}
                            value={newPackName}

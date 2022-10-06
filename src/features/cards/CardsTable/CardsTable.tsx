@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ResCardType} from "../cardsAPI";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -14,6 +14,10 @@ import {Delete, Edit} from "@mui/icons-material";
 import {CardsData, createCardsData} from "../../../common/utils/createData";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {deleteCardsTC, updateCardsTC} from "../cards-reducer";
+import {DeletePackModal} from "../../../common/components/modal/packs/deleteModal/DeletePackModal";
+import {DeleteCardModal} from "../../../common/components/modal/cards/deleteCardModal/DeleteCardModal";
+import {log} from "util";
+import {Card} from "./Card/Card";
 
 export type Order = 'asc' | 'desc';
 
@@ -44,12 +48,12 @@ export const CardsTableComponent = (props: CardsTable) => {
         setOrderBy(property);
     }
 
-    const updateCardHandler = (_id: string, cardsPack_id: string, question: string) => {
-        dispatch(updateCardsTC({_id, cardsPack_id, question}))
+    const updateCardHandler = (_id: string, cardsPack_id: string, question: string, answer: string) => {
+        dispatch(updateCardsTC({_id, cardsPack_id, question, answer}))
     }
 
     const deleteCardHandler = (cardId: string, cardsPack_id: string) => {
-       dispatch(deleteCardsTC(cardId, cardsPack_id))
+        dispatch(deleteCardsTC(cardId, cardsPack_id))
     }
 
     return (
@@ -68,28 +72,10 @@ export const CardsTableComponent = (props: CardsTable) => {
                         <TableBody>
                             {cards.map((card) => {
                                 return (
-                                    <TableRow
-                                        key={card.cardId}
-                                    >
-                                        <TableCell
-                                            component="th"
-                                            scope="row"
-                                            align="left"
-                                        >
-                                            {card.question}
-                                        </TableCell>
-                                        <TableCell align="left">{card.answer}</TableCell>
-                                        <TableCell align="left">{card.updated}</TableCell>
-                                        <TableCell align="left">
-                                            <Rating value={card.grade}/>
-                                        </TableCell>
-                                        {props.myProfile ?
-                                            (<TableCell title={card.actions}>
-                                                <Edit onClick={()=> updateCardHandler(card.cardId, card.cardsPack_id, 'update question')}/>
-                                                <Delete onClick={()=> deleteCardHandler(card.cardId, card.cardsPack_id)}/>
-                                            </TableCell>) : null
-                                        }
-                                    </TableRow>
+                                    <Card card={card}
+                                          deleteCardHandler={deleteCardHandler}
+                                          updateCardHandler={updateCardHandler}
+                                          myProfile={props.myProfile}/>
                                 );
                             })}
                         </TableBody>
