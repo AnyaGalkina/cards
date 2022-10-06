@@ -15,8 +15,7 @@ export const BasicModal = (props: BasicModalType) => {
 
     const {children, open, title, onSaveDeleteClickHandler, onCancelClickHandler, buttonTitle} = props;
 
-    return (
-        <div>
+    return <div>
             <Dialog open={open}>
                 <DialogTitle>
                     <Typography variant={'h6'}>
@@ -27,14 +26,21 @@ export const BasicModal = (props: BasicModalType) => {
                     <>
                         {children}
                         <div className={style.buttonsBlock}>
-                            <Button
-                                variant="contained"
-                                color='primary'
+                            {buttonTitle === "Delete"
+                            ? <Button
+                                    variant="outlined"
+                                    color='error'
+                                    onClick={onSaveDeleteClickHandler}>
+                                    {buttonTitle}
+                                </Button>
+                            : <Button
+                                variant="outlined"
+                                color='success'
                                 onClick={onSaveDeleteClickHandler}>
                                 {buttonTitle}
-                            </Button>
+                            </Button>}
                             <Button
-                                variant="contained"
+                                variant="outlined"
                                 color='inherit'
                                 onClick={onCancelClickHandler}>
                                 Cancel
@@ -44,5 +50,4 @@ export const BasicModal = (props: BasicModalType) => {
                 </DialogContent>
             </Dialog>
         </div>
-    );
 }
