@@ -2,20 +2,20 @@ import React from "react";
 import {BasicModal} from "../../Modal";
 import {Typography} from "@mui/material";
 
-type DeleteModalType = {
+type DeletePackModalType = {
     deletePack: (packId: string) => void
     packId: string
-    packName: string
+    packName: string | undefined
     open: boolean
     setClose: () => void
 }
 
-export const DeleteModal = (props: DeleteModalType) => {
+export const DeletePackModal = (props: DeletePackModalType) => {
 
     const {open, setClose, packId, packName, deletePack} = props;
 
     const deletePackHandler = () => {
-        deletePack(packId)
+        deletePack(packId);
         setClose();
     }
 

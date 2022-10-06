@@ -9,7 +9,7 @@ import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {getCardsTC, setCardsPackId, setCardsPageCount} from "../../../cards/cards-reducer";
 import {SchoolOutlined} from "@mui/icons-material";
 import {UpdateNameModal} from "../../../../common/components/modal/packs/updateNameNodal/UpdateNameModal";
-import {DeleteModal} from "../../../../common/components/modal/packs/deleteModal/DeleteModal";
+import {DeletePackModal} from "../../../../common/components/modal/packs/deleteModal/DeletePackModal";
 
 
 type PackPropsType = {
@@ -82,11 +82,11 @@ export const Pack = React.memo((props: PackPropsType) => {
                                      packName={props.name}
                                      open={openUpdate}
                                      setClose={closeUpdateModalHandler}/>
-                    <DeleteModal deletePack={props.deletePack}
-                                 packId={props.id}
-                                 packName={props.name}
-                                 open={openDelete}
-                                 setClose={closeDeleteModalHandler}/>
+                    <DeletePackModal deletePack={props.deletePack}
+                                     packId={props.id}
+                                     packName={props.name}
+                                     open={openDelete}
+                                     setClose={closeDeleteModalHandler}/>
                 </TableCell>
             </TableRow>
         )
