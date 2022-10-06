@@ -18,6 +18,7 @@ export const Learn = () => {
     const [isChecked, setIsChecked] = useState(false);
     const [card, setCard] = useState<ResCardType>({} as ResCardType);
     const [cardsToLearn, setCardsToLearn] = useState<ResCardType[]>(allCards);
+    // const [grade, setGrade] = React.useState('');
     const navigate = useNavigate();
 
     const {packId} = useParams()
@@ -26,13 +27,17 @@ export const Learn = () => {
         setIsChecked(true);
     }
 
-    const onGradeClickHandler = (grade:number) => {
-        dispatch(changeGradeTC({grade, card_id: card._id}));
-    }
+    // const onGradeClickHandler = (grade:number) => {
+    // dispatch(changeGradeTC({grade, card_id: card._id}));
+    // }
 
-    const onNextClickHandler = () => {
-        setCardsToLearn(cardsToLearn.filter(c => c._id !== card?._id));
-        setIsChecked(false);
+    const onNextClickHandler = (grade: number) => {
+        console.log(typeof grade)
+        if (grade) {
+            dispatch(changeGradeTC({grade, card_id: card._id}));
+            setCardsToLearn(cardsToLearn.filter(c => c._id !== card?._id));
+            setIsChecked(false);
+        }
     }
 
     useEffect(() => {
@@ -63,7 +68,9 @@ export const Learn = () => {
                     </Typography>
                     <Typography className={s.shots}>You've already tried {card.shots!} times</Typography>
                 {isChecked
-                    ? <Answer answer={card.answer!} onNextClickHandler={onNextClickHandler} onGradeClickHandler={onGradeClickHandler} />
+                    ? <Answer answer={card.answer!} onNextClickHandler={onNextClickHandler}
+                              // setGrade={setGrade} grade={grade}
+                    />
                     : <Button style={{width: "100%", marginTop: '10px'}} onClick={showAnswerHandler} variant={"contained"} color={"primary"}>
                         Show answer
                     </Button>
