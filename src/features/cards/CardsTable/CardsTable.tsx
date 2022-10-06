@@ -48,8 +48,8 @@ export const CardsTableComponent = (props: CardsTable) => {
         setOrderBy(property);
     }
 
-    const updateCardHandler = (_id: string, cardsPack_id: string, question: string) => {
-        dispatch(updateCardsTC({_id, cardsPack_id, question}))
+    const updateCardHandler = (_id: string, cardsPack_id: string, question: string, answer: string) => {
+        dispatch(updateCardsTC({_id, cardsPack_id, question, answer}))
     }
 
     const deleteCardHandler = (cardId: string, cardsPack_id: string) => {
