@@ -28,7 +28,8 @@ export const DeleteCardModal = (props: DeleteCardModalType) => {
                     onCancelClickHandler={setClose}>
             <div>
                 <Typography>
-                    Do you really want to remove {cardName}?
+                    Do you really want to remove
+                    <Typography variant={"h5"}>{cardName}</Typography>
                 </Typography>
             </div>
         </BasicModal>
