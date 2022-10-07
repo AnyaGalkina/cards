@@ -121,9 +121,9 @@ export const getPacksTC = () => async (dispatch: Dispatch, getState: () => AppRo
         params.user_id = userId
     }
     if (search) {
+
         params.packName = search
     }
-
     dispatch(setAppStatusAC({status: "loading"}))
     try {
         const res = await packsAPI.getPacks(params);
