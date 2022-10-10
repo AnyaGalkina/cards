@@ -59,10 +59,13 @@ export const Packs = () => {
 
     return (
         <div className={s.tableContainer}>
-            <AddNewPackButton
-                status={status}
-                name={'Add new Pack'}
-                openModal={openModalHandler}/>
+            <div className={s.mainContainer}>
+                <h2>Packs</h2>
+                <AddNewPackButton
+                    status={status}
+                    name={'Add new Pack'}
+                    openModal={openModalHandler}/>
+            </div>
             <AddModal addPack={addNewPack} open={open} setClose={closeModalHandler}/>
             <div className={s.searchContainer}>
                 <SearchBar setSearchParam={searchByPackName}/>
