@@ -4,8 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## About the Project
 
-Learning cards project let you create your own profile account(sign up, login and recover password if it's needed). 
+Learning cards project let you create your own profile account(with sign up, login and password recovery if it's needed). 
 Create your own packs with cards to learn in question/answer format.
+Learn cards created by other users.
 
 ## Screenshots
 
@@ -40,4 +41,4 @@ Create your own packs with cards to learn in question/answer format.
 List of contributors:
 - [Anna Galkina](https://github.com/AnyaGalkina)
 - [Darya Dubrovskaya](https://github.com/DubrovskayaDarya)
-- [Aisylu](https://github.com/Aisylu24)
+- [Aisylu Timirshina](https://github.com/Aisylu24)
