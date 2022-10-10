@@ -9,7 +9,7 @@ Create your own packs with cards to learn in question/answer format.
 
 ## Screenshots
 
-`![Project screenshot](./src/assets/images/projectScreenshot.png?raw=true )`
+![Project screenshot](/src/assets/images/projectScreenshot.png)
 
 ## Technologies Used
 
@@ -41,4 +41,3 @@ List of contributors:
 - [Anna Galkina](https://github.com/AnyaGalkina)
 - [Darya Dubrovskaya](https://github.com/DubrovskayaDarya)
 - [Aisylu](https://github.com/Aisylu24)
-- 
