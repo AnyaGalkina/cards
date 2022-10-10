@@ -22,8 +22,8 @@ export const Header = () => {
                  src={eduLogo}
                  alt={"logo"}/>
             <div className={s.avatar}>
-                <span>{name}</span>
                 <Avatar src={user.avatar ? user.avatar : avatar} onClick={onClickHandler} />
+                <span>{name}</span>
             </div>
         </div>
     );

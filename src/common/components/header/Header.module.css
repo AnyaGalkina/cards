@@ -1,7 +1,7 @@
 .header {
     height: 65px;
     width: 100%;
-    background-color: #FCFCFC;
+    background-color: white;
     box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
     display: flex;
     justify-content: space-between;
@@ -14,5 +14,8 @@
 }
 
 .avatar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     margin-right: 15%;
 }
