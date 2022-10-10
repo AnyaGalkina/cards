@@ -9,7 +9,7 @@ Create your own packs with cards to learn in question/answer format.
 
 ## Screenshots
 
-![Project screenshot](/src/assets/images/projectScreenshot.png)
+![Project screenshot](./src/assets/images/projectScreenshot.png)
 
 ## Technologies Used
 
