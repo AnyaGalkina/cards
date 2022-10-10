@@ -41,3 +41,4 @@ List of contributors:
 - [Anna Galkina](https://github.com/AnyaGalkina)
 - [Darya Dubrovskaya](https://github.com/DubrovskayaDarya)
 - [Aisylu](https://github.com/Aisylu24)
+- 
