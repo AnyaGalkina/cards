@@ -24,7 +24,8 @@ const initialState = {
         page: 0,
         pageCount: 10,
         packUserId: '',
-        packName: ''
+        packName: '',
+        packDeckCover: ''
     } as ResGetCardsType,
     params: {
         cardsPack_id: '',

@@ -40,14 +40,14 @@ export const CardsHeader: React.FC<CardsHeaderPropsType> = ({myProfile, cardsPac
     }
 
     const headerBoxStyle = {
-        display: "flex", justifyContent: "space-around", margin: "10px"
+        display: "flex", justifyContent: "space-between", margin: "10px", width: '70%'
     }
 
     return (
-        <Box>
+        <Box sx={{width: '100%', display: "flex", justifyContent: "center"}}>
             {myProfile ?
                 (<Box sx={headerBoxStyle}>
-                        <Box sx={{display: "flex", justifyContent: "space-around"}}>
+                        <Box sx={{display: "flex"}}>
                             <Typography variant="h5">
                                 {packName}
                             </Typography>
@@ -55,13 +55,14 @@ export const CardsHeader: React.FC<CardsHeaderPropsType> = ({myProfile, cardsPac
                                       packId={cardsPack_id} packName={packName} // для модалок удаления и апдейта
                             />
                         </Box>
-                        <Button variant={"contained"} color={"primary"} onClick={openModalHandler} endIcon={<Create/>}>
-                            new card
-                        </Button>
                         <AddCardModal addCard={addCardHandler}
                                       cardsPack_id={cardsPack_id}
                                       open={open}
                                       setClose={closeModalHandler}/>
+                        <Button variant={"contained"} color={"primary"} onClick={openModalHandler} endIcon={<Create/>}>
+                            new card
+                        </Button>
+
                     </Box>
                 ) : (
                     <Box sx={headerBoxStyle}>
