@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {BasicModal} from "../../Modal";
 import {Checkbox, TextField, Typography} from "@mui/material";
+import {AddPackCover} from "./addPackCover/AddPackCover";
 
 type AddModalType = {
     addPack: (name: string, isPrivate: boolean) => void
@@ -12,7 +13,7 @@ export const AddModal = ({addPack, open, setClose}: AddModalType) => {
 
     const [title, setTitle] = useState('');
     const [error, setError] = useState<string | null>(null);
-    const [isPrivate, setPrivacy] = useState<boolean>(false)
+    const [isPrivate, setPrivacy] = useState<boolean>(false);
 
     const setPacksNameHandler = () => {
         if (title.trim() !== '') {
@@ -53,7 +54,8 @@ export const AddModal = ({addPack, open, setClose}: AddModalType) => {
                     buttonTitle={'Save'}
                     onSaveDeleteClickHandler={setPacksNameHandler}
                     onCancelClickHandler={onCancelClickHandler}>
-            <div>
+            <>
+                <AddPackCover/>
                 <TextField variant={'outlined'}
                            value={title}
                            onChange={onChangeNameHandler}
@@ -69,7 +71,7 @@ export const AddModal = ({addPack, open, setClose}: AddModalType) => {
                         Private pack
                     </Typography>
                 </div>
-            </div>
+            </>
         </BasicModal>
     </>
 }

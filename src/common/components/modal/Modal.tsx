@@ -1,6 +1,6 @@
 import React, {ReactNode} from 'react';
 import {Button, Dialog, DialogContent, DialogTitle, Typography} from "@mui/material";
-import style from './Modal.module.css'
+import style from './Modal.module.scss'
 
 type BasicModalType = {
     children: ReactNode
@@ -16,13 +16,13 @@ export const BasicModal = (props: BasicModalType) => {
     const {children, open, title, onSaveDeleteClickHandler, onCancelClickHandler, buttonTitle} = props;
 
     return <div>
-            <Dialog open={open}>
+            <Dialog open={open} >
                 <DialogTitle>
                     <Typography variant={'h6'}>
                         {title}
                     </Typography>
                 </DialogTitle>
-                <DialogContent style={{padding: '20px'}} dividers>
+                <DialogContent style={{padding: '20px', width: '300px'}} dividers>
                     <>
                         {children}
                         <div className={style.buttonsBlock}>

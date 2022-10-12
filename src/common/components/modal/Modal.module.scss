@@ -1,0 +1,25 @@
+.buttonsBlock {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px
+}
+
+.coverBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .coverButtonBlock {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .coverImageBlock {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #e7e4e4;
+    border-radius: 10px;
+  }
+}
