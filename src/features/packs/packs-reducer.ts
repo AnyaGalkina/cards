@@ -162,10 +162,10 @@ export const deletePackTC = (packId: string) => async (dispatch: Dispatch<any>) 
     }
 };
 
-export const updatePacksNameTC = (packId: string, newName: string) => async (dispatch: Dispatch<any>) => {
+export const updatePacksNameTC = (packId: string, newName: string, deckCover: string) => async (dispatch: Dispatch<any>) => {
     dispatch(setAppStatusAC({status: "loading"}))
     try {
-        const res = await packsAPI.updatePackName(packId, newName)
+        const res = await packsAPI.updatePackName(packId, newName, deckCover)
         dispatch(getPacksTC())
     } catch (err: any) {
         errorUtils(err, dispatch)

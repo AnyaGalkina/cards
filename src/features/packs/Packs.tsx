@@ -51,7 +51,7 @@ export const Packs = () => {
 
     const addNewPack = useCallback((name: string, isPrivate: boolean, deckCover: string) => dispatch(addNewPackTC(name, isPrivate, deckCover)), [dispatch]);
     const deletePack = useCallback((packId: string) => dispatch(deletePackTC(packId)), [dispatch]);
-    const updatePacksName = useCallback((packId: string, name: string) => dispatch(updatePacksNameTC(packId, name)), [dispatch]);
+    const updatePacksName = useCallback((packId: string, name: string, deckCover: string) => dispatch(updatePacksNameTC(packId, name, deckCover)), [dispatch]);
 
     useEffect(() => {
         dispatch(getPacksTC())

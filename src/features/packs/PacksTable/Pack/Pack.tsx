@@ -23,7 +23,7 @@ type PackPropsType = {
     createdBy: string
     userIdFromPack: string
     userId: string
-    updatePacksName: (packId: string, name: string) => void
+    updatePacksName: (packId: string, name: string, deckCover: string) => void
     deletePack: (packId: string) => void
 }
 
@@ -93,7 +93,8 @@ export const Pack = React.memo((props: PackPropsType) => {
                                      packId={props.id}
                                      packName={props.name}
                                      open={openUpdate}
-                                     setClose={closeUpdateModalHandler}/>
+                                     setClose={closeUpdateModalHandler}
+                                     deckCover={props.deckCover ? props.deckCover : ''}/>
                     <DeletePackModal deletePack={props.deletePack}
                                      packId={props.id}
                                      packName={props.name}

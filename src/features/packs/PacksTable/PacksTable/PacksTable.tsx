@@ -22,7 +22,7 @@ type PacksTablePropsType = {
     rowsPerPage: number
     changeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
     deletePack: (packId: string) => void
-    updatePacksName: (packId: string, name: string) => void
+    updatePacksName: (packId: string, name: string, deckCover: string) => void
     sortPacks: SortPacksType
 }
 
