@@ -25,9 +25,9 @@ export const CardsHeader: React.FC<CardsHeaderPropsType> = ({myProfile, cardsPac
     const openModalHandler = () => setOpen(true);
     const closeModalHandler = () => setOpen(false);
 
-    const addCardHandler = (cardsPack_id: string, question: string, answer: string) => {
+    const addCardHandler = (cardsPack_id: string, question?: string, answer?: string, questionImg?: string, answerImg?: string) => {
         if (cardsPack_id) {
-            dispatch(addCardsTC({card: {cardsPack_id, question, answer}}))
+            dispatch(addCardsTC({card: {cardsPack_id, question, answer, questionImg, answerImg}}))
         }
     }
 
