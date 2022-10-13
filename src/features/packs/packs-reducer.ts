@@ -137,10 +137,10 @@ export const getPacksTC = () => async (dispatch: Dispatch, getState: () => AppRo
     }
 };
 
-export const addNewPackTC = (name: string, isPrivate: boolean) => async (dispatch: Dispatch<any>) => {
+export const addNewPackTC = (name: string, isPrivate: boolean, deckCover: string) => async (dispatch: Dispatch<any>) => {
     dispatch(setAppStatusAC({status: "loading"}))
     try {
-        const res = await packsAPI.addNewPack(name, isPrivate);
+        const res = await packsAPI.addNewPack(name, isPrivate, deckCover);
         dispatch(getPacksTC())
 
     } catch (err: any) {

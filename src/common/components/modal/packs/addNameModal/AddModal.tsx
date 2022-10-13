@@ -4,7 +4,7 @@ import {Checkbox, TextField, Typography} from "@mui/material";
 import {AddPackCover} from "./addPackCover/AddPackCover";
 
 type AddModalType = {
-    addPack: (name: string, isPrivate: boolean) => void
+    addPack: (name: string, isPrivate: boolean, deckCover: string) => void
     open: boolean
     setClose: () => void
 }
@@ -14,10 +14,11 @@ export const AddModal = ({addPack, open, setClose}: AddModalType) => {
     const [title, setTitle] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [isPrivate, setPrivacy] = useState<boolean>(false);
+    const [file64, setFile64] = useState<string>('');
 
     const setPacksNameHandler = () => {
         if (title.trim() !== '') {
-            addPack(title, isPrivate);
+            addPack(title, isPrivate, file64);
             setTitle('');
             setPrivacy(false);
             setClose();
@@ -55,7 +56,7 @@ export const AddModal = ({addPack, open, setClose}: AddModalType) => {
                     onSaveDeleteClickHandler={setPacksNameHandler}
                     onCancelClickHandler={onCancelClickHandler}>
             <>
-                <AddPackCover/>
+                <AddPackCover file64={file64} setFile64={setFile64}/>
                 <TextField variant={'outlined'}
                            value={title}
                            onChange={onChangeNameHandler}

@@ -7,14 +7,15 @@ const instance = axios.create({
 });
 
 export const packsAPI = {
-    getPacks(params:  PackParamsType) {
+    getPacks(params: PackParamsType) {
         return instance.get<RequestPacksType & { cardPacks: Array<PacksType> }>(`/cards/pack`, {params})
     },
-    addNewPack(name: string, isPrivate: boolean) {
+    addNewPack(name: string, isPrivate: boolean, deckCover: string) {
         return instance.post<{ newCardsPack: Array<PacksType> }>(`/cards/pack`, {
             cardsPack: {
                 name,
-                private: isPrivate
+                private: isPrivate,
+                deckCover
             }
         })
     },

@@ -29,7 +29,7 @@ export const Packs = () => {
     const pageCount = useAppSelector(state => state.packs.params.pageCount);
     const search = useAppSelector(state => state.packs.params.search);
     const userId = useAppSelector(state => state.packs.params.userId);
-    const sortPacks = useAppSelector (state => state.packs.params.sortPacks);
+    const sortPacks = useAppSelector(state => state.packs.params.sortPacks);
     const status = useAppSelector(state => state.app.status);
     const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
 
@@ -49,7 +49,7 @@ export const Packs = () => {
         dispatch(setPageCount({pageCount: parseInt(event.target.value, 10)}))
     }, [dispatch])
 
-    const addNewPack = useCallback((name: string, isPrivate: boolean) => dispatch(addNewPackTC(name, isPrivate)), [dispatch]);
+    const addNewPack = useCallback((name: string, isPrivate: boolean, deckCover: string) => dispatch(addNewPackTC(name, isPrivate, deckCover)), [dispatch]);
     const deletePack = useCallback((packId: string) => dispatch(deletePackTC(packId)), [dispatch]);
     const updatePacksName = useCallback((packId: string, name: string) => dispatch(updatePacksNameTC(packId, name)), [dispatch]);
 
@@ -71,20 +71,20 @@ export const Packs = () => {
                 <SearchBar setSearchParam={searchByPackName}/>
                 <PacksFilters/>
             </div>
-            { packs.length === 0
-                    ? <InfoNotFound itemName={"Packs"} />
-                    : <PacksTable
-                        userId={userId}
-                        rows={packs}
-                        page={page}
-                        totalCount={params.totalCount}
-                        changePage={changePage}
-                        rowsPerPage={pageCount}
-                        changeRowsPerPage={changeRowsPerPage}
-                        deletePack={deletePack}
-                        updatePacksName={updatePacksName}
-                        sortPacks={sortPacks}
-                    />
+            {packs.length === 0
+                ? <InfoNotFound itemName={"Packs"}/>
+                : <PacksTable
+                    userId={userId}
+                    rows={packs}
+                    page={page}
+                    totalCount={params.totalCount}
+                    changePage={changePage}
+                    rowsPerPage={pageCount}
+                    changeRowsPerPage={changeRowsPerPage}
+                    deletePack={deletePack}
+                    updatePacksName={updatePacksName}
+                    sortPacks={sortPacks}
+                />
             }
         </div>
     )
