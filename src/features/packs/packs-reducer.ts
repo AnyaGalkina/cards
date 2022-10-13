@@ -25,7 +25,8 @@ const initialState = {
         max: 0,
         search: defaultFilterValues.search,
         totalCount: 10,
-        sortPacks: defaultFilterValues.sortPacks
+        sortPacks: defaultFilterValues.sortPacks,
+        deckCover: ''
     },
     packs: [
         {

@@ -10,12 +10,15 @@ import {getCardsTC, setCardsPackId, setCardsPageCount} from "../../../cards/card
 import {SchoolOutlined} from "@mui/icons-material";
 import {UpdateNameModal} from "../../../../common/components/modal/packs/updateNameNodal/UpdateNameModal";
 import {DeletePackModal} from "../../../../common/components/modal/packs/deleteModal/DeletePackModal";
+import {Box} from "@mui/material";
+import teachLogo from "../../../../assets/images/teach-me-logo.jpg"
 
 
 type PackPropsType = {
     id: string
     name: string
     cardsCount: number
+    deckCover: string | undefined
     updated: string
     createdBy: string
     userIdFromPack: string
@@ -46,7 +49,7 @@ export const Pack = React.memo((props: PackPropsType) => {
         const learnHandler = () => {
             debugger
             if (props.id) {
-                dispatch(setCardsPageCount({pageCount:  props.cardsCount}));
+                dispatch(setCardsPageCount({pageCount: props.cardsCount}));
                 dispatch(getCardsTC(props.id));
                 navigate(`/learn/${props.id}`);
             }
@@ -56,6 +59,14 @@ export const Pack = React.memo((props: PackPropsType) => {
             <TableRow
                 key={props.id}
             >
+                <TableCell align="left">
+                    <Box
+                        sx={{height: '50px'}}
+                        component="img"
+                        src={props.deckCover ? props.deckCover : teachLogo}
+                        alt={'question'}
+                    />
+                </TableCell>
                 <TableCell
                     align="left"
                     component="th"

@@ -5,7 +5,8 @@ export interface PackData {
     createdBy: string;
     id: string;
     actions: string;
-    userIdFromPack: string
+    userIdFromPack: string;
+    deckCover: string | undefined;
 }
 
 export function createPacksData(
@@ -15,7 +16,8 @@ export function createPacksData(
     createdBy: string,
     id: string,
     actions: string,
-    userIdFromPack: string
+    userIdFromPack: string,
+    deckCover: string | undefined
 ): PackData {
     return {
         name,
@@ -24,7 +26,8 @@ export function createPacksData(
         createdBy,
         id,
         actions,
-        userIdFromPack
+        userIdFromPack,
+        deckCover
     };
 }
 

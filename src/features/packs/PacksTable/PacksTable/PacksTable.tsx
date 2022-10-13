@@ -31,7 +31,7 @@ export const  PacksTable = React.memo((props: PacksTablePropsType) => {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof PackData>('name');
     const rows = props.rows.map(row => {
-        return createPacksData(row.name, row.cardsCount, row.updated, row.user_name, row._id, '', row.user_id)
+        return createPacksData(row.name, row.cardsCount, row.updated, row.user_name, row._id, '', row.user_id, row.deckCover)
     });
 
     const requestSortHandler = (event: React.MouseEvent<unknown>, property: keyof PackData,) => {
@@ -60,6 +60,7 @@ export const  PacksTable = React.memo((props: PacksTablePropsType) => {
                                     <Pack id={row.id}
                                           name={row.name}
                                           cardsCount={row.cardsCount}
+                                          deckCover={row.deckCover}
                                           updated={row.updated}
                                           createdBy={row.createdBy}
                                           userIdFromPack={row.userIdFromPack}
