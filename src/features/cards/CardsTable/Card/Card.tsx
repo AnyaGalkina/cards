@@ -1,5 +1,5 @@
 import TableCell from "@mui/material/TableCell";
-import {Rating} from "@mui/material";
+import {Box, Rating} from "@mui/material";
 import {Delete, Edit} from "@mui/icons-material";
 import {DeleteCardModal} from "../../../../common/components/modal/cards/deleteCardModal/DeleteCardModal";
 import TableRow from "@mui/material/TableRow";
@@ -33,13 +33,28 @@ export const Card = (props: CardPropsType) => {
             key={card.cardId}
         >
             <TableCell
-                component="th"
-                scope="row"
-                align="left"
             >
-                {card.question}
+                {card.questionImg ? (
+                        <Box
+                            sx={{height: '50px'}}
+                            component="img"
+                            src={card.questionImg}
+                            alt={'question'}
+                        />
+                    ) :
+                    card.question
+                }
             </TableCell>
-            <TableCell align="left">{card.answer}</TableCell>
+            <TableCell align="left">
+                {card.answerImg ?
+                    <Box
+                        sx={{height: '50px'}}
+                        component="img"
+                        src={card.answerImg}
+                        alt={'answer'}
+                    />
+                    : card.answer}
+            </TableCell>
             <TableCell align="left">{card.updated}</TableCell>
             <TableCell align="left">
                 <Rating value={card.grade}/>

@@ -42,7 +42,8 @@ export type ResGetCardsType = {
     page: number
     pageCount: number
     packUserId: string
-    packName: string,
+    packName: string
+    packDeckCover?: string
 }
 
 export type CardType = {

@@ -30,7 +30,9 @@ export function createPacksData(
 
 export interface CardsData {
     question: string | undefined,
+    questionImg: string | undefined,
     answer: string | undefined,
+    answerImg: string | undefined,
     updated: string
     grade: number | undefined
     cardId: string
@@ -39,7 +41,9 @@ export interface CardsData {
 }
 export function createCardsData(
     question: string | undefined,
+    questionImg: string | undefined,
     answer: string | undefined,
+    answerImg: string | undefined,
     updated: string,
     grade: number | undefined,
     cardId: string,
@@ -48,7 +52,9 @@ export function createCardsData(
 ): CardsData {
     return <CardsData> {
         question,
+        questionImg,
         answer,
+        answerImg,
         updated,
         grade,
         cardId,

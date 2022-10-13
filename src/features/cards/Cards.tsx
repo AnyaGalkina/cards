@@ -9,7 +9,7 @@ import {CardsHeader} from "./CardsHeader/CardsHeader";
 import {SearchBar} from "../../common/components/search/Search";
 import s from "./Cards.module.css";
 import {InfoNotFound} from "../../common/components/info-not-found/InfoNotFound";
-import {Button} from "@mui/material";
+import {Box, Button} from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
@@ -18,7 +18,7 @@ export const Cards = () => {
     const {cardsPack_id} = useParams()
 
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-    const {cards, cardsTotalCount} = useAppSelector(state => state.cards.cardsState);
+    const {cards, cardsTotalCount, packDeckCover} = useAppSelector(state => state.cards.cardsState);
     const myProfileId = useAppSelector(state => state.profile.user._id)
     const {packUserId, packName} = useAppSelector(state => state.cards.cardsState)
     const {sortCards, search, pageCount} = useAppSelector(state => state.cards.params);
@@ -55,6 +55,18 @@ export const Cards = () => {
                 Back to Packs
             </Button>
             <CardsHeader myProfile={myProfileId === packUserId} cardsPack_id={cardsPack_id!} packName={packName}/>
+             <Box
+                 sx={{
+                     maxHeight: 150,
+                     maxWidth: 150,
+                     marginLeft: 35,
+                     objectFit: 'cover'
+                 }}
+                 component="img"
+                 src={packDeckCover? packDeckCover : ''}
+                 alt={'a pack image'}
+                 className={s.boxImg}
+             />
             <div className={s.searchContainer}>
                 <SearchBar setSearchParam={setSearchCards}/>
             </div>

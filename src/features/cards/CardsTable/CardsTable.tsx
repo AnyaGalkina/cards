@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ResCardType} from "../cardsAPI";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -6,17 +6,10 @@ import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import {TableHeader} from "./CardsTableHeader/TableHeader";
 import TableBody from "@mui/material/TableBody";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import {Rating} from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
-import {Delete, Edit} from "@mui/icons-material";
 import {CardsData, createCardsData} from "../../../common/utils/createData";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {deleteCardsTC, updateCardsTC} from "../cards-reducer";
-import {DeletePackModal} from "../../../common/components/modal/packs/deleteModal/DeletePackModal";
-import {DeleteCardModal} from "../../../common/components/modal/cards/deleteCardModal/DeleteCardModal";
-import {log} from "util";
 import {Card} from "./Card/Card";
 
 export type Order = 'asc' | 'desc';
@@ -37,7 +30,7 @@ export const CardsTableComponent = (props: CardsTable) => {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof CardsData>('question');
 
-    const cards = props.rows.map(card => createCardsData(card.question, card.answer, card.updated, card.grade, card._id, card.cardsPack_id!, ''))
+    const cards = props.rows.map(card => createCardsData(card.question, card.questionImg, card.answer, card.answerImg, card.updated, card.grade, card._id, card.cardsPack_id!, ''))
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
