@@ -10,7 +10,7 @@ Learn cards created by other users.
 
 ## Screenshots
 
-![Project screenshot](/src/assets/images/projectScreenshot.png)
+![Project screenshot](/src/assets/images/projectScreenshot2.png)
 
 ## Technologies Used
 
