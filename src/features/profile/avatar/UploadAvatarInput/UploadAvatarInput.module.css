@@ -1,0 +1,6 @@
+.uploadPhotoContainer {
+    position: absolute;
+    bottom: -5%;
+    right: 30%;
+    z-index: 1;
+}

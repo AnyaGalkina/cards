@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Header.module.css";
 import eduLogo from "../../../assets/images/eduLogo.png";
 import {Avatar} from "@mui/material";
-import avatar from "../../../assets/images/user.png";
+import avatar from "../../../assets/images/avatar/user.png";
 import {useAppSelector} from "../../hooks/useAppSelector";
 import {useNavigate} from "react-router-dom";
 
