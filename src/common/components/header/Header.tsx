@@ -9,6 +9,8 @@ import {useNavigate} from "react-router-dom";
 export const Header = () => {
     const user = useAppSelector(state => state.profile.user);
     const name = useAppSelector(state => state.profile.user.name);
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+
 
     const navigate = useNavigate();
 
@@ -16,15 +18,22 @@ export const Header = () => {
         navigate(`/profile`)
     }
 
+
     return (
         <div className={s.header}>
             <img className={s.logo}
                  src={eduLogo}
                  alt={"logo"}/>
-            <div className={s.avatar}>
-                <Avatar src={user.avatar ? user.avatar : avatar} onClick={onClickHandler} />
-                <span>{name}</span>
-            </div>
+            {isLoggedIn &&
+                <div className={s.avatar}>
+                    <span className={s.name}>{name}</span>
+                    <Avatar
+                        style={{cursor: "pointer"}}
+                        src={user.avatar ? user.avatar : avatar}
+                        onClick={onClickHandler}
+                    />
+                </div>
+            }
         </div>
     );
 };

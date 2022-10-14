@@ -40,7 +40,7 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
                          autoFocus onBlur={activateViewMode} disabled={props.disabled} className={s.text} onKeyPress={onKeyPressChangeTitle}/>
             : <div className={s.span}>
                 <span onDoubleClick={activateEditMode} >{props.value}</span>
-                <Create sx={{ color: 'action.active', ml: 1, my: -1 }} onDoubleClick={activateEditMode}/>
+                <Create sx={{ color: 'action.active', ml: 1, my: -1 }} onClick={activateEditMode}/>
             </div>
         }
     </Box>
