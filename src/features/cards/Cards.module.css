@@ -11,14 +11,16 @@
     /*justify-content: left;*/
     align-content: center;
     flex-wrap: wrap;
-    width: 60%;
+    width: 70%;
     margin-bottom: 10px;
-    padding: 5px 50px;
     align-self: center;
 }
 
 .backButton {
     align-self: flex-start;
+    margin-left: 15%;
+    min-height: 10%;
+    margin-top: 24px;
 }
 
 

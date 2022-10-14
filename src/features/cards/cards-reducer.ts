@@ -108,8 +108,6 @@ export const addCardsTC = (data: NewCardType) => async (dispatch: any) => {
     try {
         dispatch(setAppStatusAC({status: 'loading'}))
         let res = await cardsAPI.createCard(data)
-
-        //dispatch(getCardsTC())
          dispatch(getCardsTC(data.card.cardsPack_id!))
         dispatch(setAppStatusAC({status: 'succeeded'}))
     } catch (e) {
