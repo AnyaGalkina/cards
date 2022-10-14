@@ -4,7 +4,7 @@ import s from './InputTypeFile.module.css'
 
 type PropsType = {
     title: string
-    image: string
+    image?: string
     setImage: (image: string) => void
 }
 
