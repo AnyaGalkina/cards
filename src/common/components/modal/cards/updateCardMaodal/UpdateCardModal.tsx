@@ -97,7 +97,7 @@ export const UpdateCardModal = ({updateCard, open, setClose, packId, cardId, que
                     :
                     <div style={{display:'flex', flexDirection: 'column', margin: '20px', gap: '20px'}}>
                     <Typography variant="button" color={error? 'red' : ''}>
-                    upload image for:
+                    change image for:
                     </Typography>
                     <InputTypeFile title={'question'} image={newQuestionImg} setImage={setQuestionImage}/>
                     <InputTypeFile title={'answer'} image={newAnswerImg} setImage={setAnswerImage}  />
