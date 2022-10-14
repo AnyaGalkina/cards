@@ -10,6 +10,7 @@ import {Answer} from "./answer/Answer";
 import s from "./Learn.module.css";
 import {changeGradeTC, setCardsPageCount} from "../cards-reducer";
 import {defaultFilterValues, removeAllFilters} from "../../packs/packs-reducer";
+import Question from "./question/Question";
 
 export const Learn = () => {
     const allCards = useAppSelector(state => state.cards.cardsState.cards);
@@ -52,6 +53,8 @@ export const Learn = () => {
         }
     }, [cardsToLearn, allCards]);
 
+    const showText = card.questionImg === '' && card.answerImg === ''
+
     return (
         <Grid container style={{padding: "10px"}} justifyContent={"center"}>
             <Grid item justifyContent={"center"}>
@@ -60,18 +63,16 @@ export const Learn = () => {
                 </Button>
                 <h2>Learn "{packName}"</h2>
                 <Paper style={{padding: "20px"}} className={s.paper}>
-                    <Typography>
-                        <span className={s.subTitle}>Question:</span> {card.question!}
-                    </Typography>
-                    <Typography className={s.shots}>You've already tried {card.shots!} times</Typography>
-                    {isChecked
-                        ? <Answer answer={card.answer!} onNextClickHandler={onNextClickHandler}
-                        />
-                        : <Button style={{width: "100%", marginTop: "10px"}} onClick={showAnswerHandler}
-                                  variant={"contained"} color={"primary"}>
-                            Show answer
-                        </Button>
-                    }
+                               <Question questionImg={card.questionImg} question={card.question!} showText={showText}/>
+                                <Typography className={s.shots}>You've already tried {card.shots!} times</Typography>
+                                {isChecked
+                                    ? <Answer answerImg={card.answerImg} answer={card.answer!} showText={showText} onNextClickHandler={onNextClickHandler}
+                                    />
+                                    : <Button style={{width: "100%", marginTop: "10px"}} onClick={showAnswerHandler}
+                                              variant={"contained"} color={"primary"}>
+                                        Show answer
+                                    </Button>
+                                }
                 </Paper>
             </Grid>
         </Grid>

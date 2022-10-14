@@ -10,7 +10,7 @@ import {UpdateCardModal} from "../../../../common/components/modal/cards/updateC
 type CardPropsType = {
     card: CardsData
     deleteCardHandler: (cardId: string, packId: string) => void
-    updateCardHandler: (cardId: string, packId: string, question: string, answer: string) => void
+    updateCardHandler: (cardId: string, packId: string, question?: string, answer?: string, questionImg?: string, answerImg?: string) => void
     myProfile: boolean
 }
 
@@ -78,6 +78,8 @@ export const Card = (props: CardPropsType) => {
                                    packId={card.cardsPack_id}
                                    question={card.question}
                                    answer={card.answer}
+                                   questionImg={card.questionImg}
+                                   answerImg={card.answerImg}
                                    open={openUpdate}
                                    setClose={closeUpdateModalHandler}/>
                 : null}
