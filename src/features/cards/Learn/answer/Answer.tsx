@@ -1,19 +1,30 @@
 import React from "react";
-import {Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import s from "./Answer.module.css";
 import {Grade} from "../Grade/Grade";
 
 type PropsType = {
-    answer: string;
+    answerImg?: string
+    answer?: string;
     onNextClickHandler: (grade: number) => void
+    showText: boolean
 }
 
-export const Answer = ({answer, onNextClickHandler}: PropsType) => {
+export const Answer = ({answerImg, answer, onNextClickHandler, showText}: PropsType) => {
     return (
         <div>
-            <Typography className={s.answer}>
-                <span className={s.subTitle}>Answer:</span> {answer}
-            </Typography>
+            {showText?
+                <Typography className={s.answer}>
+                    <span className={s.subTitle}>Answer:</span> {answer}
+                </Typography>
+                :
+                <Box
+                    sx={{height: '100px'}}
+                    component="img"
+                    src={answerImg}
+                    alt={'question'}
+                />
+            }
             <Grade onNextClickHandler={onNextClickHandler} />
         </div>
     );
