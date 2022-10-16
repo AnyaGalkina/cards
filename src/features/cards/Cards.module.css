@@ -1,14 +1,11 @@
 .tableContainer{
     display: flex;
     flex-direction: column;
-    /*!*align-content: center;*!*/
-    /*align-items: center;*/
 }
 
 .searchContainer {
     margin-top: 40px;
     display: flex;
-    /*justify-content: left;*/
     align-content: center;
     flex-wrap: wrap;
     width: 70%;
