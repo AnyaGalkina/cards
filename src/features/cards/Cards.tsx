@@ -14,13 +14,14 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 export const Cards = () => {
-    const dispatch = useAppDispatch()
-    const {cardsPack_id} = useParams()
+    const dispatch = useAppDispatch();
+    const {cardsPack_id} = useParams();
 
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const status = useAppSelector(state => state.app.status);
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
     const {cards, cardsTotalCount, packDeckCover} = useAppSelector(state => state.cards.cardsState);
-    const myProfileId = useAppSelector(state => state.profile.user._id)
-    const {packUserId, packName} = useAppSelector(state => state.cards.cardsState)
+    const myProfileId = useAppSelector(state => state.profile.user._id);
+    const {packUserId, packName} = useAppSelector(state => state.cards.cardsState);
     const {sortCards, search, pageCount} = useAppSelector(state => state.cards.params);
 
     const [page, setPageS] = useState(0);
@@ -51,9 +52,11 @@ export const Cards = () => {
 
     return (
         <div  className={s.tableContainer}>
-            <Button className={s.backButton} href={'#/cards/pack'} color={'primary'} startIcon={ <ArrowBackIcon/>}>
-                Back to Packs
-            </Button>
+            <div className={s.backButton}>
+                <Button href={'#/cards/pack'} color={'primary'} startIcon={ <ArrowBackIcon/>}>
+                    Back to Packs
+                </Button>
+            </div>
             <CardsHeader myProfile={myProfileId === packUserId} cardsPack_id={cardsPack_id!} packName={packName}/>
              <Box
                  sx={{
@@ -70,7 +73,7 @@ export const Cards = () => {
             <div className={s.searchContainer}>
                 <SearchBar setSearchParam={setSearchCards}/>
             </div>
-            {cards.length === 0
+            {status !== "loading" && cards.length === 0
                 ? <InfoNotFound itemName={"Cards"}/>
                 : <CardsTableComponent
                     myProfile={myProfileId === packUserId}
