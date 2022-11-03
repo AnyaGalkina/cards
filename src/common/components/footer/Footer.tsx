@@ -1,13 +1,14 @@
 import React from "react";
 import styles from "./Footer.module.css";
-import {Nav} from "./nav/Nav";
+import Divider from "@mui/material/Divider";
 
 
 export const Footer = () => {
     return (
         <div>
+            <Divider/>
             <div className={styles.footer}>
-                <Nav/>
+                <span>Copyright © 2022 Friday Girls Team</span>
             </div>
         </div>
     );
