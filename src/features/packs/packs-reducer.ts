@@ -54,7 +54,8 @@ const slice = createSlice({
         removeAllFilters: (state, action: PayloadAction<DefaultFilterValues>) => {
             state.params.min = action.payload.min;
             state.params.max = state.maxCardsCount;
-            state.params.search = action.payload.search;
+            state.params.search = "";
+            // state.params.search = action.payload.search;
             state.params.sortPacks = action.payload.sortPacks;
             state.params.isMyPack = false;
         },
@@ -66,6 +67,8 @@ const slice = createSlice({
         },
         setOwner: (state, action: PayloadAction<{ isMyPack: boolean }>) => {
             state.params.isMyPack = action.payload.isMyPack;
+            // state.params.search = "";
+            state.params.min = defaultFilterValues.min;
         },
         setPage: (state, action: PayloadAction<{ page: number }>) => {
             state.params.page = action.payload.page
