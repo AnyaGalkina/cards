@@ -1,6 +1,9 @@
 .footer {
-    height: 80px;
-    background-color: #8eadee;
-    display: flex;
-    justify-content: right;
+    height: 60px;
+    font-size: 20px;
+    padding-top: 30px;
+    color: #494949;
+    /*background-color: #8eadee;*/
+    /*display: flex;*/
+    /*justify-content: right;*/
 }
